@@ -1,0 +1,590 @@
+[
+  {
+    "countryId": 89,
+    "currencyName": "درهم",
+    "currencyRate": 0.32,
+    "name": "Al Maghrib"
+  },
+  {
+    "countryId": 105,
+    "currencyName": "دج",
+    "currencyRate": 0.05,
+    "name": "al-Jazā’ir"
+  },
+  {
+    "countryId": 71,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Andorra"
+  },
+  {
+    "countryId": 19,
+    "currencyName": "u$s",
+    "currencyRate": 4.0,
+    "name": "Argentina"
+  },
+  {
+    "countryId": 88,
+    "currencyName": "ريال",
+    "currencyRate": 0.78125,
+    "name": "as-Saʻūdiyya"
+  },
+  {
+    "countryId": 6,
+    "currencyName": "AU$",
+    "currencyRate": 2.5,
+    "name": "Australia"
+  },
+  {
+    "countryId": 79,
+    "currencyName": "m",
+    "currencyRate": 3.2,
+    "name": "Azərbaycan"
+  },
+  {
+    "countryId": 46,
+    "currencyName": "к руб.",
+    "currencyRate": 1.25,
+    "name": "Belarus"
+  },
+  {
+    "countryId": 28,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "België"
+  },
+  {
+    "countryId": 57,
+    "currencyName": "Bs",
+    "currencyRate": 0.4,
+    "name": "Bolivia"
+  },
+  {
+    "countryId": 47,
+    "currencyName": "KM",
+    "currencyRate": 2.0,
+    "name": "Bosna i Hercegovina"
+  },
+  {
+    "countryId": 21,
+    "currencyName": "R$",
+    "currencyRate": 1.0,
+    "name": "Brasil"
+  },
+  {
+    "countryId": 54,
+    "currencyName": "лв.",
+    "currencyRate": 2.0,
+    "name": "Bulgaria"
+  },
+  {
+    "countryId": 80,
+    "currencyName": "k. Fr",
+    "currencyRate": 6.25,
+    "name": "Cameroun"
+  },
+  {
+    "countryId": 5,
+    "currencyName": "C$",
+    "currencyRate": 2.5,
+    "name": "Canada"
+  },
+  {
+    "countryId": 13,
+    "currencyName": "Kč",
+    "currencyRate": 0.133333,
+    "name": "Česká republika"
+  },
+  {
+    "countryId": 42,
+    "currencyName": "k.$",
+    "currencyRate": 5.0,
+    "name": "Chile"
+  },
+  {
+    "countryId": 36,
+    "currencyName": "k.$",
+    "currencyRate": 1.25,
+    "name": "Colombia"
+  },
+  {
+    "countryId": 70,
+    "currencyName": "k ¢",
+    "currencyRate": 6.25,
+    "name": "Costa Rica"
+  },
+  {
+    "countryId": 75,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Crna Gora"
+  },
+  {
+    "countryId": 97,
+    "currencyName": "$MN",
+    "currencyRate": 2.5,
+    "name": "Cuba"
+  },
+  {
+    "countryId": 40,
+    "currencyName": "£",
+    "currencyRate": 6.66667,
+    "name": "Cymru"
+  },
+  {
+    "countryId": 78,
+    "currencyName": "k. ₩",
+    "currencyRate": 3.2,
+    "name": "Daehan Minguk"
+  },
+  {
+    "countryId": 29,
+    "currencyName": "kr.",
+    "currencyRate": 0.5,
+    "name": "Danmark"
+  },
+  {
+    "countryId": 15,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Deutschland"
+  },
+  {
+    "countryId": 58,
+    "currencyName": "U$S",
+    "currencyRate": 4.0,
+    "name": "Ecuador"
+  },
+  {
+    "countryId": 33,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Eesti"
+  },
+  {
+    "countryId": 92,
+    "currencyName": "$",
+    "currencyRate": 4.0,
+    "name": "El Salvador"
+  },
+  {
+    "countryId": 3,
+    "currencyName": "£",
+    "currencyRate": 6.66667,
+    "name": "England"
+  },
+  {
+    "countryId": 17,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "España"
+  },
+  {
+    "countryId": 16,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "France"
+  },
+  {
+    "countryId": 50,
+    "currencyName": "k.¢",
+    "currencyRate": 0.32,
+    "name": "Ghana"
+  },
+  {
+    "countryId": 77,
+    "currencyName": "Q",
+    "currencyRate": 0.4,
+    "name": "Guatemala"
+  },
+  {
+    "countryId": 66,
+    "currencyName": "Դրամ",
+    "currencyRate": 8.0,
+    "name": "Hayastan"
+  },
+  {
+    "countryId": 49,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Hellas"
+  },
+  {
+    "countryId": 68,
+    "currencyName": "L",
+    "currencyRate": 0.2,
+    "name": "Honduras"
+  },
+  {
+    "countryId": 60,
+    "currencyName": "HK$",
+    "currencyRate": 0.4,
+    "name": "Hong Kong"
+  },
+  {
+    "countryId": 34,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Hrvatska"
+  },
+  {
+    "countryId": 51,
+    "currencyName": "Rs.",
+    "currencyRate": 0.08,
+    "name": "India"
+  },
+  {
+    "countryId": 65,
+    "currencyName": "k Rp",
+    "currencyRate": 0.4,
+    "name": "Indonesia"
+  },
+  {
+    "countryId": 86,
+    "currencyName": "k.ريال",
+    "currencyRate": 0.25,
+    "name": "Īrān"
+  },
+  {
+    "countryId": 32,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Ireland"
+  },
+  {
+    "countryId": 63,
+    "currencyName": "kr",
+    "currencyRate": 0.05,
+    "name": "Ísland"
+  },
+  {
+    "countryId": 52,
+    "currencyName": "₪",
+    "currencyRate": 0.666667,
+    "name": "Israel"
+  },
+  {
+    "countryId": 10,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Italia"
+  },
+  {
+    "countryId": 11,
+    "currencyName": "J$",
+    "currencyRate": 0.04,
+    "name": "Jamaica"
+  },
+  {
+    "countryId": 103,
+    "currencyName": "T",
+    "currencyRate": 0.025,
+    "name": "Kazakhstán"
+  },
+  {
+    "countryId": 76,
+    "currencyName": "Sh",
+    "currencyRate": 0.04,
+    "name": "Kenya"
+  },
+  {
+    "countryId": 85,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Kypros"
+  },
+  {
+    "countryId": 45,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Latvija"
+  },
+  {
+    "countryId": 55,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Lëtzebuerg"
+  },
+  {
+    "countryId": 23,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Lietuva"
+  },
+  {
+    "countryId": 8,
+    "currencyName": "Ft",
+    "currencyRate": 0.02,
+    "name": "Magyarország"
+  },
+  {
+    "countryId": 59,
+    "currencyName": "RM",
+    "currencyRate": 0.8,
+    "name": "Malaysia"
+  },
+  {
+    "countryId": 67,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Malta"
+  },
+  {
+    "countryId": 18,
+    "currencyName": "$ MN",
+    "currencyRate": 0.333333,
+    "name": "México"
+  },
+  {
+    "countryId": 48,
+    "currencyName": "E£",
+    "currencyRate": 0.5,
+    "name": "Misr"
+  },
+  {
+    "countryId": 69,
+    "currencyName": "lei",
+    "currencyRate": 0.25,
+    "name": "Moldova"
+  },
+  {
+    "countryId": 12,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Nederland"
+  },
+  {
+    "countryId": 2,
+    "currencyName": "NZ$",
+    "currencyRate": 2.5,
+    "name": "New Zealand"
+  },
+  {
+    "countryId": 100,
+    "currencyName": "C$",
+    "currencyRate": 0.2,
+    "name": "Nicaragua"
+  },
+  {
+    "countryId": 38,
+    "currencyName": "₦",
+    "currencyRate": 2.22222,
+    "name": "Nigeria"
+  },
+  {
+    "countryId": 62,
+    "currencyName": "¥",
+    "currencyRate": 0.025,
+    "name": "Nippon"
+  },
+  {
+    "countryId": 27,
+    "currencyName": "kr.",
+    "currencyRate": 0.5,
+    "name": "Norge"
+  },
+  {
+    "countryId": 30,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Österreich"
+  },
+  {
+    "countryId": 104,
+    "currencyName": "k so‘m",
+    "currencyRate": 2.5,
+    "name": "O‘zbekiston"
+  },
+  {
+    "countryId": 73,
+    "currencyName": "$",
+    "currencyRate": 4.0,
+    "name": "Panamá"
+  },
+  {
+    "countryId": 72,
+    "currencyName": "k G",
+    "currencyRate": 0.5,
+    "name": "Paraguay"
+  },
+  {
+    "countryId": 37,
+    "currencyName": "sol",
+    "currencyRate": 1.0,
+    "name": "Perú"
+  },
+  {
+    "countryId": 96,
+    "currencyName": "P",
+    "currencyRate": 0.625,
+    "name": "Pilipinas"
+  },
+  {
+    "countryId": 1,
+    "currencyName": "zł",
+    "currencyRate": 1.0,
+    "name": "Polska"
+  },
+  {
+    "countryId": 20,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Portugal"
+  },
+  {
+    "countryId": 90,
+    "currencyName": "฿",
+    "currencyRate": 0.08,
+    "name": "Prathet Thai"
+  },
+  {
+    "countryId": 61,
+    "currencyName": "RD$",
+    "currencyRate": 0.1,
+    "name": "República Dominicana"
+  },
+  {
+    "countryId": 9,
+    "currencyName": "lei",
+    "currencyRate": 1.0,
+    "name": "România"
+  },
+  {
+    "countryId": 43,
+    "currencyName": "руб.",
+    "currencyRate": 0.125,
+    "name": "Rossiya"
+  },
+  {
+    "countryId": 106,
+    "currencyName": "ლ",
+    "currencyRate": 2.0,
+    "name": "Sakartvelo"
+  },
+  {
+    "countryId": 24,
+    "currencyName": "CHF",
+    "currencyRate": 2.5,
+    "name": "Schweiz"
+  },
+  {
+    "countryId": 7,
+    "currencyName": "£",
+    "currencyRate": 6.66667,
+    "name": "Scotland"
+  },
+  {
+    "countryId": 81,
+    "currencyName": "k. Fr",
+    "currencyRate": 6.25,
+    "name": "Sénégal"
+  },
+  {
+    "countryId": 56,
+    "currencyName": "ден.",
+    "currencyRate": 0.05,
+    "name": "Severna Makedonija"
+  },
+  {
+    "countryId": 53,
+    "currencyName": "lek",
+    "currencyRate": 0.04,
+    "name": "Shqipëria"
+  },
+  {
+    "countryId": 83,
+    "currencyName": "S$",
+    "currencyRate": 2.0,
+    "name": "Singapore"
+  },
+  {
+    "countryId": 26,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Slovenija"
+  },
+  {
+    "countryId": 14,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Slovensko"
+  },
+  {
+    "countryId": 22,
+    "currencyName": "R",
+    "currencyRate": 0.5,
+    "name": "South Africa"
+  },
+  {
+    "countryId": 39,
+    "currencyName": "din",
+    "currencyRate": 0.05,
+    "name": "Srbija"
+  },
+  {
+    "countryId": 25,
+    "currencyName": "€",
+    "currencyRate": 4.0,
+    "name": "Suomi"
+  },
+  {
+    "countryId": 31,
+    "currencyName": "kr",
+    "currencyRate": 0.5,
+    "name": "Sverige"
+  },
+  {
+    "countryId": 87,
+    "currencyName": "د.ت",
+    "currencyRate": 2.0,
+    "name": "Tūnis"
+  },
+  {
+    "countryId": 41,
+    "currencyName": "₺",
+    "currencyRate": 2.5,
+    "name": "Türkiye"
+  },
+  {
+    "countryId": 99,
+    "currencyName": "د.إ",
+    "currencyRate": 0.625,
+    "name": "U.A.E."
+  },
+  {
+    "countryId": 64,
+    "currencyName": "грн.",
+    "currencyRate": 0.625,
+    "name": "Ukraina"
+  },
+  {
+    "countryId": 35,
+    "currencyName": "$U",
+    "currencyRate": 0.125,
+    "name": "Uruguay"
+  },
+  {
+    "countryId": 4,
+    "currencyName": "$",
+    "currencyRate": 4.0,
+    "name": "USA"
+  },
+  {
+    "countryId": 44,
+    "currencyName": "k Bs.",
+    "currencyRate": 1.25,
+    "name": "Venezuela"
+  },
+  {
+    "countryId": 84,
+    "currencyName": "k.₫",
+    "currencyRate": 0.2,
+    "name": "Việt Nam"
+  },
+  {
+    "countryId": 82,
+    "currencyName": "¥",
+    "currencyRate": 0.4,
+    "name": "Zhōngguó"
+  }
+]

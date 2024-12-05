@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<matches teamID="20425">
+ <match>
+  <matchID>41702216</matchID>
+  <homeTeamID>42244</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName>Peterrets de Tarragona</homeTeamName>
+  <awayTeamName>Racing de Monteolivete</awayTeamName>
+  <leagueID>3</leagueID>
+  <round>0</round>
+  <season>0</season>
+  <week>1106</week>
+  <day>1</day>
+  <dateExpected>2024-09-15 19:23</dateExpected>
+  <dateStarted>2024-09-15 19:25</dateStarted>
+  <homeTeamScore>1</homeTeamScore>
+  <awayTeamScore>2</awayTeamScore>
+  <supporters>9152</supporters>
+  <weather>4</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41704799</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>20838</awayTeamID>
+  <homeTeamName>Racing de Monteolivete</homeTeamName>
+  <awayTeamName>Javiepm</awayTeamName>
+  <leagueID>3</leagueID>
+  <round>0</round>
+  <season>0</season>
+  <week>1106</week>
+  <day>4</day>
+  <dateExpected>2024-09-18 19:24</dateExpected>
+  <dateStarted>2024-09-18 19:24</dateStarted>
+  <homeTeamScore>0</homeTeamScore>
+  <awayTeamScore>2</awayTeamScore>
+  <supporters>9289</supporters>
+  <weather>6</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41716824</matchID>
+  <homeTeamID>142305</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName>Levante Unión Deportiva</homeTeamName>
+  <awayTeamName>Racing de Monteolivete</awayTeamName>
+  <leagueID>1015</leagueID>
+  <round>2</round>
+  <season>75</season>
+  <week>1106</week>
+  <day>6</day>
+  <dateExpected>2024-09-20 19:08</dateExpected>
+  <dateStarted>2024-09-20 19:11</dateStarted>
+  <homeTeamScore>0</homeTeamScore>
+  <awayTeamScore>15</awayTeamScore>
+  <supporters>3100</supporters>
+  <weather>7</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41753042</matchID>
+  <homeTeamID>20838</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName>Javiepm</homeTeamName>
+  <awayTeamName>Racing de Monteolivete</awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>1</round>
+  <season>68</season>
+  <week>1107</week>
+  <day>1</day>
+  <dateExpected>2024-09-22 18:49</dateExpected>
+  <dateStarted>2024-09-22 18:54</dateStarted>
+  <homeTeamScore>2</homeTeamScore>
+  <awayTeamScore>3</awayTeamScore>
+  <supporters>42902</supporters>
+  <weather>3</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41753052</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>115837</awayTeamID>
+  <homeTeamName>Racing de Monteolivete</homeTeamName>
+  <awayTeamName>Dabuten´s</awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>2</round>
+  <season>68</season>
+  <week>1107</week>
+  <day>4</day>
+  <dateExpected>2024-09-25 18:49</dateExpected>
+  <dateStarted>2024-09-25 18:52</dateStarted>
+  <homeTeamScore>1</homeTeamScore>
+  <awayTeamScore>0</awayTeamScore>
+  <supporters>23823</supporters>
+  <weather>1</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41959503</matchID>
+  <homeTeamID>151614</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName>Palomekos Team</homeTeamName>
+  <awayTeamName>Racing de Monteolivete</awayTeamName>
+  <leagueID>1015</leagueID>
+  <round>3</round>
+  <season>75</season>
+  <week>1107</week>
+  <day>6</day>
+  <dateExpected>2024-09-27 19:18</dateExpected>
+  <dateStarted>2024-09-27 19:21</dateStarted>
+  <homeTeamScore>0</homeTeamScore>
+  <awayTeamScore>14</awayTeamScore>
+  <supporters>3096</supporters>
+  <weather>4</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41753064</matchID>
+  <homeTeamID>116009</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName>Xavos</homeTeamName>
+  <awayTeamName>Racing de Monteolivete</awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>3</round>
+  <season>68</season>
+  <week>1108</week>
+  <day>1</day>
+  <dateExpected>2024-09-29 18:49</dateExpected>
+  <dateStarted>2024-09-29 18:55</dateStarted>
+  <homeTeamScore>1</homeTeamScore>
+  <awayTeamScore>1</awayTeamScore>
+  <supporters>64214</supporters>
+  <weather>2</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41753076</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>20718</awayTeamID>
+  <homeTeamName>Racing de Monteolivete</homeTeamName>
+  <awayTeamName>FC ALFONSO I</awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>4</round>
+  <season>68</season>
+  <week>1108</week>
+  <day>4</day>
+  <dateExpected>2024-10-02 18:49</dateExpected>
+  <dateStarted>2024-10-02 18:51</dateStarted>
+  <homeTeamScore>4</homeTeamScore>
+  <awayTeamScore>0</awayTeamScore>
+  <supporters>28898</supporters>
+  <weather>2</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41967367</matchID>
+  <homeTeamID>151934</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName>Domingueros Feos</homeTeamName>
+  <awayTeamName>Racing de Monteolivete</awayTeamName>
+  <leagueID>1015</leagueID>
+  <round>4</round>
+  <season>75</season>
+  <week>1108</week>
+  <day>6</day>
+  <dateExpected>2024-10-04 19:22</dateExpected>
+  <dateStarted>2024-10-04 19:24</dateStarted>
+  <homeTeamScore>0</homeTeamScore>
+  <awayTeamScore>20</awayTeamScore>
+  <supporters>3100</supporters>
+  <weather>3</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41753088</matchID>
+  <homeTeamID>42312</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName>Atletico Cocotin</homeTeamName>
+  <awayTeamName>Racing de Monteolivete</awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>5</round>
+  <season>68</season>
+  <week>1109</week>
+  <day>1</day>
+  <dateExpected>2024-10-06 18:49</dateExpected>
+  <dateStarted>2024-10-06 18:54</dateStarted>
+  <homeTeamScore>0</homeTeamScore>
+  <awayTeamScore>2</awayTeamScore>
+  <supporters>20682</supporters>
+  <weather>5</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41753100</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>42779</awayTeamID>
+  <homeTeamName>Racing de Monteolivete</homeTeamName>
+  <awayTeamName>santa_marta</awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>6</round>
+  <season>68</season>
+  <week>1109</week>
+  <day>4</day>
+  <dateExpected>2024-10-09 18:49</dateExpected>
+  <dateStarted>2024-10-09 18:51</dateStarted>
+  <homeTeamScore>1</homeTeamScore>
+  <awayTeamScore>1</awayTeamScore>
+  <supporters>35262</supporters>
+  <weather>3</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41973708</matchID>
+  <homeTeamID>115872</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName>Isvar FC</homeTeamName>
+  <awayTeamName>Racing de Monteolivete</awayTeamName>
+  <leagueID>1015</leagueID>
+  <round>5</round>
+  <season>75</season>
+  <week>1109</week>
+  <day>6</day>
+  <dateExpected>2024-10-11 19:23</dateExpected>
+  <dateStarted>2024-10-11 19:24</dateStarted>
+  <homeTeamScore>10</homeTeamScore>
+  <awayTeamScore>0</awayTeamScore>
+  <supporters>25081</supporters>
+  <weather>2</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41753112</matchID>
+  <homeTeamID>20427</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName>Duque Stars</homeTeamName>
+  <awayTeamName>Racing de Monteolivete</awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>7</round>
+  <season>68</season>
+  <week>1110</week>
+  <day>1</day>
+  <dateExpected>2024-10-13 18:49</dateExpected>
+  <dateStarted>2024-10-13 18:55</dateStarted>
+  <homeTeamScore>2</homeTeamScore>
+  <awayTeamScore>2</awayTeamScore>
+  <supporters>47842</supporters>
+  <weather>3</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41753124</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>21063</awayTeamID>
+  <homeTeamName>Racing de Monteolivete</homeTeamName>
+  <awayTeamName>Diamantes Locos</awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>8</round>
+  <season>68</season>
+  <week>1110</week>
+  <day>4</day>
+  <dateExpected>2024-10-16 18:49</dateExpected>
+  <dateStarted>2024-10-16 18:53</dateStarted>
+  <homeTeamScore>1</homeTeamScore>
+  <awayTeamScore>3</awayTeamScore>
+  <supporters>34507</supporters>
+  <weather>1</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41979864</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>20701</awayTeamID>
+  <homeTeamName>Racing de Monteolivete</homeTeamName>
+  <awayTeamName>AB f.c.</awayTeamName>
+  <leagueID>3</leagueID>
+  <round>0</round>
+  <season>0</season>
+  <week>1110</week>
+  <day>6</day>
+  <dateExpected>2024-10-18 19:24</dateExpected>
+  <dateStarted>2024-10-18 19:25</dateStarted>
+  <homeTeamScore>7</homeTeamScore>
+  <awayTeamScore>0</awayTeamScore>
+  <supporters>3200</supporters>
+  <weather>0</weather>
+  <isFinished>1</isFinished>
+ </match>
+ <match>
+  <matchID>41753136</matchID>
+  <homeTeamID>43029</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>9</round>
+  <season>68</season>
+  <week>1111</week>
+  <day>1</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753148</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>20341</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>10</round>
+  <season>68</season>
+  <week>1111</week>
+  <day>4</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41985426</matchID>
+  <homeTeamID>5583</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>3</leagueID>
+  <round>0</round>
+  <season>0</season>
+  <week>1111</week>
+  <day>6</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753160</matchID>
+  <homeTeamID>20247</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>11</round>
+  <season>68</season>
+  <week>1112</week>
+  <day>1</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753161</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>20247</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>12</round>
+  <season>68</season>
+  <week>1112</week>
+  <day>4</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753149</matchID>
+  <homeTeamID>20341</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>13</round>
+  <season>68</season>
+  <week>1113</week>
+  <day>1</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753137</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>43029</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>14</round>
+  <season>68</season>
+  <week>1113</week>
+  <day>4</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753125</matchID>
+  <homeTeamID>21063</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>15</round>
+  <season>68</season>
+  <week>1114</week>
+  <day>1</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753113</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>20427</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>16</round>
+  <season>68</season>
+  <week>1114</week>
+  <day>4</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753101</matchID>
+  <homeTeamID>42779</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>17</round>
+  <season>68</season>
+  <week>1115</week>
+  <day>1</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753089</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>42312</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>18</round>
+  <season>68</season>
+  <week>1115</week>
+  <day>4</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753077</matchID>
+  <homeTeamID>20718</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>19</round>
+  <season>68</season>
+  <week>1116</week>
+  <day>1</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753065</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>116009</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>20</round>
+  <season>68</season>
+  <week>1116</week>
+  <day>4</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753053</matchID>
+  <homeTeamID>115837</homeTeamID>
+  <awayTeamID>20425</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>21</round>
+  <season>68</season>
+  <week>1117</week>
+  <day>1</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+ <match>
+  <matchID>41753043</matchID>
+  <homeTeamID>20425</homeTeamID>
+  <awayTeamID>20838</awayTeamID>
+  <homeTeamName></homeTeamName>
+  <awayTeamName></awayTeamName>
+  <leagueID>1254</leagueID>
+  <round>22</round>
+  <season>68</season>
+  <week>1117</week>
+  <day>4</day>
+  <dateExpected>0000-00-00 00:00</dateExpected>
+  <dateStarted>0000-00-00 00:00</dateStarted>
+  <homeTeamScore></homeTeamScore>
+  <awayTeamScore></awayTeamScore>
+  <supporters>0</supporters>
+  <weather>0</weather>
+  <isFinished>0</isFinished>
+ </match>
+</matches>
