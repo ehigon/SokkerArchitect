@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<teamdata>
+ <team>
+  <teamID>20425</teamID>
+  <name>Racing de Monteolivete</name>
+  <countryID>17</countryID>
+  <regionID>237</regionID>
+  <dateCreated>2014-03-11 22:11</dateCreated>
+  <rank>5112.46</rank>
+  <national>0</national>
+  <colShirtKeep>16776960</colShirtKeep>
+  <colTrausKeep>16776961</colTrausKeep>
+  <colShirt>0</colShirt>
+  <colTraus>16777215</colTraus>
+  <colShirt2>200</colShirt2>
+  <colTraus2>14037040</colTraus2>
+  <arenaName>El parque blanco</arenaName>
+  <money>90499917</money>
+  <trainingType>7</trainingType>
+  <trainingFormation>3</trainingFormation>
+  <fanclubCount>2258</fanclubCount>
+  <fanclubMood>2</fanclubMood>
+  <juniorsMax>30</juniorsMax>
+  <trainingTypeGk>8</trainingTypeGk>
+  <trainingTypeDef>6</trainingTypeDef>
+  <trainingTypeMid>4</trainingTypeMid>
+  <trainingTypeAtt>5</trainingTypeAtt>
+ </team>
+ <arena>
+  <stand>
+   <location>1</location>
+   <type>2</type>
+   <size>13000</size>
+   <isRoof>1</isRoof>
+   <constructionDays>0</constructionDays>
+  </stand>
+  <stand>
+   <location>2</location>
+   <type>3</type>
+   <size>10000</size>
+   <isRoof>1</isRoof>
+   <constructionDays>0</constructionDays>
+  </stand>
+  <stand>
+   <location>3</location>
+   <type>1</type>
+   <size>9000</size>
+   <isRoof>0</isRoof>
+   <constructionDays>0</constructionDays>
+  </stand>
+  <stand>
+   <location>4</location>
+   <type>2</type>
+   <size>8000</size>
+   <isRoof>0</isRoof>
+   <constructionDays>0</constructionDays>
+  </stand>
+ </arena>
+ <user>
+  <userID>1571772</userID>
+  <login>estivy83</login>
+ </user>
+</teamdata>

@@ -1,0 +1,149 @@
+[
+  {
+    "id": 38988995,
+    "trainingType": "PASSING",
+    "officialMinutes": 0,
+    "unofficialMinutes": 90,
+    "trainerSkill": 15
+  },
+  {
+    "id": 38946021,
+    "trainingType": "TECHNIQUE",
+    "officialMinutes": 0,
+    "unofficialMinutes": 90,
+    "trainerSkill": 16
+  },
+  {
+    "id": 39305845,
+    "trainingType": "DEFENDING",
+    "officialMinutes": 0,
+    "unofficialMinutes": 90,
+    "trainerSkill": 13
+  },
+  {
+    "id": 38100007,
+    "trainingType": "GENERAL",
+    "officialMinutes": 180,
+    "unofficialMinutes": 90,
+    "trainerSkill": 10
+  },
+  {
+    "id": 38819241,
+    "trainingType": "DEFENDING",
+    "officialMinutes": 180,
+    "unofficialMinutes": 0,
+    "trainerSkill": 13
+  },
+  {
+    "id": 39142873,
+    "trainingType": "TECHNIQUE",
+    "officialMinutes": 0,
+    "unofficialMinutes": 90,
+    "trainerSkill": 16
+  },
+  {
+    "id": 38903008,
+    "trainingType": "PASSING",
+    "officialMinutes": 0,
+    "unofficialMinutes": 90,
+    "trainerSkill": 15
+  },
+  {
+    "id": 37944240,
+    "trainingType": "GENERAL",
+    "officialMinutes": 180,
+    "unofficialMinutes": 0,
+    "trainerSkill": 10
+  },
+  {
+    "id": 38756007,
+    "trainingType": "GENERAL",
+    "officialMinutes": 180,
+    "unofficialMinutes": 0,
+    "trainerSkill": 10
+  },
+  {
+    "id": 39525373,
+    "trainingType": "PASSING",
+    "officialMinutes": 0,
+    "unofficialMinutes": 90,
+    "trainerSkill": 15
+  },
+  {
+    "id": 39286509,
+    "trainingType": "PASSING",
+    "officialMinutes": 0,
+    "unofficialMinutes": 90,
+    "trainerSkill": 15
+  },
+  {
+    "id": 39518658,
+    "trainingType": "DEFENDING",
+    "officialMinutes": 0,
+    "unofficialMinutes": 76,
+    "trainerSkill": 13
+  },
+  {
+    "id": 38609119,
+    "trainingType": "GENERAL",
+    "officialMinutes": 0,
+    "unofficialMinutes": 90,
+    "trainerSkill": 10
+  },
+  {
+    "id": 38045355,
+    "trainingType": "GENERAL",
+    "officialMinutes": 180,
+    "unofficialMinutes": 0,
+    "trainerSkill": 10
+  },
+  {
+    "id": 37972886,
+    "trainingType": "GENERAL",
+    "officialMinutes": 90,
+    "unofficialMinutes": 0,
+    "trainerSkill": 10
+  },
+  {
+    "id": 38539165,
+    "trainingType": "GENERAL",
+    "officialMinutes": 180,
+    "unofficialMinutes": 0,
+    "trainerSkill": 10
+  },
+  {
+    "id": 39340300,
+    "trainingType": "PASSING",
+    "officialMinutes": 0,
+    "unofficialMinutes": 90,
+    "trainerSkill": 15
+  },
+  {
+    "id": 38743834,
+    "trainingType": "GENERAL",
+    "officialMinutes": 180,
+    "unofficialMinutes": 0,
+    "trainerSkill": 10
+  },
+  {
+    "id": 38532856,
+    "trainingType": "GENERAL",
+    "officialMinutes": 180,
+    "unofficialMinutes": 0,
+    "trainerSkill": 10
+  },
+  {
+    "id": 38218083,
+    "trainingType": "GENERAL",
+    "officialMinutes": 180,
+    "unofficialMinutes": 0,
+    "trainerSkill": 10
+  },
+  {
+    "id": 37789276,
+    "trainingType": "GENERAL",
+    "officialMinutes": 180,
+    "unofficialMinutes": 0,
+    "trainerSkill": 10
+  }
+]
