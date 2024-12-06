@@ -1,5 +1,7 @@
 package com.estivy.sokkerarchitect.external.api.service;
 
+import static com.estivy.sokkerarchitect.external.api.client.mapper.PlayerMapper.TRAINING_UPDATE_DAY;
+
 import com.estivy.sokkerarchitect.core.domain.Country;
 import com.estivy.sokkerarchitect.core.domain.Player;
 import com.estivy.sokkerarchitect.core.domain.Status;
@@ -49,7 +51,7 @@ public class UpdateRetrievalService {
         VarsDto vars = sokkerClient.getVars(xmlSession);
         CountriesDto countries = sokkerClient.getCountries(xmlSession);
         MatchesDto matchesDto = sokkerClient.getMatches(xmlSession, teamId);
-        List<Long> lastWeekMatchesIds = getWeekMatchIds(matchesDto, vars.getWeek() - 1);
+        List<Long> lastWeekMatchesIds = getWeekMatchIds(matchesDto, vars.getWeek());
         List<MatchDetailDto> lastWeekMatchDetails = getMatchDetails(xmlSession, lastWeekMatchesIds);
         return generateStatus(juniors, players, trainers, vars, lastWeekMatchDetails,
                 teamData.getTeam(), countries);
@@ -89,7 +91,7 @@ public class UpdateRetrievalService {
 
     private List<Long> getWeekMatchIds(MatchesDto matchesDto, Long week) {
         return matchesDto.getMatches().stream()
-                .filter(m -> m.getWeek().equals(week))
+                .filter(m -> isInCurrentWeekTraining(m, week))
                 .map(MatchDto::getMatchId)
                 .collect(Collectors.toList());
     }
@@ -98,6 +100,12 @@ public class UpdateRetrievalService {
         return matchesIds.stream()
                 .map(matchId -> sokkerClient.getMatchDetail(xmlSessionId, matchId))
                 .collect(Collectors.toList());
+    }
+
+    private boolean isInCurrentWeekTraining(MatchDto matchDto, Long week) {
+        return (matchDto.getWeek().equals(week) && matchDto.getDay() < TRAINING_UPDATE_DAY)
+                || (matchDto.getWeek().equals(week-1) && matchDto.getDay() >= TRAINING_UPDATE_DAY);
+
     }
 
 }
