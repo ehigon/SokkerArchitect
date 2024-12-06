@@ -32,6 +32,7 @@ public interface PlayerMapper {
     int DEFENSE_POSITION = 1;
     int MIDFIELDER_POSITION = 2;
     int ATTACKER_POSITION = 3;
+    int TRAINING_UPDATE_DAY = 5;
 
     @Mapping(target = "national",
             expression = "java(com.estivy.sokkerarchitect.core.domain.National.fromValue(" +
@@ -54,7 +55,7 @@ public interface PlayerMapper {
         optPrincipalTrainer.ifPresent(pTrainer ->playerStatus.setTrainerSkill(
                 getTrainingSkill(playerStatus.getTrainingType(), pTrainer)));
         setMinutesPlayed(playerStatus, player, lastWeekMatchDetails, team.getTeamId());
-        setWeek(playerStatus, vars.getWeek());
+        setWeek(playerStatus, getTrainingWeek(vars));
         return playerStatus;
     }
 
@@ -134,6 +135,10 @@ public interface PlayerMapper {
         }
     }
 
+    default long getTrainingWeek(VarsDto vars) {
+        return vars.getWeek() + (vars.getDay() > TRAINING_UPDATE_DAY ? 1 : 0);
+    }
+
     default void setWeek(PlayerStatus playerStatus, Long week){
         playerStatus.setWeek(week);
     }
@@ -181,6 +186,7 @@ public interface PlayerMapper {
     @Mapping(target = "formation",
             expression = "java(com.estivy.sokkerarchitect.core.domain.JuniorFormation.fromValue(" +
                     "junior.getFormation()))")
+    @Mapping(target = "week", expression = "java(getTrainingWeek(vars))")
     JuniorStatus toDomainStatus(JuniorDto junior, VarsDto vars);
 
 }

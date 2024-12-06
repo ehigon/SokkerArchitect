@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.estivy.sokkerarchitect.R
@@ -18,8 +19,11 @@ import com.estivy.sokkerarchitect.core.domain.Country
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus
 import com.estivy.sokkerarchitect.ui.theme.attributes
+import com.estivy.sokkerarchitect.ui.theme.attributesDown
+import com.estivy.sokkerarchitect.ui.theme.attributesUp
 import com.estivy.sokkerarchitect.ui.theme.characteritic
 import com.estivy.sokkerarchitect.ui.theme.title
+import com.estivy.sokkerarchitect.ui.util.Evolution
 
 @Preview
 @Composable
@@ -127,8 +131,8 @@ private fun Characteristics(player: Player) {
 
 @Composable
 fun Attributes(player: Player) {
-    val status = player.playerStatuses[0]
-    val lastStatus = player.playerStatuses[0]
+    val evolution = Evolution(player)
+    val status = evolution.currentWeek
     Row {
         Column {
             Text(
@@ -142,11 +146,11 @@ fun Attributes(player: Player) {
             )
             Text(
                 stringResource(R.string.stamina),
-                Modifier.padding(top = 14.dp),
                 style = attributes
             )
             Text(
                 stringResource(R.string.pace),
+                Modifier.padding(top = 14.dp),
                 style = attributes
             )
             Text(
@@ -178,44 +182,44 @@ fun Attributes(player: Player) {
             Text(
                 skill(status.skillDiscipline),
                 Modifier.padding(top = 14.dp),
-                style = attributes
+                style = getAttributesStyle(evolution.getSkillDiscipline())
             )
             Text(
                 skill(status.skillForm),
-                style = attributes
+                style = getAttributesStyle(evolution.getSkillForm())
             )
             Text(
                 skill(status.skillStamina),
-                Modifier.padding(top = 14.dp),
-                style = attributes
+                style = getAttributesStyle(evolution.getSkillStamina())
             )
             Text(
                 skill(status.skillPace),
-                style = attributes
+                Modifier.padding(top = 14.dp),
+                style = getAttributesStyle(evolution.getSkillPace())
             )
             Text(
                 skill(status.skillTechnique),
-                style = attributes
+                style = getAttributesStyle(evolution.getSkillTechnique())
             )
             Text(
                 skill(status.skillPassing),
-                style = attributes
+                style = getAttributesStyle(evolution.getSkillPassing())
             )
             Text(
                 skill(status.skillKeeper),
-                style = attributes
+                style = getAttributesStyle(evolution.getSkillKeeper())
             )
             Text(
                 skill(status.skillDefending),
-                style = attributes
+                style = getAttributesStyle(evolution.getSkillDefending())
             )
             Text(
                 skill(status.skillPlaymaking),
-                style = attributes
+                style = getAttributesStyle(evolution.getSkillPlaymaking())
             )
             Text(
                 skill(status.skillScoring),
-                style = attributes
+                style = getAttributesStyle(evolution.getSkillScoring())
             )
         }
     }
@@ -246,6 +250,16 @@ private fun skill(skill: Int): String {
         else -> ""
     }
     return "$skill ($skillName)"
+}
+
+fun getAttributesStyle(skillDiscipline: Int): TextStyle {
+    return if(skillDiscipline>0){
+        attributesUp
+    }else if(skillDiscipline==0){
+        attributes
+    }else{
+        attributesDown
+    }
 }
 
 @Composable

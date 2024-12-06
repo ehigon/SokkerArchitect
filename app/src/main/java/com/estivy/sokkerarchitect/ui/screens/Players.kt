@@ -1,5 +1,6 @@
 package com.estivy.sokkerarchitect.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,9 +17,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.estivy.sokkerarchitect.R
+import com.estivy.sokkerarchitect.core.domain.Country
 import com.estivy.sokkerarchitect.core.domain.Player
+import com.estivy.sokkerarchitect.core.domain.PlayerStatus
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
+import com.estivy.sokkerarchitect.ui.util.Evolution
 
 @Composable
 fun Players(playersViewModel: PlayersViewModel, navigateTo: (route: String) -> Unit) {
@@ -26,7 +35,12 @@ fun Players(playersViewModel: PlayersViewModel, navigateTo: (route: String) -> U
         .wrapContentSize(Alignment.Center)
     when (playersViewModel.playersUiState) {
         is PlayersUiState.Loading -> LoadingScreen()
-        is PlayersUiState.Success -> PlayersScreen((playersViewModel.playersUiState as PlayersUiState.Success), modifier, navigateTo)
+        is PlayersUiState.Success -> PlayersScreen(
+            (playersViewModel.playersUiState as PlayersUiState.Success),
+            modifier,
+            navigateTo
+        )
+
         is PlayersUiState.Error -> ErrorScreen((playersViewModel.playersUiState as PlayersUiState.Error).exception)
     }
 
@@ -64,11 +78,68 @@ fun PlayersScreen(
     }
 }
 
+@Preview
+@Composable
+fun PlayerRowPreview() {
+    val player: Player = Player.builder()
+        .name("Esteban")
+        .surname("Higon")
+        .value(1345678986)
+        .age(23)
+        .height(183)
+        .weight(80.5)
+        .cards(1)
+        .injuryDays(5)
+        .country(
+            Country.builder()
+                .name("Spain")
+                .countryId(34)
+                .build()
+        )
+        .playerStatuses(
+            listOf(
+                PlayerStatus.builder()
+                    .week(123)
+                    .skillForm(10)
+                    .skillPace(9)
+                    .skillKeeper(1)
+                    .skillPassing(12)
+                    .skillDefending(11)
+                    .skillDiscipline(10)
+                    .skillExperience(8)
+                    .skillPlaymaking(9)
+                    .skillScoring(18)
+                    .skillStamina(17)
+                    .skillTeamwork(12)
+                    .skillTechnique(15)
+                    .build(),
+                PlayerStatus.builder()
+                    .week(124)
+                    .skillForm(10)
+                    .skillPace(9)
+                    .skillKeeper(0)
+                    .skillPassing(13)
+                    .skillDefending(12)
+                    .skillDiscipline(9)
+                    .skillExperience(8)
+                    .skillPlaymaking(9)
+                    .skillScoring(18)
+                    .skillStamina(17)
+                    .skillTeamwork(13)
+                    .skillTechnique(15)
+                    .build()
+            )
+        )
+        .build()
+    PlayerRow(player) { r -> print(r) }
+}
+
 @Composable
 fun PlayerRow(
     player: Player,
     navigateTo: (route: String) -> Unit
 ) {
+    val evolution = Evolution(player)
     Card(
         modifier = Modifier
             .padding(1.dp)
@@ -84,6 +155,29 @@ fun PlayerRow(
             horizontalArrangement = Arrangement.Center
         ) {
             Text(player.name + " " + player.surname)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                for (i in 0 until evolution.getIncreases()) {
+                    Image(
+                        painter = painterResource(id = R.drawable.up_arrow),
+                        contentDescription = stringResource(id = R.string.increase),
+                        Modifier
+                            .padding(vertical = 2.dp)
+                            .size(12.dp)
+                    )
+                }
+                for (i in 0 until evolution.getDecreases()) {
+                    Image(
+                        painter = painterResource(id = R.drawable.down_arrow),
+                        contentDescription = stringResource(id = R.string.decrease),
+                        Modifier
+                            .padding(vertical = 2.dp)
+                            .size(12.dp)
+                    )
+                }
+            }
         }
     }
 }

@@ -7,3 +7,5 @@ import androidx.compose.ui.unit.sp
 val title = TextStyle(fontSize = 50.sp, color = blueSA)
 val characteritic = TextStyle(fontSize = 18.sp, color = Color.Gray)
 val attributes = TextStyle(fontSize = 22.sp, color = Color.Black)
+val attributesUp = TextStyle(fontSize = 22.sp, color = greenSA)
+val attributesDown = TextStyle(fontSize = 22.sp, color = Color.Red)
