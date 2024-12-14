@@ -136,7 +136,7 @@ public interface PlayerMapper {
     }
 
     default long getTrainingWeek(VarsDto vars) {
-        return vars.getWeek() + (vars.getDay() > TRAINING_UPDATE_DAY ? 1 : 0);
+        return vars.getWeek() + (vars.getDay() >= TRAINING_UPDATE_DAY ? 1 : 0);
     }
 
     default void setWeek(PlayerStatus playerStatus, Long week){

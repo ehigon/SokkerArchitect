@@ -23,6 +23,10 @@ import androidx.compose.ui.unit.dp
 import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.service.UpdateService
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import java.util.concurrent.CompletableFuture
 
 
@@ -33,22 +37,29 @@ fun Login(updateService: UpdateService, navigateTo: (route: String) -> Unit) {
         .wrapContentSize(Alignment.Center)
     var user by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    Column (
+    Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        User(user, onValueChange = {user = it},
-            Modifier.padding(bottom = 8.dp))
-        Password(password, onValueChange = {password = it},
-            Modifier.padding(bottom = 8.dp))
-        Button(onClick = {
-            updateService.update(user, password)
-                .thenApply {
-                    navigateTo( SokkerArchitectScreen.players.route)
-                }.exceptionally { e ->
-                    println("error " + e.message)
-                }
-        },
+        User(
+            user, onValueChange = { user = it },
+            Modifier.padding(bottom = 8.dp)
+        )
+        Password(
+            password, onValueChange = { password = it },
+            Modifier.padding(bottom = 8.dp)
+        )
+        Button(
+            onClick = {
+                updateService.update(user, password)
+                    .thenApply {
+                        runOnUiThread { navigateTo(SokkerArchitectScreen.players.route) }
+                        println("logged in")
+                    }.exceptionally { e ->
+                        println("error " + e.message)
+                        e.printStackTrace()
+                    }
+            },
             modifier = Modifier.size(width = 140.dp, height = 50.dp)
         ) {
             Text(stringResource(R.string.login))
@@ -57,8 +68,9 @@ fun Login(updateService: UpdateService, navigateTo: (route: String) -> Unit) {
 }
 
 @Composable
-fun User(user: String, onValueChange: (String) -> Unit,
-         modifier: Modifier = Modifier
+fun User(
+    user: String, onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     TextField(
         value = user,
@@ -69,8 +81,9 @@ fun User(user: String, onValueChange: (String) -> Unit,
 }
 
 @Composable
-fun Password(password: String, onValueChange: (String) -> Unit,
-             modifier: Modifier = Modifier
+fun Password(
+    password: String, onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     TextField(
         value = password,
@@ -81,3 +94,6 @@ fun Password(password: String, onValueChange: (String) -> Unit,
         modifier = modifier
     )
 }
+
+val uiScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+fun runOnUiThread(block: suspend () -> Unit) = uiScope.launch { block() }

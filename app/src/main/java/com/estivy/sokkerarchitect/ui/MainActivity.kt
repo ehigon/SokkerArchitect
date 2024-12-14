@@ -5,11 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.estivy.sokkerarchitect.core.service.PlayersService
 import com.estivy.sokkerarchitect.core.service.UpdateService
 import com.estivy.sokkerarchitect.security.service.PasswordStorageService
-import com.estivy.sokkerarchitect.ui.screens.PlayersViewModel
+import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
 import com.estivy.sokkerarchitect.ui.theme.SokkerArchitectTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

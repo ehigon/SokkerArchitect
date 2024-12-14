@@ -1,4 +1,4 @@
-package com.estivy.sokkerarchitect.ui.screens
+package com.estivy.sokkerarchitect.ui.screens.model
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

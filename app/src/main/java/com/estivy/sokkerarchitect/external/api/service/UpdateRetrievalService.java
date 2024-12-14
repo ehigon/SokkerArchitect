@@ -51,7 +51,7 @@ public class UpdateRetrievalService {
         VarsDto vars = sokkerClient.getVars(xmlSession);
         CountriesDto countries = sokkerClient.getCountries(xmlSession);
         MatchesDto matchesDto = sokkerClient.getMatches(xmlSession, teamId);
-        List<Long> lastWeekMatchesIds = getWeekMatchIds(matchesDto, vars.getWeek());
+        List<Long> lastWeekMatchesIds = getWeekMatchIds(matchesDto, getTrainingWeek(vars));
         List<MatchDetailDto> lastWeekMatchDetails = getMatchDetails(xmlSession, lastWeekMatchesIds);
         return generateStatus(juniors, players, trainers, vars, lastWeekMatchDetails,
                 teamData.getTeam(), countries);
@@ -87,6 +87,10 @@ public class UpdateRetrievalService {
         return trainers.getTrainers().stream()
                 .filter(t -> t.getJob().equals(trainerJob.getValue()))
                 .findFirst();
+    }
+
+    private Long getTrainingWeek(VarsDto vars) {
+        return vars.getWeek() - (vars.getDay() < TRAINING_UPDATE_DAY ? 1 : 0);
     }
 
     private List<Long> getWeekMatchIds(MatchesDto matchesDto, Long week) {

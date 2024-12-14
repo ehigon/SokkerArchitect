@@ -55,4 +55,6 @@
     <string name="ok">OK</string>
     <string name="increase">Increase</string>
     <string name="decrease">Decrease</string>
+    <string name="skill_progress_sc">Skill progress</string>
+    <string name="evolution_graph">Evolution graph</string>
 </resources>

@@ -3,12 +3,19 @@ package com.estivy.sokkerarchitect.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -18,80 +25,23 @@ import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.domain.Country
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus
+import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
 import com.estivy.sokkerarchitect.ui.theme.attributes
 import com.estivy.sokkerarchitect.ui.theme.attributesDown
 import com.estivy.sokkerarchitect.ui.theme.attributesUp
 import com.estivy.sokkerarchitect.ui.theme.characteritic
 import com.estivy.sokkerarchitect.ui.theme.title
 import com.estivy.sokkerarchitect.ui.util.Evolution
-
-@Preview
-@Composable
-fun PlayerPreview() {
-    val player: Player = Player.builder()
-        .name("Esteban")
-        .surname("Higon")
-        .value(1345678986)
-        .age(23)
-        .height(183)
-        .weight(80.5)
-        .cards(1)
-        .injuryDays(5)
-        .country(
-            Country.builder()
-                .name("Spain")
-                .countryId(34)
-                .build()
-        )
-        .playerStatuses(
-            listOf(
-                PlayerStatus.builder()
-                    .week(123)
-                    .skillForm(10)
-                    .skillPace(9)
-                    .skillKeeper(1)
-                    .skillPassing(12)
-                    .skillDefending(11)
-                    .skillDiscipline(10)
-                    .skillExperience(8)
-                    .skillPlaymaking(9)
-                    .skillScoring(18)
-                    .skillStamina(17)
-                    .skillTeamwork(12)
-                    .skillTechnique(15)
-                    .build()
-            )
-        )
-        .build()
-    Player(player)
-}
+import com.estivy.sokkerarchitect.ui.screens.model.Skill
 
 @Composable
-fun Player(playersViewModel: PlayersViewModel, id: String?) {
-    id?.let {
-        if(playersViewModel.playersUiState is PlayersUiState.Success) {
-            Player(
-                getPlayer(
-                    (playersViewModel.playersUiState as PlayersUiState.Success).players,
-                    it.toLong()
-                )
-            )
-        }
-    }
-}
-
-fun getPlayer(players: List<Player>, id: Long): Player {
-    return players.filter { it.id.equals(id) }[0]
-}
-
-@Composable
-fun Player(player: Player) {
+fun Player(player: Player, navigateTo: (route: String) -> Unit) {
     Column(
         horizontalAlignment = Alignment.Start
     ) {
         Name(player)
-        Characteristics(player)
-        Attributes(player)
+        Characteristics(player, navigateTo)
+        Attributes(player, navigateTo)
     }
 }
 
@@ -105,7 +55,7 @@ private fun Name(player: Player) {
 }
 
 @Composable
-private fun Characteristics(player: Player) {
+private fun Characteristics(player: Player, navigateTo: (route: String) -> Unit) {
     Text(
         stringResource(R.string.age) + " " + player.age,
         Modifier.padding(top = 10.dp),
@@ -130,7 +80,7 @@ private fun Characteristics(player: Player) {
 }
 
 @Composable
-fun Attributes(player: Player) {
+fun Attributes(player: Player, navigateTo: (route: String) -> Unit) {
     val evolution = Evolution(player)
     val status = evolution.currentWeek
     Row {
@@ -222,6 +172,40 @@ fun Attributes(player: Player) {
                 style = getAttributesStyle(evolution.getSkillScoring())
             )
         }
+        Column {
+            ProgressBar(player = player,
+                skill = Skill.DISCIPLINE,
+                navigateTo = navigateTo,
+                modifier = Modifier.padding(top = 14.dp))
+            ProgressBar(player = player,
+                skill = Skill.FORM,
+                navigateTo = navigateTo)
+            ProgressBar(player = player,
+                skill = Skill.STAMINA,
+                navigateTo = navigateTo)
+            ProgressBar(player = player,
+                skill = Skill.PACE,
+                navigateTo = navigateTo,
+                modifier = Modifier.padding(top = 14.dp))
+            ProgressBar(player = player,
+                skill = Skill.TECHNIQUE,
+                navigateTo = navigateTo)
+            ProgressBar(player = player,
+                skill = Skill.PASSING,
+                navigateTo = navigateTo)
+            ProgressBar(player = player,
+                skill = Skill.KEEPER,
+                navigateTo = navigateTo)
+            ProgressBar(player = player,
+                skill = Skill.DEFENDING,
+                navigateTo = navigateTo)
+            ProgressBar(player = player,
+                skill = Skill.PLAYMAKING,
+                navigateTo = navigateTo)
+            ProgressBar(player = player,
+                skill = Skill.SCORING,
+                navigateTo = navigateTo)
+        }
     }
 }
 
@@ -253,11 +237,11 @@ private fun skill(skill: Int): String {
 }
 
 fun getAttributesStyle(skillDiscipline: Int): TextStyle {
-    return if(skillDiscipline>0){
+    return if (skillDiscipline > 0) {
         attributesUp
-    }else if(skillDiscipline==0){
+    } else if (skillDiscipline == 0) {
         attributes
-    }else{
+    } else {
         attributesDown
     }
 }
@@ -310,4 +294,96 @@ fun Injury(player: Player) {
             )
         }
     }
+}
+
+@Composable
+fun ProgressBar(
+    player: Player,
+    skill: Skill,
+    navigateTo: (route: String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if(player.playerStatuses.size > 1) {
+        val finalModifier = modifier.height(26.dp).width(70.dp)
+        Button(
+            modifier = finalModifier,
+            onClick = {
+                navigateTo(
+                    SokkerArchitectScreen.skill_progress.route.replace(
+                        "{id}", player.id.toString()
+                    ).replace("{skill}", skill.name)
+                )
+            },
+            content = {
+                Image(
+                    painter = painterResource(id = R.drawable.bar_chart),
+                    contentDescription = stringResource(id = R.string.evolution_graph),
+                    modifier = Modifier.fillMaxHeight(),
+                    contentScale = ContentScale.FillBounds
+                )
+            },
+            colors = ButtonColors(
+                containerColor = Color.Transparent,
+                contentColor = Color.Transparent,
+                disabledContentColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent
+            )
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PlayerPreview() {
+    val player: Player = Player.builder()
+        .name("Esteban")
+        .surname("Higon")
+        .value(1345678986)
+        .age(23)
+        .height(183)
+        .weight(80.5)
+        .cards(1)
+        .injuryDays(5)
+        .country(
+            Country.builder()
+                .name("Spain")
+                .countryId(34)
+                .build()
+        )
+        .playerStatuses(
+            listOf(
+                PlayerStatus.builder()
+                    .week(123)
+                    .skillForm(10)
+                    .skillPace(9)
+                    .skillKeeper(1)
+                    .skillPassing(12)
+                    .skillDefending(11)
+                    .skillDiscipline(10)
+                    .skillExperience(8)
+                    .skillPlaymaking(9)
+                    .skillScoring(18)
+                    .skillStamina(17)
+                    .skillTeamwork(12)
+                    .skillTechnique(15)
+                    .build(),
+                PlayerStatus.builder()
+                    .week(123)
+                    .skillForm(10)
+                    .skillPace(9)
+                    .skillKeeper(1)
+                    .skillPassing(12)
+                    .skillDefending(11)
+                    .skillDiscipline(10)
+                    .skillExperience(8)
+                    .skillPlaymaking(9)
+                    .skillScoring(18)
+                    .skillStamina(17)
+                    .skillTeamwork(12)
+                    .skillTechnique(15)
+                    .build()
+            )
+        )
+        .build()
+    Player(player) { println(it) }
 }
