@@ -14,3 +14,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val blueSA = Color(0xFF4E32A8)
 val greenSA = Color(0xFF00B000)
+val greenGraph = Color(0xFFD3F6B8)
+val redGraph = Color(0xFFFC948D)

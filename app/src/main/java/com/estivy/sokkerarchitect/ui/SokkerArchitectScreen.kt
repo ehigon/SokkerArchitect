@@ -19,13 +19,17 @@ import com.estivy.sokkerarchitect.security.service.PasswordStorageService
 import com.estivy.sokkerarchitect.ui.screens.Login
 import com.estivy.sokkerarchitect.ui.screens.Player
 import com.estivy.sokkerarchitect.ui.screens.Players
-import com.estivy.sokkerarchitect.ui.screens.PlayersViewModel
+import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
+import com.estivy.sokkerarchitect.ui.screens.SkillProgress
+import com.estivy.sokkerarchitect.ui.screens.model.Skill
+import com.estivy.sokkerarchitect.ui.util.searchPlayer
 
 
 enum class SokkerArchitectScreen(val route: String, @StringRes val title: Int) {
     login(route = "login", title = R.string.login_sc),
     players(route = "players", title = R.string.players_sc),
-    player(route = "player/{id}", title = R.string.player_sc);
+    player(route = "player/{id}", title = R.string.player_sc),
+    skill_progress(route = "player/{id}/skill/{skill}", title = R.string.skill_progress_sc);
 
     companion object {
         fun fromRoute(route: String): SokkerArchitectScreen {
@@ -76,19 +80,39 @@ fun SokkerArchitectApp(
                 playersViewModel.retrievePlayers()
             }
             composable(
+                route = SokkerArchitectScreen.skill_progress.route,
+                arguments = listOf(navArgument("id") { type = NavType.StringType },
+                    navArgument("skill") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val id = backStackEntry.arguments?.getString("id")
+                val skill = backStackEntry.arguments?.getString("skill")
+                searchPlayer(playersViewModel, id)?.let {
+                    if(skill != null) {
+                        SkillProgress(it, Skill.valueOf(skill))
+                    }
+                }
+            }
+            composable(
                 route = SokkerArchitectScreen.player.route,
                 arguments = listOf(navArgument("id") { type = NavType.StringType })
             ) { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id")
-                Player(playersViewModel, id)
+                searchPlayer(playersViewModel, id)?.let { player ->
+                    Player(player){
+                        navController.navigate(it)
+                    }
+                }
             }
         }
     }
 
 }
 
+
+
 @Composable
 private fun canNavigateBack(navController: NavHostController) =
     (navController.previousBackStackEntry != null
             && navController.previousBackStackEntry?.destination?.route
             != SokkerArchitectScreen.login.route)
+

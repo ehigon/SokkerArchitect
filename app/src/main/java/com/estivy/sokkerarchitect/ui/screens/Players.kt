@@ -26,6 +26,8 @@ import com.estivy.sokkerarchitect.core.domain.Country
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
+import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
+import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
 import com.estivy.sokkerarchitect.ui.util.Evolution
 
 @Composable
@@ -70,11 +72,59 @@ fun PlayersScreen(
         LazyColumn(
             contentPadding = PaddingValues(horizontal = 1.dp),
         ) {
-            items(playersViewModelSuccess.players) { player ->
+            items(playersViewModelSuccess.players.sortedBy { it.surname + it.name }) { player ->
                 PlayerRow(player, navigateTo)
             }
         }
 
+    }
+}
+
+@Composable
+fun PlayerRow(
+    player: Player,
+    navigateTo: (route: String) -> Unit
+) {
+    val evolution = Evolution(player)
+    Card(
+        modifier = Modifier
+            .padding(1.dp)
+            .fillMaxWidth(),
+        onClick = {
+            navigateTo(SokkerArchitectScreen.player.route.replace("{id}", player.id.toString()))
+        }
+
+    )
+    {
+        Row(
+            modifier = Modifier.padding(8.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(player.name + " " + player.surname)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                for (i in 0 until evolution.getIncreases()) {
+                    Image(
+                        painter = painterResource(id = R.drawable.up_arrow),
+                        contentDescription = stringResource(id = R.string.increase),
+                        Modifier
+                            .padding(vertical = 2.dp)
+                            .size(12.dp)
+                    )
+                }
+                for (i in 0 until evolution.getDecreases()) {
+                    Image(
+                        painter = painterResource(id = R.drawable.down_arrow),
+                        contentDescription = stringResource(id = R.string.decrease),
+                        Modifier
+                            .padding(vertical = 2.dp)
+                            .size(12.dp)
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -132,53 +182,5 @@ fun PlayerRowPreview() {
         )
         .build()
     PlayerRow(player) { r -> print(r) }
-}
-
-@Composable
-fun PlayerRow(
-    player: Player,
-    navigateTo: (route: String) -> Unit
-) {
-    val evolution = Evolution(player)
-    Card(
-        modifier = Modifier
-            .padding(1.dp)
-            .fillMaxWidth(),
-        onClick = {
-            navigateTo(SokkerArchitectScreen.player.route.replace("{id}", player.id.toString()))
-        }
-
-    )
-    {
-        Row(
-            modifier = Modifier.padding(8.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(player.name + " " + player.surname)
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
-            ) {
-                for (i in 0 until evolution.getIncreases()) {
-                    Image(
-                        painter = painterResource(id = R.drawable.up_arrow),
-                        contentDescription = stringResource(id = R.string.increase),
-                        Modifier
-                            .padding(vertical = 2.dp)
-                            .size(12.dp)
-                    )
-                }
-                for (i in 0 until evolution.getDecreases()) {
-                    Image(
-                        painter = painterResource(id = R.drawable.down_arrow),
-                        contentDescription = stringResource(id = R.string.decrease),
-                        Modifier
-                            .padding(vertical = 2.dp)
-                            .size(12.dp)
-                    )
-                }
-            }
-        }
-    }
 }
 
