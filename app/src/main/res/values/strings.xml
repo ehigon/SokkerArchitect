@@ -57,4 +57,5 @@
     <string name="decrease">Decrease</string>
     <string name="skill_progress_sc">Skill progress</string>
     <string name="evolution_graph">Evolution graph</string>
+    <string name="updating_sc">Updating</string>
 </resources>

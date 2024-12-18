@@ -21,6 +21,7 @@ import com.estivy.sokkerarchitect.ui.screens.Player
 import com.estivy.sokkerarchitect.ui.screens.Players
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
 import com.estivy.sokkerarchitect.ui.screens.SkillProgress
+import com.estivy.sokkerarchitect.ui.screens.Updating
 import com.estivy.sokkerarchitect.ui.screens.model.Skill
 import com.estivy.sokkerarchitect.ui.util.searchPlayer
 
@@ -29,7 +30,8 @@ enum class SokkerArchitectScreen(val route: String, @StringRes val title: Int) {
     login(route = "login", title = R.string.login_sc),
     players(route = "players", title = R.string.players_sc),
     player(route = "player/{id}", title = R.string.player_sc),
-    skill_progress(route = "player/{id}/skill/{skill}", title = R.string.skill_progress_sc);
+    skill_progress(route = "player/{id}/skill/{skill}", title = R.string.skill_progress_sc),
+    updating(route = "updating", title = R.string.updating_sc);
 
     companion object {
         fun fromRoute(route: String): SokkerArchitectScreen {
@@ -59,7 +61,9 @@ fun SokkerArchitectApp(
                 canNavigateBack = canNavigateBack(navController),
                 navigateUp = { navController.navigateUp() },
                 updateService = updateService
-            )
+            ){
+                navController.navigate(it)
+            }
         }
     ) { innerPadding ->
         NavHost(
@@ -103,6 +107,9 @@ fun SokkerArchitectApp(
                     }
                 }
             }
+            composable(route = SokkerArchitectScreen.updating.route) {
+                Updating()
+            }
         }
     }
 
@@ -114,5 +121,7 @@ fun SokkerArchitectApp(
 private fun canNavigateBack(navController: NavHostController) =
     (navController.previousBackStackEntry != null
             && navController.previousBackStackEntry?.destination?.route
-            != SokkerArchitectScreen.login.route)
+                != SokkerArchitectScreen.login.route
+            && navController.previousBackStackEntry?.destination?.route
+            != SokkerArchitectScreen.updating.route)
 

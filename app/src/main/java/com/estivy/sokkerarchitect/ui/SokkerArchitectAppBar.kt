@@ -36,6 +36,12 @@ enum class MessageDialog{
     ERROR
 }
 
+enum class UpdateState{
+    NOT_STARTED,
+    IN_PROGRESS,
+    SUCCESS,
+    ERROR
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,10 +50,12 @@ fun SokkerArchitectAppBar(
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    updateService: UpdateService
+    updateService: UpdateService,
+    navigateTo: (route: String) -> Unit
 ) {
     val shouldShowDialog = remember { mutableStateOf(MessageDialog.NONE) }
     val errorMessage = remember { mutableStateOf(null as String?) }
+    val updating = remember { mutableStateOf(UpdateState.NOT_STARTED) }
     TopAppBar(
         title = { Text(stringResource(currentScreen.title)) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
@@ -68,10 +76,14 @@ fun SokkerArchitectAppBar(
             if (currentScreen != SokkerArchitectScreen.login) {
                 Button(
                     onClick = {
+                        updating.value = UpdateState.IN_PROGRESS
+                        navigateTo(SokkerArchitectScreen.updating.route)
                         updateService.update()
                             .thenApply {
+                                updating.value = UpdateState.SUCCESS
                                 shouldShowDialog.value = MessageDialog.SUCCESS
                             }.exceptionally { e ->
+                                updating.value = UpdateState.ERROR
                                 e.printStackTrace()
                                 errorMessage.value = e.message
                                 shouldShowDialog.value = MessageDialog.ERROR
@@ -91,7 +103,8 @@ fun SokkerArchitectAppBar(
                         contentColor = Color.Transparent,
                         disabledContentColor = Color.Transparent,
                         disabledContainerColor = Color.Transparent
-                    )
+                    ),
+                    enabled = updating.value == UpdateState.NOT_STARTED
                 )
             }
         }
@@ -100,6 +113,13 @@ fun SokkerArchitectAppBar(
         UpdateAlertDialog(shouldShowDialog = shouldShowDialog)
     }else if(shouldShowDialog.value == MessageDialog.ERROR){
         UpdateErrorAlertDialog(shouldShowDialog= shouldShowDialog, errorMessage)
+    }
+    if(updating.value == UpdateState.SUCCESS){
+        updating.value = UpdateState.NOT_STARTED
+        navigateTo(SokkerArchitectScreen.players.route)
+    }else if(updating.value == UpdateState.ERROR){
+        updating.value = UpdateState.NOT_STARTED
+        navigateTo(SokkerArchitectScreen.login.route)
     }
 
 }
