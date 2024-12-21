@@ -49,17 +49,6 @@ fun Players(playersViewModel: PlayersViewModel, navigateTo: (route: String) -> U
 }
 
 @Composable
-fun LoadingScreen() {
-    Text(text = "Loading...")
-}
-
-@Composable
-fun ErrorScreen(exception: Exception) {
-    exception.printStackTrace()
-    Text(text = "Error" + exception.message)
-}
-
-@Composable
 fun PlayersScreen(
     playersViewModelSuccess: PlayersUiState.Success,
     modifier: Modifier,
@@ -91,7 +80,7 @@ fun PlayerRow(
             .padding(1.dp)
             .fillMaxWidth(),
         onClick = {
-            navigateTo(SokkerArchitectScreen.player.route.replace("{id}", player.id.toString()))
+            navigateTo(SokkerArchitectScreen.PLAYER.route.replace("{id}", player.id.toString()))
         }
 
     )

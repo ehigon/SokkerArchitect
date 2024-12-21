@@ -58,4 +58,11 @@
     <string name="skill_progress_sc">Skill progress</string>
     <string name="evolution_graph">Evolution graph</string>
     <string name="updating_sc">Updating</string>
+    <string name="players">Players</string>
+    <string name="juniors">Juniors</string>
+    <string name="back">Back</string>
+    <string name="juniors_sc">Juniors</string>
+    <string name="skill">Skill</string>
+    <string name="weeks">Weeks</string>
+    <string name="junior_sc">Junior</string>
 </resources>

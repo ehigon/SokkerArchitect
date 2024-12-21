@@ -4,8 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -18,7 +18,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -30,13 +29,13 @@ import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.service.UpdateService
 
 
-enum class MessageDialog{
+enum class MessageDialog {
     NONE,
     SUCCESS,
     ERROR
 }
 
-enum class UpdateState{
+enum class UpdateState {
     NOT_STARTED,
     IN_PROGRESS,
     SUCCESS,
@@ -47,11 +46,11 @@ enum class UpdateState{
 @Composable
 fun SokkerArchitectAppBar(
     currentScreen: SokkerArchitectScreen,
-    canNavigateBack: Boolean,
-    navigateUp: () -> Unit,
+    shouldShowMenu: Boolean,
     modifier: Modifier = Modifier,
     updateService: UpdateService,
-    navigateTo: (route: String) -> Unit
+    navigateTo: (route: String) -> Unit,
+    onNavigationIconClick: () -> Unit,
 ) {
     val shouldShowDialog = remember { mutableStateOf(MessageDialog.NONE) }
     val errorMessage = remember { mutableStateOf(null as String?) }
@@ -63,21 +62,21 @@ fun SokkerArchitectAppBar(
         ),
         modifier = modifier,
         navigationIcon = {
-            if (canNavigateBack) {
-                IconButton(onClick = navigateUp) {
+            if (shouldShowMenu) {
+                IconButton(onClick = onNavigationIconClick) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back_button)
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = null,
                     )
                 }
             }
         },
         actions = {
-            if (currentScreen != SokkerArchitectScreen.login) {
+            if (currentScreen != SokkerArchitectScreen.LOGIN) {
                 Button(
                     onClick = {
                         updating.value = UpdateState.IN_PROGRESS
-                        navigateTo(SokkerArchitectScreen.updating.route)
+                        navigateTo(SokkerArchitectScreen.UPDATING.route)
                         updateService.update()
                             .thenApply {
                                 updating.value = UpdateState.SUCCESS
@@ -111,15 +110,15 @@ fun SokkerArchitectAppBar(
     )
     if (shouldShowDialog.value == MessageDialog.SUCCESS) {
         UpdateAlertDialog(shouldShowDialog = shouldShowDialog)
-    }else if(shouldShowDialog.value == MessageDialog.ERROR){
-        UpdateErrorAlertDialog(shouldShowDialog= shouldShowDialog, errorMessage)
+    } else if (shouldShowDialog.value == MessageDialog.ERROR) {
+        UpdateErrorAlertDialog(shouldShowDialog = shouldShowDialog, errorMessage)
     }
-    if(updating.value == UpdateState.SUCCESS){
+    if (updating.value == UpdateState.SUCCESS) {
         updating.value = UpdateState.NOT_STARTED
-        navigateTo(SokkerArchitectScreen.players.route)
-    }else if(updating.value == UpdateState.ERROR){
+        navigateTo(SokkerArchitectScreen.PLAYERS.route)
+    } else if (updating.value == UpdateState.ERROR) {
         updating.value = UpdateState.NOT_STARTED
-        navigateTo(SokkerArchitectScreen.login.route)
+        navigateTo(SokkerArchitectScreen.LOGIN.route)
     }
 
 }
@@ -163,7 +162,12 @@ fun UpdateErrorAlertDialog(
                 shouldShowDialog.value = MessageDialog.NONE
             },
             title = { Text(text = stringResource(R.string.update_error_title)) },
-            text = { Text(text = stringResource(R.string.update_error_message)  + (errorMessage.value?: "") ) },
+            text = {
+                Text(
+                    text = stringResource(R.string.update_error_message) + (errorMessage.value
+                        ?: "")
+                )
+            },
             confirmButton = {
                 Button(
                     onClick = {

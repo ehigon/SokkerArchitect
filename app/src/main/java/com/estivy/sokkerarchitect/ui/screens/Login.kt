@@ -52,7 +52,7 @@ fun Login(updateService: UpdateService, navigateTo: (route: String) -> Unit) {
             onClick = {
                 updateService.update(user, password)
                     .thenApply {
-                        runOnUiThread { navigateTo(SokkerArchitectScreen.players.route) }
+                        runOnUiThread { navigateTo(SokkerArchitectScreen.PLAYERS.route) }
                         println("logged in")
                     }.exceptionally { e ->
                         println("error " + e.message)
