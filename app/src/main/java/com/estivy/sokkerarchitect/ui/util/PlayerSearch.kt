@@ -16,6 +16,18 @@ fun searchPlayer(playersViewModel: PlayersViewModel, id: String?): Player? {
     return null
 }
 
+fun searchJunior(playersViewModel: PlayersViewModel, id: String?): Player? {
+    id?.let {
+        if (playersViewModel.juniorsUiState is PlayersUiState.Success) {
+            return searchPlayer(
+                (playersViewModel.juniorsUiState as PlayersUiState.Success).players,
+                it.toLong()
+            )
+        }
+    }
+    return null
+}
+
 private fun searchPlayer(players: List<Player>, id: Long): Player {
     return players.filter { it.id.equals(id) }[0]
 }

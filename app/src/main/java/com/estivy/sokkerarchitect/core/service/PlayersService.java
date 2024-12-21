@@ -3,6 +3,8 @@ package com.estivy.sokkerarchitect.core.service;
 import com.estivy.sokkerarchitect.core.domain.Player;
 import com.estivy.sokkerarchitect.storage.service.PlayerStorageService;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,5 +21,10 @@ public class PlayersService {
 
     public List<Player> findPlayers(){
         return playerStorageService.findSeniorActivePlayers();
+    }
+
+    @NotNull
+    public List<Player> findJuniors() {
+        return playerStorageService.findJuniorActivePlayers();
     }
 }

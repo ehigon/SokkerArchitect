@@ -309,7 +309,7 @@ fun ProgressBar(
             modifier = finalModifier,
             onClick = {
                 navigateTo(
-                    SokkerArchitectScreen.skill_progress.route.replace(
+                    SokkerArchitectScreen.SKILL_PROGRESS.route.replace(
                         "{id}", player.id.toString()
                     ).replace("{skill}", skill.name)
                 )

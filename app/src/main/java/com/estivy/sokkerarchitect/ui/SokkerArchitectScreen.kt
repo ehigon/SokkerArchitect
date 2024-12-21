@@ -1,11 +1,25 @@
 package com.estivy.sokkerarchitect.ui
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -16,27 +30,33 @@ import androidx.navigation.navArgument
 import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.service.UpdateService
 import com.estivy.sokkerarchitect.security.service.PasswordStorageService
+import com.estivy.sokkerarchitect.ui.screens.Junior
+import com.estivy.sokkerarchitect.ui.screens.Juniors
 import com.estivy.sokkerarchitect.ui.screens.Login
 import com.estivy.sokkerarchitect.ui.screens.Player
 import com.estivy.sokkerarchitect.ui.screens.Players
-import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
 import com.estivy.sokkerarchitect.ui.screens.SkillProgress
 import com.estivy.sokkerarchitect.ui.screens.Updating
+import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
 import com.estivy.sokkerarchitect.ui.screens.model.Skill
+import com.estivy.sokkerarchitect.ui.util.searchJunior
 import com.estivy.sokkerarchitect.ui.util.searchPlayer
+import kotlinx.coroutines.launch
 
 
 enum class SokkerArchitectScreen(val route: String, @StringRes val title: Int) {
-    login(route = "login", title = R.string.login_sc),
-    players(route = "players", title = R.string.players_sc),
-    player(route = "player/{id}", title = R.string.player_sc),
-    skill_progress(route = "player/{id}/skill/{skill}", title = R.string.skill_progress_sc),
-    updating(route = "updating", title = R.string.updating_sc);
+    LOGIN(route = "login", title = R.string.login_sc),
+    PLAYERS(route = "players", title = R.string.players_sc),
+    PLAYER(route = "player/{id}", title = R.string.player_sc),
+    JUNIORS(route = "juniors", title = R.string.juniors_sc),
+    SKILL_PROGRESS(route = "player/{id}/skill/{skill}", title = R.string.skill_progress_sc),
+    UPDATING(route = "updating", title = R.string.updating_sc),
+    JUNIOR(route = "junior/{id}", title = R.string.junior_sc);
 
     companion object {
         fun fromRoute(route: String): SokkerArchitectScreen {
             entries.filter { it.route == route }.forEach { return it }
-            return players;
+            return PLAYERS;
         }
     }
 }
@@ -49,79 +69,133 @@ fun SokkerArchitectApp(
     passwordStorageService: PasswordStorageService
 ) {
     val firstScreen =
-        if (passwordStorageService.isStarted()) SokkerArchitectScreen.players.route else SokkerArchitectScreen.login.route
+        if (passwordStorageService.isStarted()) SokkerArchitectScreen.PLAYERS.route else SokkerArchitectScreen.LOGIN.route
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen =
         SokkerArchitectScreen.fromRoute(backStackEntry?.destination?.route ?: firstScreen)
-    Scaffold(
-        topBar = {
-            SokkerArchitectAppBar(
-                currentScreen = currentScreen,
-                canNavigateBack = canNavigateBack(navController),
-                navigateUp = { navController.navigateUp() },
-                updateService = updateService
-            ){
-                navController.navigate(it)
-            }
-        }
-    ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = firstScreen,
-            modifier = Modifier
-                .padding(innerPadding)
-        ) {
-            composable(route = SokkerArchitectScreen.login.route) {
-                Login(updateService) {
-                    navController.navigate(it)
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+    ModalNavigationDrawer(
+        drawerContent = {
+            ModalDrawerSheet {
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    Spacer(Modifier.height(12.dp))
+                    NavigationDrawerItem(
+                        label = { Text(stringResource(R.string.players)) },
+                        selected = false,
+                        onClick = {
+                            navController.navigate(SokkerArchitectScreen.PLAYERS.route)
+                            scope.launch {
+                                drawerState.close()
+                            }
+                        }
+                    )
+                    NavigationDrawerItem(
+                        label = { Text(stringResource(R.string.juniors)) },
+                        selected = false,
+                        onClick = {
+                            navController.navigate(SokkerArchitectScreen.JUNIORS.route)
+                            scope.launch {
+                                drawerState.close()
+                            }
+                        }
+                    )
+                    Spacer(Modifier.height(12.dp))
                 }
             }
-            composable(route = SokkerArchitectScreen.players.route) {
-                Players(playersViewModel) {
-                    navController.navigate(it)
-                }
-                playersViewModel.retrievePlayers()
-            }
-            composable(
-                route = SokkerArchitectScreen.skill_progress.route,
-                arguments = listOf(navArgument("id") { type = NavType.StringType },
-                    navArgument("skill") { type = NavType.StringType })
-            ) { backStackEntry ->
-                val id = backStackEntry.arguments?.getString("id")
-                val skill = backStackEntry.arguments?.getString("skill")
-                searchPlayer(playersViewModel, id)?.let {
-                    if(skill != null) {
-                        SkillProgress(it, Skill.valueOf(skill))
+        },
+        drawerState = drawerState
+    ) {
+        Scaffold(
+            topBar = {
+                SokkerArchitectAppBar(
+                    currentScreen = currentScreen,
+                    shouldShowMenu = shouldShowMenu(currentScreen, navController),
+                    updateService = updateService,
+                    navigateTo = { route: String -> navController.navigate(route) },
+                    onNavigationIconClick = {
+                        scope.launch {
+                            drawerState.open()
+                        }
                     }
-                }
+                )
             }
-            composable(
-                route = SokkerArchitectScreen.player.route,
-                arguments = listOf(navArgument("id") { type = NavType.StringType })
-            ) { backStackEntry ->
-                val id = backStackEntry.arguments?.getString("id")
-                searchPlayer(playersViewModel, id)?.let { player ->
-                    Player(player){
+        ) { innerPadding ->
+            NavHost(
+                navController = navController,
+                startDestination = firstScreen,
+                modifier = Modifier
+                    .padding(innerPadding)
+            ) {
+                composable(route = SokkerArchitectScreen.LOGIN.route) {
+                    Login(updateService) {
                         navController.navigate(it)
                     }
                 }
-            }
-            composable(route = SokkerArchitectScreen.updating.route) {
-                Updating()
+                composable(route = SokkerArchitectScreen.PLAYERS.route) {
+                    Players(playersViewModel) {
+                        navController.navigate(it)
+                    }
+                    playersViewModel.retrievePlayers()
+                }
+                composable(
+                    route = SokkerArchitectScreen.SKILL_PROGRESS.route,
+                    arguments = listOf(navArgument("id") { type = NavType.StringType },
+                        navArgument("skill") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val id = backStackEntry.arguments?.getString("id")
+                    val skill = backStackEntry.arguments?.getString("skill")
+                    searchPlayer(playersViewModel, id)?.let {
+                        if (skill != null) {
+                            SkillProgress(it, Skill.valueOf(skill))
+                        }
+                    }
+                }
+                composable(
+                    route = SokkerArchitectScreen.PLAYER.route,
+                    arguments = listOf(navArgument("id") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val id = backStackEntry.arguments?.getString("id")
+                    searchPlayer(playersViewModel, id)?.let { player ->
+                        Player(player) {
+                            navController.navigate(it)
+                        }
+                    }
+                }
+                composable(route = SokkerArchitectScreen.JUNIORS.route) {
+                    Juniors(playersViewModel) {
+                        navController.navigate(it)
+                    }
+                    playersViewModel.retrieveJuniors()
+                }
+                composable(
+                    route = SokkerArchitectScreen.JUNIOR.route,
+                    arguments = listOf(navArgument("id") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val id = backStackEntry.arguments?.getString("id")
+                    searchJunior(playersViewModel, id)?.let { player ->
+                        Junior(player)
+                    }
+                }
+                composable(route = SokkerArchitectScreen.UPDATING.route) {
+                    Updating()
+                }
             }
         }
     }
 
 }
 
-
-
 @Composable
-private fun canNavigateBack(navController: NavHostController) =
-    (navController.previousBackStackEntry != null
-            && navController.previousBackStackEntry?.destination?.route
-                != SokkerArchitectScreen.login.route
-            && navController.previousBackStackEntry?.destination?.route
-            != SokkerArchitectScreen.updating.route)
+private fun shouldShowMenu(
+    currentScreen: SokkerArchitectScreen,
+    navController: NavHostController
+): Boolean {
+    return currentScreen != SokkerArchitectScreen.LOGIN || navController.previousBackStackEntry != null
+}
 

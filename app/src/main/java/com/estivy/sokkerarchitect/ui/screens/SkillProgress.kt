@@ -50,12 +50,12 @@ fun SkillProgress(player: Player, skill: Skill) {
     }
 }
 
-fun getPoints(player: Player, skill: Skill): List<GraphPoint> {
+private fun getPoints(player: Player, skill: Skill): List<GraphPoint> {
     return player.playerStatuses.sortedBy { it.week }
         .map { GraphPoint(value = skill.skill(it), bar = 1f, getColor(skill, it)) }
 }
 
-fun getColor(skill: Skill, playerStatus: PlayerStatus): Color {
+private fun getColor(skill: Skill, playerStatus: PlayerStatus): Color {
     return if(skill.trained(playerStatus)) greenGraph else redGraph
 }
 
