@@ -86,45 +86,45 @@ fun Attributes(player: Player, navigateTo: (route: String) -> Unit) {
     Row {
         Column {
             Text(
-                stringResource(R.string.tactical_discipline),
+                stringResource(R.string.tactical_discipline) + ":",
                 Modifier.padding(top = 14.dp),
                 style = attributes
             )
             Text(
-                stringResource(R.string.form),
+                stringResource(R.string.form) + ":",
                 style = attributes
             )
             Text(
-                stringResource(R.string.stamina),
+                stringResource(R.string.stamina) + ":",
                 style = attributes
             )
             Text(
-                stringResource(R.string.pace),
+                stringResource(R.string.pace) + ":",
                 Modifier.padding(top = 14.dp),
                 style = attributes
             )
             Text(
-                stringResource(R.string.technique),
+                stringResource(R.string.technique) + ":",
                 style = attributes
             )
             Text(
-                stringResource(R.string.passing),
+                stringResource(R.string.passing) + ":",
                 style = attributes
             )
             Text(
-                stringResource(R.string.keeper),
+                stringResource(R.string.keeper) + ":",
                 style = attributes
             )
             Text(
-                stringResource(R.string.defender),
+                stringResource(R.string.defender) + ":",
                 style = attributes
             )
             Text(
-                stringResource(R.string.playmaker),
+                stringResource(R.string.playmaker) + ":",
                 style = attributes
             )
             Text(
-                stringResource(R.string.striker),
+                stringResource(R.string.striker) + ":",
                 style = attributes
             )
         }
