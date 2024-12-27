@@ -52,6 +52,8 @@
     <string name="update_success_message">Sokker-gegevens zijn succesvol bijgewerkt</string>
     <string name="update_error_title">Fout bij updaten</string>
     <string name="update_error_message">Kon Sokker-gegevens niet bijwerken: </string>
+    <string name="login_error_title">Fout bij inloggen</string>
+    <string name="login_error_message">"Kon niet inloggen op Sokker: "</string>
     <string name="ok">OK</string>
     <string name="increase">Toename</string>
     <string name="decrease">Afname</string>
@@ -65,4 +67,13 @@
     <string name="skill">Vaardigheid</string>
     <string name="weeks">Weken</string>
     <string name="junior_sc">Junior</string>
+    <string name="unknown">Onverwachte fout</string>
+    <string name="bad_password">Onjuiste gebruiker of wachtwoord</string>
+    <string name="no_team">Gebruiker heeft geen team</string>
+    <string name="banned">Gebruiker is verbannen</string>
+    <string name="bankrupt">Gebruiker is failliet</string>
+    <string name="blacklisted_ip">Het IP-adres van de gebruiker staat op de zwarte lijst</string>
+    <string name="no_xmlsessid">XMLSESSID niet gevonden in sokker-antwoord</string>
+    <string name="no_cookies">Geen cookies gevonden in sokkerreactie</string>
+    <string name="no_team_id">Team-ID niet gevonden in sokker-antwoord</string>
 </resources>

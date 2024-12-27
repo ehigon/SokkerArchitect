@@ -58,7 +58,7 @@ public class UpdateRetrievalService {
     }
 
     private Status generateStatus(JuniorsDto juniors, PlayersDto players, TrainersDto trainers,
-                      VarsDto vars, List<MatchDetailDto> lastWeekMatchDetails, TeamDto teamDto,
+                                  VarsDto vars, List<MatchDetailDto> lastWeekMatchDetails, TeamDto teamDto,
                                   CountriesDto countries) {
         Status status = new Status();
         status.setPlayers(getPlayerList(juniors, players, trainers, lastWeekMatchDetails, teamDto,
@@ -69,8 +69,8 @@ public class UpdateRetrievalService {
     }
 
     private List<Player> getPlayerList(JuniorsDto juniors, PlayersDto players, TrainersDto trainers,
-                List<MatchDetailDto> lastWeekMatchDetails, TeamDto teamDto, VarsDto vars,
-                CountriesDto countries) {
+                                       List<MatchDetailDto> lastWeekMatchDetails, TeamDto teamDto, VarsDto vars,
+                                       CountriesDto countries) {
         Country country = playerMapper.findCountry(countries, teamDto.getCountryId());
         Optional<TrainerDto> optPrincipalTrainer = getTrainer(trainers, TrainerJob.PRINCIPAL);
         Stream<Player> playerStream = players.getPlayers().stream()
@@ -108,7 +108,7 @@ public class UpdateRetrievalService {
 
     private boolean isInCurrentWeekTraining(MatchDto matchDto, Long week) {
         return (matchDto.getWeek().equals(week) && matchDto.getDay() < TRAINING_UPDATE_DAY)
-                || (matchDto.getWeek().equals(week-1) && matchDto.getDay() >= TRAINING_UPDATE_DAY);
+                || (matchDto.getWeek().equals(week - 1) && matchDto.getDay() >= TRAINING_UPDATE_DAY);
 
     }
 

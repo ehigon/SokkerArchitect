@@ -52,6 +52,8 @@
     <string name="update_success_message">Os dados do Sokker foram atualizados com sucesso</string>
     <string name="update_error_title">Erro ao atualizar</string>
     <string name="update_error_message">Não foi possível atualizar os dados do Sokker: </string>
+    <string name="login_error_title">Erro ao fazer login</string>
+    <string name="login_error_message">"Não foi possível fazer login no Sokker: "</string>
     <string name="ok">OK</string>
     <string name="increase">Aumentar</string>
     <string name="decrease">Diminuir</string>
@@ -65,4 +67,13 @@
     <string name="skill">Habilidade</string>
     <string name="weeks">Semanas</string>
     <string name="junior_sc">Júnior</string>
+    <string name="unknown">Erro inesperado</string>
+    <string name="bad_password">Usuário ou senha incorretos</string>
+    <string name="no_team">O usuário não tem equipe</string>
+    <string name="banned">O usuário foi banido</string>
+    <string name="bankrupt">O usuário é um bakrupt</string>
+    <string name="blacklisted_ip">O IP do usuário está na lista negra</string>
+    <string name="no_xmlsessid">XMLSESSID não encontrado na resposta do sokker</string>
+    <string name="no_cookies">Nenhum cookie encontrado na resposta do sokker</string>
+    <string name="no_team_id">ID da equipe não encontrado na resposta do sokker</string>
 </resources>

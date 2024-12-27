@@ -52,6 +52,8 @@
     <string name="update_success_message">Податоците на Sokker се успешно ажурирани</string>
     <string name="update_error_title">Грешка при ажурирањето</string>
     <string name="update_error_message">Не може да се ажурираат податоците на Sokker: </string>
+    <string name="login_error_title">Грешка при најавување</string>
+    <string name="login_error_message">"Не можев да се најавам на Sokker: "</string>
     <string name="ok">Во ред</string>
     <string name="increase">Зголемување</string>
     <string name="decrease">Намали</string>
@@ -65,4 +67,13 @@
     <string name="skill">Вештина</string>
     <string name="weeks">Недели</string>
     <string name="junior_sc">Јуниор</string>
+    <string name="unknown">Неочекувана грешка</string>
+    <string name="bad_password">Лош корисник или лозинка</string>
+    <string name="no_team">Корисникот нема тим</string>
+    <string name="banned">Корисникот е забранет</string>
+    <string name="bankrupt">Корисникот е стечаен</string>
+    <string name="blacklisted_ip">Корисничката IP адреса е на црната листа</string>
+    <string name="no_xmlsessid">XMLSESSID не е пронајден во sokker одговор</string>
+    <string name="no_cookies">Не се пронајдени колачиња во одговорот на sokker</string>
+    <string name="no_team_id">Тим id не се најде во sokker одговор</string>
 </resources>

@@ -52,6 +52,8 @@
     <string name="update_success_message">Sokker data has been updated successfully</string>
     <string name="update_error_title">Error updating</string>
     <string name="update_error_message">"Could not update Sokker data: "</string>
+    <string name="login_error_title">Error logging in</string>
+    <string name="login_error_message">"Could not login to Sokker: "</string>
     <string name="ok">OK</string>
     <string name="increase">Increase</string>
     <string name="decrease">Decrease</string>
@@ -65,4 +67,13 @@
     <string name="skill">Skill</string>
     <string name="weeks">Weeks</string>
     <string name="junior_sc">Junior</string>
+    <string name="unknown">Unexpected error</string>
+    <string name="bad_password">Bad user or password</string>
+    <string name="no_team">User has no team</string>
+    <string name="banned">User is banned</string>
+    <string name="bankrupt">User is a bakrupt</string>
+    <string name="blacklisted_ip">User IP is blacklisted</string>
+    <string name="no_xmlsessid">XMLSESSID not found in sokker response</string>
+    <string name="no_cookies">No cookies found in sokker response</string>
+    <string name="no_team_id">Team id not found in sokker response</string>
 </resources>

@@ -1,5 +1,9 @@
 package com.estivy.sokkerarchitect.external.api.client;
 
+import android.util.Log;
+
+import com.estivy.sokkerarchitect.core.domain.exception.CredentialsLoginException;
+import com.estivy.sokkerarchitect.core.domain.exception.LoginError;
 import com.estivy.sokkerarchitect.external.api.client.dto.CountriesDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.JuniorsDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.LoginResultDto;
@@ -30,12 +34,12 @@ public class SokkerClient {
     private final SokkerAPI sokkerAPI;
 
     @Inject
-    public SokkerClient(SokkerAPI sokkerAPI)  {
+    public SokkerClient(SokkerAPI sokkerAPI) {
         this.sokkerAPI = sokkerAPI;
     }
 
 
-    public LoginResultDto login(String user, String password){
+    public LoginResultDto login(String user, String password) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart(ILOGIN, user)
@@ -43,92 +47,94 @@ public class SokkerClient {
                 .build();
         try {
             Response<String> responseString = sokkerAPI.login(requestBody).execute();
-            if(responseString.body() == null || !responseString.body().startsWith("OK")){
-                throw new LoginException(getErrorMessage(responseString.body()));
+            if (responseString.body() == null || !responseString.body().startsWith("OK")) {
+                throwLoginException(responseString.body());
             }
 
             return LoginResultDto.builder()
                     .teamId(getTeamId(responseString.body()))
                     .xmlSession(getXmlsessId(responseString))
                     .build();
+        } catch (LoginException le) {
+            throw le;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    public JuniorsDto getJuniors(String xmlSessionId){
-        try{
+    public JuniorsDto getJuniors(String xmlSessionId) {
+        try {
             return sokkerAPI.getJuniors(xmlSessionId).execute().body();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public PlayersDto getPayers(String xmlSessionId, String teamId) {
-        try{
+        try {
             return sokkerAPI.getPlayers(xmlSessionId, teamId).execute().body();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public TeamDataDto getTeamData(String xmlSessionId, String teamId) {
-        try{
+        try {
             return sokkerAPI.getTeamData(xmlSessionId, teamId).execute().body();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public TrainersDto getTrainers(String xmlSessionId){
-        try{
+    public TrainersDto getTrainers(String xmlSessionId) {
+        try {
             return sokkerAPI.getTrainers(xmlSessionId).execute().body();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public VarsDto getVars(String xmlSessionId){
-        try{
+    public VarsDto getVars(String xmlSessionId) {
+        try {
             return sokkerAPI.getVars(xmlSessionId).execute().body();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public CountriesDto getCountries(String xmlSessionId){
-        try{
+    public CountriesDto getCountries(String xmlSessionId) {
+        try {
             return sokkerAPI.getCountries(xmlSessionId).execute().body();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public MatchesDto getMatches(String xmlSessionId, String teamId){
-        try{
+    public MatchesDto getMatches(String xmlSessionId, String teamId) {
+        try {
             return sokkerAPI.getMatches(xmlSessionId, teamId).execute().body();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public MatchDetailDto getMatchDetail(String xmlSessionId, Long matchId){
-        try{
+    public MatchDetailDto getMatchDetail(String xmlSessionId, Long matchId) {
+        try {
             return sokkerAPI.getMatchDetail(xmlSessionId, matchId).execute().body();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     private String getTeamId(String body) {
         return getRightPart(body)
-                .orElseThrow(() -> new LoginException("Team id not found in sokker response"));
+                .orElseThrow(() -> new LoginException(LoginError.NO_TEAM_ID));
     }
 
-    private Optional<String> getRightPart(String string){
-        int rightPartPos = string.indexOf('=')+1;
-        if(rightPartPos<=0){
+    private Optional<String> getRightPart(String string) {
+        int rightPartPos = string.indexOf('=') + 1;
+        if (rightPartPos <= 0) {
             return Optional.empty();
         }
         return Optional.of(string.substring(rightPartPos));
@@ -136,26 +142,35 @@ public class SokkerClient {
 
     private String getXmlsessId(Response<String> responseString) {
         List<String> cookies = responseString.headers().toMultimap().get(SET_COOKIE);
-        if(cookies == null){
-            throw new LoginException("No cookies found in sokker response");
+        if (cookies == null) {
+            throw new LoginException(LoginError.NO_COOKIES);
         }
         return cookies.stream()
                 .filter(s -> s.startsWith(XMLSESSID))
                 .findAny()
-                .orElseThrow(() -> new LoginException("XMLSESSID not found in sokker response"));
+                .orElseThrow(() -> new LoginException(LoginError.NO_XMLSESSID));
     }
 
-    private String getErrorMessage(String errorMessage) {
-        if(errorMessage==null){
-            return "Unknown error";
+    private void throwLoginException(String errorMessage) {
+        if (errorMessage == null) {
+            throw new LoginException(LoginError.UNKNOWN);
         }
-        else{
-            return errorMessage
-                    .replace("1", "bad password")
-                    .replace("3", "user has no team")
-                    .replace("4", "user is banned")
-                    .replace("5", "user is a bakrupt")
-                    .replace("6", "user IP is blacklisted");
+        LoginError loginError = LoginError.fromCode(getErrorCode(errorMessage));
+        if (loginError == LoginError.UNKNOWN || loginError == LoginError.BLACKLISTED_IP) {
+            throw new LoginException(loginError);
+        }
+        throw new CredentialsLoginException(loginError);
+    }
+
+    private int getErrorCode(String errorMessage) {
+        if (!errorMessage.contains("=")) {
+            return -1;
+        }
+        String[] tokens = errorMessage.split("=");
+        try {
+            return Integer.parseInt(tokens[1]);
+        } catch (Exception e) {
+            return -1;
         }
     }
 

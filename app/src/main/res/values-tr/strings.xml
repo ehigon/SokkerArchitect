@@ -52,6 +52,8 @@
     <string name="update_success_message">Sokker verileri başarıyla güncellendi</string>
     <string name="update_error_title">Güncelleme hatası</string>
     <string name="update_error_message">Sokker verileri güncellenemedi: </string>
+    <string name="login_error_title">Giriş yaparken hata oluştu</string>
+    <string name="login_error_message">"Sökker'e giriş yapılamadı: "</string>
     <string name="ok">TAMAM</string>
     <string name="increase">Arttırmak</string>
     <string name="decrease">Azaltmak</string>
@@ -65,4 +67,13 @@
     <string name="skill">Yetenek</string>
     <string name="weeks">Haftalar</string>
     <string name="junior_sc">Genç</string>
+    <string name="unknown">Beklenmeyen hata</string>
+    <string name="bad_password">Kötü kullanıcı veya şifre</string>
+    <string name="no_team">Kullanıcının ekibi yok</string>
+    <string name="banned">Kullanıcı yasaklandı</string>
+    <string name="bankrupt">Kullanıcı bir iflas etmiş kişidir</string>
+    <string name="blacklisted_ip">Kullanıcı IP\'si kara listeye alındı</string>
+    <string name="no_xmlsessid">XMLSESSID sokker yanıtında bulunamadı</string>
+    <string name="no_cookies">Sokker yanıtında çerez bulunamadı</string>
+    <string name="no_team_id">Sokker yanıtında takım kimliği bulunamadı</string>
 </resources>

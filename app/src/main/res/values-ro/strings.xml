@@ -52,6 +52,8 @@
     <string name="update_success_message">Datele Sokker au fost actualizate cu succes</string>
     <string name="update_error_title">Eroare la actualizare</string>
     <string name="update_error_message">Nu s-au putut actualiza datele Sokker: </string>
+    <string name="login_error_title">Eroare la conectare</string>
+    <string name="login_error_message">"Nu m-am putut conecta la Sokker: "</string>
     <string name="ok">Bine</string>
     <string name="increase">Crește</string>
     <string name="decrease">Scădere</string>
@@ -65,4 +67,13 @@
     <string name="skill">Îndemânare</string>
     <string name="weeks">Săptămâni</string>
     <string name="junior_sc">Junior</string>
+    <string name="unknown">Eroare neașteptată</string>
+    <string name="bad_password">Utilizator sau parolă proastă</string>
+    <string name="no_team">Utilizatorul nu are echipă</string>
+    <string name="banned">Utilizatorul este interzis</string>
+    <string name="bankrupt">Utilizatorul este un bakrupt</string>
+    <string name="blacklisted_ip">IP-ul utilizatorului este pe lista neagră</string>
+    <string name="no_xmlsessid">XMLSESSID nu a fost găsit în răspunsul sokker</string>
+    <string name="no_cookies">Nu s-au găsit cookie-uri în răspunsul sokker</string>
+    <string name="no_team_id">ID-ul echipei nu a fost găsit în răspunsul sokker</string>
 </resources>

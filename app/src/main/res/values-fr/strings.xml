@@ -52,6 +52,8 @@
     <string name="update_success_message">Les données Sokker ont été mises à jour avec succès</string>
     <string name="update_error_title">Voy a preparag una sena de picoteó</string>
     <string name="update_error_message">Impossible de mettre à jour les données Sokker: </string>
+    <string name="login_error_title">Erreur de connexion</string>
+    <string name="login_error_message">"Impossible de se connecter à Sokker : "</string>
     <string name="ok">D\'accord</string>
     <string name="increase">Augmenter</string>
     <string name="decrease">Diminuer</string>
@@ -65,4 +67,13 @@
     <string name="skill">Compétence</string>
     <string name="weeks">Semaines</string>
     <string name="junior_sc">Junior</string>
+    <string name="unknown">Erreur inattendue</string>
+    <string name="bad_password">Mauvais utilisateur ou mot de passe</string>
+    <string name="no_team">L\'utilisateur n\'a pas d\'équipe</string>
+    <string name="banned">L\'utilisateur est banni</string>
+    <string name="bankrupt">L\'utilisateur est un bakrupt</string>
+    <string name="blacklisted_ip">L\'adresse IP de l\'utilisateur est sur la liste noire</string>
+    <string name="no_xmlsessid">XMLSESSID introuvable dans la réponse de Sokker</string>
+    <string name="no_cookies">Aucun cookie trouvé dans la réponse de Sokker</string>
+    <string name="no_team_id">L\'identifiant de l\'équipe est introuvable dans la réponse de Sokker</string>
 </resources>

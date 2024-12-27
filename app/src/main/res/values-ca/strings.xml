@@ -52,6 +52,8 @@
     <string name="update_success_message">Les dades de Sokker han sigut actualitzades correctament</string>
     <string name="update_error_title">Error actualitzant</string>
     <string name="update_error_message">No s\'ha pogut actualitzar les dades de Sokker: </string>
+    <string name="login_error_title">Error iniciant sessió</string>
+    <string name="login_error_message">"No s'ha pogut iniciar sessió en sokker: "</string>
     <string name="ok">OK</string>
     <string name="increase">Increment</string>
     <string name="decrease">Decrement</string>
@@ -65,4 +67,13 @@
     <string name="skill">Habilitat</string>
     <string name="weeks">Setmanes</string>
     <string name="junior_sc">Juvenil</string>
+    <string name="unknown">Error inesperat</string>
+    <string name="bad_password">Usuari o clau incorrecta</string>
+    <string name="no_team">Usuari no te cap equip</string>
+    <string name="banned">Usuari expulsat</string>
+    <string name="bankrupt">Usuari en fallida</string>
+    <string name="blacklisted_ip">L\'IP de l\'usuari està en llista negra</string>
+    <string name="no_xmlsessid">No s\'ha trobat XMLSESSID en la resposta de sokker</string>
+    <string name="no_cookies">No s\'ha trobat cookies en la resposta de sokker</string>
+    <string name="no_team_id">No s\'ha trobat team id en la resposta de sokker</string>
 </resources>

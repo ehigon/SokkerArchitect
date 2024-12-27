@@ -52,6 +52,8 @@
     <string name="update_success_message">Dane Sokkera zostały pomyślnie zaktualizowane</string>
     <string name="update_error_title">Błąd aktualizacji</string>
     <string name="update_error_message">Nie można zaktualizować danych Sokkera: </string>
+    <string name="login_error_title">Błąd logowania</string>
+    <string name="login_error_message">"Nie można zalogować się do Sokkera: "</string>
     <string name="ok">OK</string>
     <string name="increase">Zwiększyć</string>
     <string name="decrease">Zmniejszenie</string>
@@ -65,4 +67,13 @@
     <string name="skill">Umiejętność</string>
     <string name="weeks">Tygodnie</string>
     <string name="junior_sc">Junior</string>
+    <string name="unknown">Nieoczekiwany błąd</string>
+    <string name="bad_password">Zły użytkownik lub hasło</string>
+    <string name="no_team">Użytkownik nie ma zespołu</string>
+    <string name="banned">Użytkownik jest zbanowany</string>
+    <string name="bankrupt">Użytkownik jest bankrutem</string>
+    <string name="blacklisted_ip">Adres IP użytkownika znajduje się na czarnej liście</string>
+    <string name="no_xmlsessid">W odpowiedzi sokkera nie znaleziono XMLSESSID</string>
+    <string name="no_cookies">W odpowiedzi sokkera nie znaleziono plików cookie</string>
+    <string name="no_team_id">W odpowiedzi sokkera nie znaleziono identyfikatora zespołu</string>
 </resources>

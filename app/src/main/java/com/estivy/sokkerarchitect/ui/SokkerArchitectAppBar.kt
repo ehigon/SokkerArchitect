@@ -26,7 +26,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.estivy.sokkerarchitect.R
+import com.estivy.sokkerarchitect.core.domain.exception.CredentialsLoginException
+import com.estivy.sokkerarchitect.core.domain.exception.LoginException
 import com.estivy.sokkerarchitect.core.service.UpdateService
+import com.estivy.sokkerarchitect.ui.screens.getMessage
+import com.estivy.sokkerarchitect.ui.util.LoginErrorMapping
 
 
 enum class MessageDialog {
@@ -53,8 +57,9 @@ fun SokkerArchitectAppBar(
     onNavigationIconClick: () -> Unit,
 ) {
     val shouldShowDialog = remember { mutableStateOf(MessageDialog.NONE) }
-    val errorMessage = remember { mutableStateOf(null as String?) }
     val updating = remember { mutableStateOf(UpdateState.NOT_STARTED) }
+    val exception = remember { mutableStateOf(null as RuntimeException?) }
+
     TopAppBar(
         title = { Text(stringResource(currentScreen.title)) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
@@ -82,9 +87,11 @@ fun SokkerArchitectAppBar(
                                 updating.value = UpdateState.SUCCESS
                                 shouldShowDialog.value = MessageDialog.SUCCESS
                             }.exceptionally { e ->
+                                if(e.cause != null && e.cause is RuntimeException){
+                                    exception.value = e.cause as RuntimeException
+                                }
                                 updating.value = UpdateState.ERROR
                                 e.printStackTrace()
-                                errorMessage.value = e.message
                                 shouldShowDialog.value = MessageDialog.ERROR
                             }
                     },
@@ -111,14 +118,17 @@ fun SokkerArchitectAppBar(
     if (shouldShowDialog.value == MessageDialog.SUCCESS) {
         UpdateAlertDialog(shouldShowDialog = shouldShowDialog)
     } else if (shouldShowDialog.value == MessageDialog.ERROR) {
-        UpdateErrorAlertDialog(shouldShowDialog = shouldShowDialog, errorMessage)
+        UpdateErrorAlertDialog(shouldShowDialog = shouldShowDialog, getMessage(exception.value))
     }
     if (updating.value == UpdateState.SUCCESS) {
         updating.value = UpdateState.NOT_STARTED
         navigateTo(SokkerArchitectScreen.PLAYERS.route)
     } else if (updating.value == UpdateState.ERROR) {
         updating.value = UpdateState.NOT_STARTED
-        navigateTo(SokkerArchitectScreen.LOGIN.route)
+        navigateTo(
+            if (exception.value is CredentialsLoginException) SokkerArchitectScreen.LOGIN.route
+            else SokkerArchitectScreen.PLAYERS.route
+        )
     }
 
 }
@@ -154,7 +164,7 @@ fun UpdateAlertDialog(
 @Composable
 fun UpdateErrorAlertDialog(
     shouldShowDialog: MutableState<MessageDialog>,
-    errorMessage: MutableState<String?>
+    errorMessage: String?
 ) {
     if (shouldShowDialog.value == MessageDialog.ERROR) {
         AlertDialog(
@@ -164,7 +174,7 @@ fun UpdateErrorAlertDialog(
             title = { Text(text = stringResource(R.string.update_error_title)) },
             text = {
                 Text(
-                    text = stringResource(R.string.update_error_message) + (errorMessage.value
+                    text = stringResource(R.string.update_error_message) + (errorMessage
                         ?: "")
                 )
             },

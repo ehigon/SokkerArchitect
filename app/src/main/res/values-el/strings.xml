@@ -52,6 +52,8 @@
     <string name="update_success_message">Τα δεδομένα Sokker ενημερώθηκαν με επιτυχία</string>
     <string name="update_error_title">Σφάλμα ενημέρωσης</string>
     <string name="update_error_message">Δεν ήταν δυνατή η ενημέρωση των δεδομένων Sokker: </string>
+    <string name="login_error_title">Σφάλμα κατά τη σύνδεση</string>
+    <string name="login_error_message">"Δεν ήταν δυνατή η σύνδεση στο Sokker: "</string>
     <string name="ok">ΕΝΤΑΞΕΙ</string>
     <string name="increase">Αύξηση</string>
     <string name="decrease">Μείωση</string>
@@ -65,4 +67,13 @@
     <string name="skill">Επιδεξιότητα</string>
     <string name="weeks">Εβδομάδες</string>
     <string name="junior_sc">Κατώτερος</string>
+    <string name="unknown">Απροσδόκητο σφάλμα</string>
+    <string name="bad_password">Λάθος χρήστης ή κωδικός πρόσβασης</string>
+    <string name="no_team">Ο χρήστης δεν έχει ομάδα</string>
+    <string name="banned">Ο χρήστης έχει αποκλειστεί</string>
+    <string name="bankrupt">Ο χρήστης είναι χρεοκοπημένος</string>
+    <string name="blacklisted_ip">Η IP χρήστη είναι στη μαύρη λίστα</string>
+    <string name="no_xmlsessid">Το XMLSESSID δεν βρέθηκε στην απάντηση sokker</string>
+    <string name="no_cookies">Δεν βρέθηκαν cookies στην απάντηση sokker</string>
+    <string name="no_team_id">Το αναγνωριστικό ομάδας δεν βρέθηκε στην απάντηση sokker</string>
 </resources>

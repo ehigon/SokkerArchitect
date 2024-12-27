@@ -238,11 +238,11 @@ public class UpdateRetrievalServiceTest {
         when(sokkerClient.getTrainers(anyString())).thenReturn(dtos.getTrainersDto());
         when(sokkerClient.getVars(anyString())).thenReturn(dtos.getVarsDto());
         when(sokkerClient.getMatches(anyString(), anyString())).thenReturn(dtos.getMatchesDto());
-        when(sokkerClient.getMatchDetail(XML_SESSION_ID, 41753136L))
+        when(sokkerClient.getMatchDetail(XML_SESSION_ID, 41973708L))
                 .thenReturn(dtos.getMatch41753112DetailDto());
-        when(sokkerClient.getMatchDetail(XML_SESSION_ID, 41753148L))
+        when(sokkerClient.getMatchDetail(XML_SESSION_ID, 41753112L))
                 .thenReturn(dtos.getMatch41753124DetailDto());
-        when(sokkerClient.getMatchDetail(XML_SESSION_ID, 41979864L))
+        when(sokkerClient.getMatchDetail(XML_SESSION_ID, 41753124L))
                 .thenReturn(dtos.getMatch41979864DetailDto());
         when(sokkerClient.getCountries(anyString()))
                 .thenReturn(dtos.getCountriesDto());

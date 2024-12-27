@@ -52,6 +52,8 @@
     <string name="update_success_message">I dati di Sokker sono stati aggiornati con successo</string>
     <string name="update_error_title">Errore durante l\'aggiornamento</string>
     <string name="update_error_message">Impossibile aggiornare i dati di Sokker: </string>
+    <string name="login_error_title">Errore durante l\'accesso</string>
+    <string name="login_error_message">"Impossibile accedere a Sokker: "</string>
     <string name="ok">OK</string>
     <string name="increase">Aumento</string>
     <string name="decrease">Diminuire</string>
@@ -65,4 +67,13 @@
     <string name="skill">Abilità</string>
     <string name="weeks">Settimane</string>
     <string name="junior_sc">Junior</string>
+    <string name="unknown">Errore imprevisto</string>
+    <string name="bad_password">Utente o password errati</string>
+    <string name="no_team">L\'utente non ha una squadra</string>
+    <string name="banned">L\'utente è stato bannato</string>
+    <string name="bankrupt">L\'utente è in fallimento</string>
+    <string name="blacklisted_ip">L\'IP dell\'utente è nella lista nera</string>
+    <string name="no_xmlsessid">XMLSESSID non trovato nella risposta del sokker</string>
+    <string name="no_cookies">Nessun cookie trovato nella risposta di sokker</string>
+    <string name="no_team_id">ID squadra non trovato nella risposta di Sokker</string>
 </resources>

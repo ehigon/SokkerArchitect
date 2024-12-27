@@ -39,7 +39,7 @@ public class UpdateService {
         return doUpdate(login, password)
                 .thenApply(nothing -> {
                     passwordStorageService.setCredentials(Pair.create(login, password));
-                    return nothing;
+                    return null;
                 });
     }
 

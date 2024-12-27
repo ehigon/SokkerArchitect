@@ -52,6 +52,8 @@
     <string name="update_success_message">Sokker data byla úspěšně aktualizována</string>
     <string name="update_error_title">Při aktualizaci došlo k chybě</string>
     <string name="update_error_message">Nelze aktualizovat data Sokker: </string>
+    <string name="login_error_title">Chyba při přihlašování</string>
+    <string name="login_error_message">"Nelze se přihlásit do Sokker: "</string>
     <string name="ok">OK</string>
     <string name="increase">Zvýšení</string>
     <string name="decrease">Pokles</string>
@@ -65,4 +67,13 @@
     <string name="skill">Dovednost</string>
     <string name="weeks">týdny</string>
     <string name="junior_sc">Juniorský</string>
+    <string name="unknown">Neočekávaná chyba</string>
+    <string name="bad_password">Špatný uživatel nebo heslo</string>
+    <string name="no_team">Uživatel nemá žádný tým</string>
+    <string name="banned">Uživatel je zakázán</string>
+    <string name="bankrupt">Uživatel je bakrupt</string>
+    <string name="blacklisted_ip">IP uživatele je na černé listině</string>
+    <string name="no_xmlsessid">XMLSESSID nebylo nalezeno v odpovědi Sokker</string>
+    <string name="no_cookies">V odpovědi sokker nebyly nalezeny žádné soubory cookie</string>
+    <string name="no_team_id">V odpovědi sokker nebylo nalezeno ID týmu</string>
 </resources>
