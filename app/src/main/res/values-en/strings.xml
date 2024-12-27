@@ -76,4 +76,5 @@
     <string name="no_xmlsessid">XMLSESSID not found in sokker response</string>
     <string name="no_cookies">No cookies found in sokker response</string>
     <string name="no_team_id">Team id not found in sokker response</string>
+    <string name="goalkeeper">Goalkeeper</string>
 </resources>

@@ -98,13 +98,22 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
             {
                 Text(player.name + " " + player.surname)
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().noRowPadding(evolution),
                     horizontalArrangement = Arrangement.End
                 )
                 {
+                    if(evolution.currentWeek.formation == JuniorFormation.GOALKEEPER){
+                        Image(
+                            painter = painterResource(id = R.drawable.goalkeeper),
+                            contentDescription = stringResource(id = R.string.goalkeeper),
+                            Modifier
+                                .padding(vertical = 2.dp, horizontal = 12.dp)
+                                .size(20.dp)
+                        )
+                    }
                     Text(
                         fontSize = 12.sp,
-                        text = stringResource(R.string.age) + ": " + player.age
+                        text = stringResource(R.string.age) + " " + player.age
                     )
                     TextWithValue(stringResource(R.string.skill), evolution.currentWeek.skill)
                     TextWithValue(
@@ -134,15 +143,22 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
     }
 }
 
+fun Modifier.noRowPadding(evolution: JuniorEvolution): Modifier {
+    if (evolution.getSkill() == 0) {
+        return this then Modifier.padding(horizontal = 12.dp)
+    }
+    return this
+}
+
 @Composable
 fun TextWithValue(name: String, value: Int) {
     Text(
-        modifier = Modifier.padding(start = 2.dp),
+        modifier = Modifier.padding(start = 8.dp),
         fontSize = 12.sp,
         text = name + if (value > 9) {
             ": "
         } else {
-            ":  "
+            ":   "
         } + value
     )
 }

@@ -76,4 +76,5 @@
     <string name="no_xmlsessid">لم يتم العثور على XMLSESSID في استجابة sokker</string>
     <string name="no_cookies">لم يتم العثور على ملفات تعريف الارتباط في استجابة سوكر</string>
     <string name="no_team_id">لم يتم العثور على معرف الفريق في استجابة Sokker</string>
+    <string name="goalkeeper">حارس المرمى</string>
 </resources>

@@ -76,4 +76,5 @@
     <string name="no_xmlsessid">XMLSESSID nebylo nalezeno v odpovědi Sokker</string>
     <string name="no_cookies">V odpovědi sokker nebyly nalezeny žádné soubory cookie</string>
     <string name="no_team_id">V odpovědi sokker nebylo nalezeno ID týmu</string>
+    <string name="goalkeeper">Brankář</string>
 </resources>

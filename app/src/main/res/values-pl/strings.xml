@@ -76,4 +76,5 @@
     <string name="no_xmlsessid">W odpowiedzi sokkera nie znaleziono XMLSESSID</string>
     <string name="no_cookies">W odpowiedzi sokkera nie znaleziono plików cookie</string>
     <string name="no_team_id">W odpowiedzi sokkera nie znaleziono identyfikatora zespołu</string>
+    <string name="goalkeeper">Bramkarz</string>
 </resources>

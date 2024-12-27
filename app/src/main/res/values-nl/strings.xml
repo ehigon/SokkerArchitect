@@ -76,4 +76,5 @@
     <string name="no_xmlsessid">XMLSESSID niet gevonden in sokker-antwoord</string>
     <string name="no_cookies">Geen cookies gevonden in sokkerreactie</string>
     <string name="no_team_id">Team-ID niet gevonden in sokker-antwoord</string>
+    <string name="goalkeeper">Doelman</string>
 </resources>

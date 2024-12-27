@@ -76,4 +76,5 @@
     <string name="no_xmlsessid">Το XMLSESSID δεν βρέθηκε στην απάντηση sokker</string>
     <string name="no_cookies">Δεν βρέθηκαν cookies στην απάντηση sokker</string>
     <string name="no_team_id">Το αναγνωριστικό ομάδας δεν βρέθηκε στην απάντηση sokker</string>
+    <string name="goalkeeper">Τερματοφύλακας</string>
 </resources>

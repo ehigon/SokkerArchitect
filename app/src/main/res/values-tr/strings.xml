@@ -76,4 +76,5 @@
     <string name="no_xmlsessid">XMLSESSID sokker yanıtında bulunamadı</string>
     <string name="no_cookies">Sokker yanıtında çerez bulunamadı</string>
     <string name="no_team_id">Sokker yanıtında takım kimliği bulunamadı</string>
+    <string name="goalkeeper">Kaleci</string>
 </resources>

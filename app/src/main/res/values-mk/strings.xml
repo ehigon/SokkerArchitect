@@ -76,4 +76,5 @@
     <string name="no_xmlsessid">XMLSESSID не е пронајден во sokker одговор</string>
     <string name="no_cookies">Не се пронајдени колачиња во одговорот на sokker</string>
     <string name="no_team_id">Тим id не се најде во sokker одговор</string>
+    <string name="goalkeeper">Голман</string>
 </resources>
