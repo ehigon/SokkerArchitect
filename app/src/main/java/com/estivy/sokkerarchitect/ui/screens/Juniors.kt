@@ -19,9 +19,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.estivy.sokkerarchitect.R
+import com.estivy.sokkerarchitect.core.domain.Country
+import com.estivy.sokkerarchitect.core.domain.JuniorFormation
+import com.estivy.sokkerarchitect.core.domain.JuniorStatus
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
@@ -87,12 +91,12 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
             modifier = Modifier.padding(8.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(player.name + " " + player.surname)
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.Bottom
             )
             {
+                Text(player.name + " " + player.surname)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
@@ -100,12 +104,12 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
                 {
                     Text(
                         fontSize = 12.sp,
-                        text = stringResource(R.string.skill) + ": " + evolution.currentWeek.skill
+                        text = stringResource(R.string.age) + ": " + player.age
                     )
-                    Text(
-                        modifier = Modifier.padding(start = 2.dp),
-                        fontSize = 12.sp,
-                        text = stringResource(R.string.weeks) + ": " + evolution.currentWeek.remainingWeeks
+                    TextWithValue(stringResource(R.string.skill), evolution.currentWeek.skill)
+                    TextWithValue(
+                        stringResource(R.string.weeks),
+                        evolution.currentWeek.remainingWeeks
                     )
                     if (evolution.getSkill() > 0) {
                         Image(
@@ -128,4 +132,55 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
             }
         }
     }
+}
+
+@Composable
+fun TextWithValue(name: String, value: Int) {
+    Text(
+        modifier = Modifier.padding(start = 2.dp),
+        fontSize = 12.sp,
+        text = name + if (value > 9) {
+            ": "
+        } else {
+            ":  "
+        } + value
+    )
+}
+
+@Preview
+@Composable
+fun JuniorRowPreview() {
+    val player: Player = Player.builder()
+        .name("Esteban")
+        .surname("Higon")
+        .value(1345678986)
+        .age(19)
+        .height(183)
+        .weight(80.5)
+        .cards(1)
+        .injuryDays(5)
+        .country(
+            Country.builder()
+                .name("Spain")
+                .countryId(34)
+                .build()
+        )
+        .juniorStatuses(
+            listOf(
+                JuniorStatus.builder()
+                    .week(123)
+                    .skill(7)
+                    .remainingWeeks(4)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .build(),
+                JuniorStatus.builder()
+                    .week(124)
+                    .skill(8)
+                    .remainingWeeks(3)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .build()
+            )
+        )
+        .build()
+    JuniorRow(player) { println(it) }
 }
