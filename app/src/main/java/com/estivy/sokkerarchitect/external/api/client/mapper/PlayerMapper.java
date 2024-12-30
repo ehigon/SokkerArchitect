@@ -56,6 +56,7 @@ public interface PlayerMapper {
                 getTrainingSkill(playerStatus.getTrainingType(), pTrainer)));
         setMinutesPlayed(playerStatus, player, lastWeekMatchDetails, team.getTeamId());
         setWeek(playerStatus, getTrainingWeek(vars));
+        setInjured(playerStatus, player, vars);
         return playerStatus;
     }
 
@@ -143,6 +144,18 @@ public interface PlayerMapper {
         playerStatus.setWeek(week);
     }
 
+    default void setInjured(PlayerStatus playerStatus, PlayerDto player, VarsDto vars){
+        playerStatus.setInjured(isInjuredInTrainingDay(player, vars));
+    }
+
+    default boolean isInjuredInTrainingDay(PlayerDto player, VarsDto vars) {
+        if(player.getInjuryDays()==0){
+            return false;
+        }
+        return player.getInjuryDays() + vars.getDay() - TRAINING_UPDATE_DAY
+                + (vars.getDay() >= TRAINING_UPDATE_DAY ? 0 : 7) >= 6;
+    }
+
     default Country findCountry(CountriesDto countriesDto, Integer countryId){
         return countriesDto.getCountries().stream()
                 .filter(c -> c.getCountryId().equals(countryId))
@@ -163,7 +176,7 @@ public interface PlayerMapper {
     PlayerStatus toDomainStatusBase(PlayerDto player);
 
     @Mapping(target = "juniorStatuses",
-            expression = "java(java.util.List.of(toDomainStatus(junior, vars)))")
+            expression = "java(java.util.List.of(toDomainStatus(junior, vars, optJuniorTrainer)))")
     @Mapping(target = "playerStatuses", ignore = true)
     @Mapping(target = "teamId", ignore = true)
     @Mapping(target = "youthTeamId", ignore = true)
@@ -180,13 +193,18 @@ public interface PlayerMapper {
     @Mapping(target = "injuryDays", ignore = true)
     @Mapping(target = "national", ignore = true)
     @Mapping(target = "name", source = "junior.name")
-    Player toDomain(JuniorDto junior, VarsDto vars, Country country);
+    Player toDomain(JuniorDto junior, VarsDto vars, Country country, Optional<TrainerDto> optJuniorTrainer);
 
     @Mapping(target = "remainingWeeks", source="junior.weeks")
     @Mapping(target = "formation",
             expression = "java(com.estivy.sokkerarchitect.core.domain.JuniorFormation.fromValue(" +
                     "junior.getFormation()))")
     @Mapping(target = "week", expression = "java(getTrainingWeek(vars))")
-    JuniorStatus toDomainStatus(JuniorDto junior, VarsDto vars);
+    @Mapping(target = "trainerSkill", expression = "java(getTrainingSkill(optJuniorTrainer))")
+    JuniorStatus toDomainStatus(JuniorDto junior, VarsDto vars, Optional<TrainerDto> optJuniorTrainer);
+
+    default Integer getTrainingSkill(Optional<TrainerDto> optJuniorTrainer){
+        return optJuniorTrainer.map(TrainerDto::getSkillCoach).orElse(null);
+    }
 
 }

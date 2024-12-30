@@ -31,5 +31,6 @@ public class PlayerStatus {
     private Integer unofficialMinutes;
     private Integer trainerSkill;
     private Long week;
-
+    private Integer age;
+    private Boolean injured;
 }

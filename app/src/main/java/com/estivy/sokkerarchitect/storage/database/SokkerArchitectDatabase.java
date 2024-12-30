@@ -1,7 +1,10 @@
 package com.estivy.sokkerarchitect.storage.database;
 
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.estivy.sokkerarchitect.storage.entities.CountryEntity;
 import com.estivy.sokkerarchitect.storage.entities.JuniorStatusEntity;
@@ -14,7 +17,7 @@ import com.estivy.sokkerarchitect.storage.repositories.PlayerStatusRepository;
 
 @Database(entities = {PlayerEntity.class, PlayerStatusEntity.class, JuniorStatusEntity.class,
         CountryEntity.class},
-        version = 1,
+        version = 2,
         exportSchema = false)
 public abstract class SokkerArchitectDatabase extends RoomDatabase {
 

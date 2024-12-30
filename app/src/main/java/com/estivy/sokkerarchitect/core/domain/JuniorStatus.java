@@ -16,4 +16,6 @@ public class JuniorStatus {
     private JuniorFormation formation;
     private Integer remainingWeeks;
     private Long week;
+    private Integer age;
+    private Integer trainerSkill;
 }

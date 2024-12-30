@@ -1,5 +1,6 @@
 package com.estivy.sokkerarchitect.storage.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -49,5 +50,6 @@ public class PlayerStatusEntity {
     private Integer unofficialMinutes;
     private Integer trainerSkill;
     private Long week;
-
+    private Integer age;
+    private Boolean injured;
 }

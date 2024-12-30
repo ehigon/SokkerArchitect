@@ -76,8 +76,9 @@ public class UpdateRetrievalService {
         Stream<Player> playerStream = players.getPlayers().stream()
                 .map(p -> playerMapper.toDomain(p, optPrincipalTrainer, teamDto,
                         lastWeekMatchDetails, vars, countries));
+        Optional<TrainerDto> optJuniorTrainer = getTrainer(trainers, TrainerJob.JUNIOR);
         Stream<Player> juniorStream = juniors.getJuniors().stream()
-                .map(j -> playerMapper.toDomain(j, vars, country));
+                .map(j -> playerMapper.toDomain(j, vars, country, optJuniorTrainer));
 
         return Stream.concat(playerStream, juniorStream).collect(Collectors.toList());
     }
@@ -109,7 +110,6 @@ public class UpdateRetrievalService {
     private boolean isInCurrentWeekTraining(MatchDto matchDto, Long week) {
         return (matchDto.getWeek().equals(week) && matchDto.getDay() < TRAINING_UPDATE_DAY)
                 || (matchDto.getWeek().equals(week - 1) && matchDto.getDay() >= TRAINING_UPDATE_DAY);
-
     }
 
 }

@@ -28,12 +28,16 @@ import com.estivy.sokkerarchitect.ui.theme.redGraph
 @Composable
 fun SkillProgress(player: Player, skill: Skill) {
     Column {
-        Row( modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally))
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .align(Alignment.CenterHorizontally))
         {
-            Text(text = player.name + " " +  player.surname + " - " + stringResource(skill.resource),
+            Text(
+                text = player.name + " " + player.surname + " - " + stringResource(skill.resource),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
-                color = blueSA)
+                color = blueSA
+            )
         }
         Graph(
             modifier = Modifier
@@ -53,11 +57,17 @@ fun SkillProgress(player: Player, skill: Skill) {
 
 private fun getPoints(player: Player, skill: Skill): List<GraphPoint> {
     return player.playerStatuses.sortedBy { it.week }
-        .map { GraphPoint(value = skill.skill(it), bar = 1f, getColor(skill, it)) }
+        .map {
+            GraphPoint(
+                value = skill.skill(it),
+                bar = if(it.injured != null && it.injured){0f} else{1f},
+                color = getColor(skill, it)
+            )
+        }
 }
 
 private fun getColor(skill: Skill, playerStatus: PlayerStatus): Color {
-    return if(skill.trained(playerStatus)) greenGraph else redGraph
+    return if (skill.trained(playerStatus)) greenGraph else redGraph
 }
 
 @Preview
@@ -94,6 +104,7 @@ fun SkillProgressPreview() {
                     .skillStamina(17)
                     .skillTeamwork(12)
                     .skillTechnique(14)
+                    .injured(false)
                     .trainingType(TrainingType.DEFENDING)
                     .build(),
                 PlayerStatus.builder()
@@ -109,10 +120,29 @@ fun SkillProgressPreview() {
                     .skillScoring(18)
                     .skillStamina(17)
                     .skillTeamwork(13)
+                    .injured(false)
                     .skillTechnique(15)
                     .trainingType(TrainingType.TECHNIQUE)
+                    .build(),
+                PlayerStatus.builder()
+                    .week(125)
+                    .skillForm(11)
+                    .skillPace(9)
+                    .skillKeeper(1)
+                    .skillPassing(13)
+                    .skillDefending(11)
+                    .skillDiscipline(10)
+                    .skillExperience(9)
+                    .skillPlaymaking(9)
+                    .skillScoring(18)
+                    .skillStamina(17)
+                    .skillTeamwork(13)
+                    .skillTechnique(15)
+                    .injured(true)
+                    .trainingType(TrainingType.TECHNIQUE)
                     .build()
-            )
+            ),
+
         )
         .build()
     SkillProgress(player, Skill.TECHNIQUE)
