@@ -44,6 +44,8 @@ public interface PlayerMapper {
     @Mapping(target = "country", expression = "java(findCountry(countries, player.getCountryId()))")
     @Mapping(target = "teamId", source = "player.teamId")
     @Mapping(target = "juniorStatuses", ignore = true)
+    @Mapping(target = "valueInCurrency", ignore = true)
+    @Mapping(target = "currency", ignore = true)
     Player toDomain(PlayerDto player, Optional<TrainerDto> optPrincipalTrainer, TeamDto team,
                     List<MatchDetailDto> lastWeekMatchDetails, VarsDto vars, CountriesDto countries);
 
@@ -173,6 +175,7 @@ public interface PlayerMapper {
     @Mapping(target = "trainingType", ignore = true)
     @Mapping(target = "trainerSkill", ignore = true)
     @Mapping(target = "week", ignore = true)
+    @Mapping(target = "injured", ignore = true)
     PlayerStatus toDomainStatusBase(PlayerDto player);
 
     @Mapping(target = "juniorStatuses",
@@ -193,6 +196,8 @@ public interface PlayerMapper {
     @Mapping(target = "injuryDays", ignore = true)
     @Mapping(target = "national", ignore = true)
     @Mapping(target = "name", source = "junior.name")
+    @Mapping(target = "valueInCurrency", ignore = true)
+    @Mapping(target = "currency", ignore = true)
     Player toDomain(JuniorDto junior, VarsDto vars, Country country, Optional<TrainerDto> optJuniorTrainer);
 
     @Mapping(target = "remainingWeeks", source="junior.weeks")

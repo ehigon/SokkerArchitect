@@ -56,7 +56,7 @@ public class PlayerStorageServiceIT {
         PlayerStatusRepository playerStatusRepository = db.playerStatusRepository();
         JuniorStatusRepository juniorStatusRepository = db.juniorStatusRepository();
         playerStorageService = new PlayerStorageService(playerRepository, playerStatusRepository,
-                juniorStatusRepository, PlayerEntityMapper.INSTANCE);
+                juniorStatusRepository, PlayerEntityMapper.INSTANCE, db.teamRepository());
         CountryRepository countryRepository = db.countryRepository();
         countryRepository.save(mapJsonFileToClass("countryEntities.json",
                 new TypeReference<List<CountryEntity>>() {

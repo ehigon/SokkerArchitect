@@ -31,7 +31,7 @@ class SokkerArchitectApplication: Application(){
             applicationContext,
             SokkerArchitectDatabase::class.java,
             "sokker_architect_database"
-        ).addMigrations(MIGRATION_1_2)
+        ).addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
     }
 
@@ -46,4 +46,10 @@ class SokkerArchitectApplication: Application(){
         }
     }
 
+    private val MIGRATION_2_3 = object : Migration(2, 3) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `team` (`id` INTEGER, `teamId` INTEGER, `name` TEXT, `countryId` INTEGER, `regionId` INTEGER, `dateCreated` TEXT, `rank` REAL, `national` INTEGER, `colShirtKeep` INTEGER, `colTrausKeep` INTEGER, `colShirt` INTEGER, `colTraus` INTEGER, `colShirt2` INTEGER, `colTraus2` INTEGER, `arenaName` TEXT, `money` INTEGER, `fanclubCount` INTEGER, `fanclubMood` INTEGER, `juniorsMax` INTEGER, `trainingTypeGk` INTEGER, `trainingTypeDef` INTEGER, `trainingTypeMid` INTEGER, `trainingTypeAtt` INTEGER, PRIMARY KEY(`id`), FOREIGN KEY(`countryId`) REFERENCES `countries`(`countryId`) ON UPDATE NO ACTION ON DELETE NO ACTION )")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_team_countryId` ON `team` (`countryId`)")
+        }
+    }
 }

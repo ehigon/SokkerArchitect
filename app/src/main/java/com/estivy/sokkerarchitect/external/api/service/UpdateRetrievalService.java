@@ -20,6 +20,7 @@ import com.estivy.sokkerarchitect.external.api.client.dto.TrainerDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.TrainersDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.VarsDto;
 import com.estivy.sokkerarchitect.external.api.client.mapper.PlayerMapper;
+import com.estivy.sokkerarchitect.external.api.client.mapper.TeamMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,10 +35,13 @@ public class UpdateRetrievalService {
 
     private final PlayerMapper playerMapper;
 
+    private final TeamMapper teamMapper;
+
     @Inject
-    public UpdateRetrievalService(SokkerClient sokkerClient, PlayerMapper playerMapper) {
+    public UpdateRetrievalService(SokkerClient sokkerClient, PlayerMapper playerMapper, TeamMapper teamMapper) {
         this.sokkerClient = sokkerClient;
         this.playerMapper = playerMapper;
+        this.teamMapper = teamMapper;
     }
 
     public Status getUpdate(String login, String password) {
@@ -63,7 +67,7 @@ public class UpdateRetrievalService {
         Status status = new Status();
         status.setPlayers(getPlayerList(juniors, players, trainers, lastWeekMatchDetails, teamDto,
                 vars, countries));
-        status.setTeamCountry(playerMapper.findCountry(countries, teamDto.getCountryId()));
+        status.setTeam(teamMapper.mapToDomain(teamDto));
         status.setCountries(playerMapper.mapCountriesToDomain(countries.getCountries()));
         return status;
     }

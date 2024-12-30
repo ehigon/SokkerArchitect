@@ -4,11 +4,14 @@ import com.estivy.sokkerarchitect.core.domain.Player;
 import com.estivy.sokkerarchitect.storage.entities.JuniorStatusEntity;
 import com.estivy.sokkerarchitect.storage.entities.PlayerEntity;
 import com.estivy.sokkerarchitect.storage.entities.PlayerStatusEntity;
+import com.estivy.sokkerarchitect.storage.entities.TeamEntity;
 import com.estivy.sokkerarchitect.storage.mapper.PlayerEntityMapper;
 import com.estivy.sokkerarchitect.storage.relations.PlayerWithStatuses;
+import com.estivy.sokkerarchitect.storage.relations.TeamWithCountry;
 import com.estivy.sokkerarchitect.storage.repositories.JuniorStatusRepository;
 import com.estivy.sokkerarchitect.storage.repositories.PlayerRepository;
 import com.estivy.sokkerarchitect.storage.repositories.PlayerStatusRepository;
+import com.estivy.sokkerarchitect.storage.repositories.TeamRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,24 +30,28 @@ public class PlayerStorageService {
 
     private final PlayerEntityMapper playerEntityMapper;
 
+    private final TeamRepository teamRepository;
 
     @Inject
     public PlayerStorageService(PlayerRepository playerRepository, PlayerStatusRepository playerStatusRepository, JuniorStatusRepository juniorStatusRepository,
-                                PlayerEntityMapper playerEntityMapper){
+                                PlayerEntityMapper playerEntityMapper, TeamRepository teamRepository){
         this.playerRepository = playerRepository;
         this.playerStatusRepository = playerStatusRepository;
         this.juniorStatusRepository = juniorStatusRepository;
         this.playerEntityMapper = playerEntityMapper;
+        this.teamRepository = teamRepository;
     }
 
     public List<Player> findSeniorActivePlayers(){
         List<PlayerWithStatuses> playerWithStatuses = playerRepository.findAllSeniorCompleteActive();
-        return playerEntityMapper.mapToDomain(playerWithStatuses);
+        TeamWithCountry team = teamRepository.findTeamWithcountry();
+        return playerEntityMapper.mapToDomain(playerWithStatuses, team.getCountry());
     }
 
     public List<Player> findJuniorActivePlayers(){
         List<PlayerWithStatuses> playerWithStatuses = playerRepository.findAllJuniorCompleteActive();
-        return playerEntityMapper.mapToDomain(playerWithStatuses);
+        TeamWithCountry team = teamRepository.findTeamWithcountry();
+        return playerEntityMapper.mapToDomain(playerWithStatuses, team.getCountry());
     }
 
     public void save(List<Player> players) {

@@ -2,6 +2,7 @@ package com.estivy.sokkerarchitect.external.api.client.conf;
 
 import com.estivy.sokkerarchitect.external.api.client.SokkerAPI;
 import com.estivy.sokkerarchitect.external.api.client.mapper.PlayerMapper;
+import com.estivy.sokkerarchitect.external.api.client.mapper.TeamMapper;
 import com.tickaroo.tikxml.TikXml;
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory;
 
@@ -33,6 +34,11 @@ public class SokkerClientModule {
     @Provides
     public PlayerMapper providedPlayerMapper(){
         return PlayerMapper.INSTANCE;
+    }
+
+    @Provides
+    public TeamMapper providedTeamMapper(){
+        return TeamMapper.INSTANCE;
     }
 
 }

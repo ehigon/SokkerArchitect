@@ -1,5 +1,6 @@
 package com.estivy.sokkerarchitect.ui.screens
 
+import android.icu.text.DecimalFormat
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -56,13 +57,14 @@ private fun Name(player: Player) {
 
 @Composable
 private fun Characteristics(player: Player, navigateTo: (route: String) -> Unit) {
+    val dec = DecimalFormat("#,###")
     Text(
         stringResource(R.string.age) + " " + player.age,
         Modifier.padding(top = 10.dp),
         style = characteritic
     )
     Text(
-        stringResource(R.string.value) + " " + player.value,
+        stringResource(R.string.value) + " " + dec.format(player.valueInCurrency) + " " + player.currency,
         style = characteritic
     )
     Text(
@@ -339,6 +341,8 @@ fun PlayerPreview() {
         .name("Esteban")
         .surname("Higon")
         .value(1345678986)
+        .valueInCurrency(336419746.5)
+        .currency("€")
         .age(23)
         .height(183)
         .weight(80.5)

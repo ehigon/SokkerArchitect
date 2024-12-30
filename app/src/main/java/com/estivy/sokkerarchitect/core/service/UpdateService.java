@@ -7,6 +7,7 @@ import com.estivy.sokkerarchitect.external.api.service.UpdateRetrievalService;
 import com.estivy.sokkerarchitect.security.service.PasswordStorageService;
 import com.estivy.sokkerarchitect.storage.service.CountryStorageService;
 import com.estivy.sokkerarchitect.storage.service.PlayerStorageService;
+import com.estivy.sokkerarchitect.storage.service.TeamStorageService;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -22,12 +23,15 @@ public class UpdateService {
 
     private final PasswordStorageService passwordStorageService;
 
+    private final TeamStorageService teamStorageService;
+
     @Inject
-    public UpdateService(UpdateRetrievalService updateRetrievalService, PlayerStorageService storeService, CountryStorageService countryStorageService, PasswordStorageService passwordStorageService) {
+    public UpdateService(UpdateRetrievalService updateRetrievalService, PlayerStorageService storeService, CountryStorageService countryStorageService, PasswordStorageService passwordStorageService, TeamStorageService teamStorageService) {
         this.updateRetrievalService = updateRetrievalService;
         this.playerStorageService = storeService;
         this.countryStorageService = countryStorageService;
         this.passwordStorageService = passwordStorageService;
+        this.teamStorageService = teamStorageService;
     }
 
     public CompletableFuture<Void> update() {
@@ -48,6 +52,7 @@ public class UpdateService {
             Status status = updateRetrievalService.getUpdate(login, password);
             countryStorageService.saveCountries(status.getCountries());
             playerStorageService.save(status.getPlayers());
+            teamStorageService.save(status.getTeam());
             return null;
         });
     }

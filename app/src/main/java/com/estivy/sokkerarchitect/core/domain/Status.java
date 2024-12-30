@@ -18,10 +18,10 @@ public class Status {
 
     private List<Player> players;
 
-    private Country teamCountry;
-
     private Long week;
 
     private List<Country> countries;
+
+    private Team team;
 
 }

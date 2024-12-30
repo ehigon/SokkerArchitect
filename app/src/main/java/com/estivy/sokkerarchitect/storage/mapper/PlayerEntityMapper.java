@@ -3,6 +3,7 @@ package com.estivy.sokkerarchitect.storage.mapper;
 import com.estivy.sokkerarchitect.core.domain.JuniorStatus;
 import com.estivy.sokkerarchitect.core.domain.Player;
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus;
+import com.estivy.sokkerarchitect.storage.entities.CountryEntity;
 import com.estivy.sokkerarchitect.storage.entities.JuniorStatusEntity;
 import com.estivy.sokkerarchitect.storage.entities.PlayerEntity;
 import com.estivy.sokkerarchitect.storage.entities.PlayerStatusEntity;
@@ -13,6 +14,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Mapper
@@ -44,29 +46,40 @@ public interface PlayerEntityMapper {
     @Mapping(target = "id", ignore = true)
     JuniorStatusEntity mapToEntity(JuniorStatus juniorStatus, Long playerId);
 
-    List<Player> mapToDomain(List<PlayerWithStatuses> playerWithStatuses);
+    default List<Player> mapToDomain(List<PlayerWithStatuses> playerWithStatuses, CountryEntity country){
+        return playerWithStatuses.stream().map(p -> mapToDomain(p, country))
+                .collect(Collectors.toList());
+    }
 
-    @Mapping(target = "id", source = "player.id")
-    @Mapping(target = "name", source = "player.name")
-    @Mapping(target = "surname", source = "player.surname")
+    @Mapping(target = "id", source = "player.player.id")
+    @Mapping(target = "name", source = "player.player.name")
+    @Mapping(target = "surname", source = "player.player.surname")
     //@Mapping(target = "country", source = "player.country")
-    @Mapping(target = "age", source = "player.age")
-    @Mapping(target = "height", source = "player.height")
-    @Mapping(target = "weight", source = "player.weight")
-    @Mapping(target = "bmi", source = "player.bmi")
-    @Mapping(target = "teamId", source = "player.teamId")
-    @Mapping(target = "youthTeamId", source = "player.youthTeamId")
-    @Mapping(target = "value", source = "player.value")
-    @Mapping(target = "wage", source = "player.wage")
-    @Mapping(target = "cards", source = "player.cards")
-    @Mapping(target = "goals", source = "player.goals")
-    @Mapping(target = "assists", source = "player.assists")
-    @Mapping(target = "matches", source = "player.matches")
-    @Mapping(target = "ntCards", source = "player.ntCards")
-    @Mapping(target = "ntGoals", source = "player.ntGoals")
-    @Mapping(target = "ntAssists", source = "player.ntAssists")
-    @Mapping(target = "ntMatches", source = "player.ntMatches")
-    @Mapping(target = "injuryDays", source = "player.injuryDays")
-    @Mapping(target = "national", source = "player.national")
-    Player mapToDomain(PlayerWithStatuses playerWithStatuses);
+    @Mapping(target = "age", source = "player.player.age")
+    @Mapping(target = "height", source = "player.player.height")
+    @Mapping(target = "weight", source = "player.player.weight")
+    @Mapping(target = "bmi", source = "player.player.bmi")
+    @Mapping(target = "teamId", source = "player.player.teamId")
+    @Mapping(target = "youthTeamId", source = "player.player.youthTeamId")
+    @Mapping(target = "value", source = "player.player.value")
+    @Mapping(target = "wage", source = "player.player.wage")
+    @Mapping(target = "cards", source = "player.player.cards")
+    @Mapping(target = "goals", source = "player.player.goals")
+    @Mapping(target = "assists", source = "player.player.assists")
+    @Mapping(target = "matches", source = "player.player.matches")
+    @Mapping(target = "ntCards", source = "player.player.ntCards")
+    @Mapping(target = "ntGoals", source = "player.player.ntGoals")
+    @Mapping(target = "ntAssists", source = "player.player.ntAssists")
+    @Mapping(target = "ntMatches", source = "player.player.ntMatches")
+    @Mapping(target = "injuryDays", source = "player.player.injuryDays")
+    @Mapping(target = "national", source = "player.player.national")
+    @Mapping(target = "valueInCurrency", expression = "java(getValueInCurrency(player, country))")
+    @Mapping(target = "currency", source = "country.currencyName")
+    Player mapToDomain(PlayerWithStatuses player, CountryEntity country);
+
+    default Double getValueInCurrency(PlayerWithStatuses player, CountryEntity country){
+        return Optional.of(player.getPlayer().getValue())
+                .map(v -> v / country.getCurrencyRate())
+                .orElse(null);
+    }
 }

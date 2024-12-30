@@ -30,6 +30,8 @@ public class Player {
     private Long teamId;
     private Long youthTeamId;
     private Long value;
+    private Double valueInCurrency;
+    private String currency;
     private Long wage;
     private Integer cards;
     private Integer goals;

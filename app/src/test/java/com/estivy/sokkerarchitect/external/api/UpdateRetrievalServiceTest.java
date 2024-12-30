@@ -22,6 +22,7 @@ import com.estivy.sokkerarchitect.external.api.client.dto.TeamDataDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.TrainersDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.VarsDto;
 import com.estivy.sokkerarchitect.external.api.client.mapper.PlayerMapper;
+import com.estivy.sokkerarchitect.external.api.client.mapper.TeamMapper;
 import com.estivy.sokkerarchitect.external.api.service.UpdateRetrievalService;
 import com.estivy.sokkerarchitect.external.api.util.TestingDtos;
 import com.estivy.sokkerarchitect.external.api.util.TrainingResult;
@@ -49,7 +50,8 @@ public class UpdateRetrievalServiceTest {
 
     @Before
     public void setUp() {
-        updateRetrievalService = new UpdateRetrievalService(sokkerClient, PlayerMapper.INSTANCE);
+        updateRetrievalService = new UpdateRetrievalService(
+                sokkerClient, PlayerMapper.INSTANCE, TeamMapper.INSTANCE);
     }
 
     @Test
@@ -64,7 +66,8 @@ public class UpdateRetrievalServiceTest {
 
     private void checkResults(TestingDtos dtos, Status status) throws IOException {
         List<TrainingResult> trainingResults = mapJsonFileToClass(
-                "trainingResults.json", new TypeReference<List<TrainingResult>>() {});
+                "trainingResults.json", new TypeReference<List<TrainingResult>>() {
+                });
         dtos.getJuniorsDto().getJuniors().forEach(j -> checkJunior(j, dtos, status));
         dtos.getPlayersDto().getPlayers().forEach(
                 p -> checkPlayer(p, dtos, status, findTrainingResult(p.getId(), trainingResults)));
@@ -73,12 +76,12 @@ public class UpdateRetrievalServiceTest {
 
     private void checkCountry(TeamDataDto teamDataDto, Status status) {
         Assert.assertEquals("Team country should match",
-                teamDataDto.getTeam().getCountryId(), status.getTeamCountry().getCountryId());
+                teamDataDto.getTeam().getCountryId(), status.getTeam().getCountryId());
     }
 
     private TrainingResult findTrainingResult(Long id, List<TrainingResult> trainingResults) {
         Optional<TrainingResult> optionalTrainingResult = trainingResults.stream()
-                .filter(tr-> tr.getId().equals(id))
+                .filter(tr -> tr.getId().equals(id))
                 .findFirst();
         Assert.assertTrue(optionalTrainingResult.isPresent());
         return optionalTrainingResult.get();

@@ -3,10 +3,12 @@ package com.estivy.sokkerarchitect.storage.conf;
 import com.estivy.sokkerarchitect.SokkerArchitectApplication;
 import com.estivy.sokkerarchitect.storage.mapper.CountryEntityMapper;
 import com.estivy.sokkerarchitect.storage.mapper.PlayerEntityMapper;
+import com.estivy.sokkerarchitect.storage.mapper.TeamEntityMapper;
 import com.estivy.sokkerarchitect.storage.repositories.CountryRepository;
 import com.estivy.sokkerarchitect.storage.repositories.JuniorStatusRepository;
 import com.estivy.sokkerarchitect.storage.repositories.PlayerRepository;
 import com.estivy.sokkerarchitect.storage.repositories.PlayerStatusRepository;
+import com.estivy.sokkerarchitect.storage.repositories.TeamRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -39,6 +41,11 @@ public class StorageModule {
     }
 
     @Provides
+    public TeamRepository teamRepository(){
+        return SokkerArchitectApplication.database.teamRepository();
+    }
+
+    @Provides
     public PlayerEntityMapper providedPlayerMapper(){
         return PlayerEntityMapper.INSTANCE;
     }
@@ -46,6 +53,11 @@ public class StorageModule {
     @Provides
     public CountryEntityMapper providedCountryMapper(){
         return CountryEntityMapper.INSTANCE;
+    }
+
+    @Provides
+    public TeamEntityMapper providedTeamMapper(){
+        return TeamEntityMapper.INSTANCE;
     }
 
 }
