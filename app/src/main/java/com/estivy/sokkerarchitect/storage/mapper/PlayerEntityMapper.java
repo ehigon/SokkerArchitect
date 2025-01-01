@@ -78,7 +78,7 @@ public interface PlayerEntityMapper {
     Player mapToDomain(PlayerWithStatuses player, CountryEntity country);
 
     default Double getValueInCurrency(PlayerWithStatuses player, CountryEntity country){
-        return Optional.of(player.getPlayer().getValue())
+        return Optional.ofNullable(player.getPlayer().getValue())
                 .map(v -> v / country.getCurrencyRate())
                 .orElse(null);
     }
