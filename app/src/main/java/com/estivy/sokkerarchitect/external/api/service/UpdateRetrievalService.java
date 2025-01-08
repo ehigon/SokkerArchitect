@@ -2,17 +2,21 @@ package com.estivy.sokkerarchitect.external.api.service;
 
 import static com.estivy.sokkerarchitect.external.api.client.mapper.PlayerMapper.TRAINING_UPDATE_DAY;
 
+import androidx.annotation.NonNull;
+
 import com.estivy.sokkerarchitect.core.domain.Country;
 import com.estivy.sokkerarchitect.core.domain.Player;
 import com.estivy.sokkerarchitect.core.domain.Status;
 import com.estivy.sokkerarchitect.core.domain.TrainerJob;
 import com.estivy.sokkerarchitect.external.api.client.SokkerClient;
 import com.estivy.sokkerarchitect.external.api.client.dto.CountriesDto;
+import com.estivy.sokkerarchitect.external.api.client.dto.JuniorDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.JuniorsDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.LoginResultDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchesDto;
+import com.estivy.sokkerarchitect.external.api.client.dto.PlayerDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.PlayersDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.TeamDataDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.TeamDto;
@@ -77,14 +81,28 @@ public class UpdateRetrievalService {
                                        CountriesDto countries) {
         Country country = playerMapper.findCountry(countries, teamDto.getCountryId());
         Optional<TrainerDto> optPrincipalTrainer = getTrainer(trainers, TrainerJob.PRINCIPAL);
-        Stream<Player> playerStream = players.getPlayers().stream()
+        Stream<Player> playerStream = getPlayersStream(players)
                 .map(p -> playerMapper.toDomain(p, optPrincipalTrainer, teamDto,
                         lastWeekMatchDetails, vars, countries));
         Optional<TrainerDto> optJuniorTrainer = getTrainer(trainers, TrainerJob.JUNIOR);
-        Stream<Player> juniorStream = juniors.getJuniors().stream()
+        Stream<Player> juniorStream = getJuniorStream(juniors)
                 .map(j -> playerMapper.toDomain(j, vars, country, optJuniorTrainer));
 
         return Stream.concat(playerStream, juniorStream).collect(Collectors.toList());
+    }
+
+    private static @NonNull Stream<PlayerDto> getPlayersStream(PlayersDto players) {
+        if(players.getPlayers() == null){
+            return Stream.empty();
+        }
+        return players.getPlayers().stream();
+    }
+
+    private static @NonNull Stream<JuniorDto> getJuniorStream(JuniorsDto juniors) {
+        if(juniors.getJuniors() == null){
+            return Stream.empty();
+        }
+        return juniors.getJuniors().stream();
     }
 
 

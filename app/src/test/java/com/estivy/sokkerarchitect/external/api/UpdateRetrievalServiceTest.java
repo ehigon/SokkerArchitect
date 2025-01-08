@@ -64,13 +64,27 @@ public class UpdateRetrievalServiceTest {
         checkResults(dtos, status);
     }
 
+    @Test
+    public void given_sokkerClient_when_getUpdateWithVoidJuniors_updateIsReceived() throws IOException {
+        TestingDtos dtos = loadDtosWithVoidJuniors();
+        mockSokkerClient(dtos);
+
+        Status status = updateRetrievalService.getUpdate("login", "password");
+
+        checkResults(dtos, status);
+    }
+
     private void checkResults(TestingDtos dtos, Status status) throws IOException {
         List<TrainingResult> trainingResults = mapJsonFileToClass(
                 "trainingResults.json", new TypeReference<List<TrainingResult>>() {
                 });
-        dtos.getJuniorsDto().getJuniors().forEach(j -> checkJunior(j, dtos, status));
-        dtos.getPlayersDto().getPlayers().forEach(
-                p -> checkPlayer(p, dtos, status, findTrainingResult(p.getId(), trainingResults)));
+        if(dtos.getJuniorsDto().getJuniors() != null) {
+            dtos.getJuniorsDto().getJuniors().forEach(j -> checkJunior(j, dtos, status));
+        }
+        if(dtos.getPlayersDto().getPlayers() != null) {
+            dtos.getPlayersDto().getPlayers().forEach(
+                    p -> checkPlayer(p, dtos, status, findTrainingResult(p.getId(), trainingResults)));
+        }
         checkCountry(dtos.getTeamDataDto(), status);
     }
 
@@ -214,6 +228,24 @@ public class UpdateRetrievalServiceTest {
     private TestingDtos loadDtos() throws IOException {
         return TestingDtos.builder()
                 .juniorsDto(mapXmlFileToClass("juniors.xml", JuniorsDto.class))
+                .playersDto(mapXmlFileToClass("players-20425.xml", PlayersDto.class))
+                .teamDataDto(mapXmlFileToClass("team-20425.xml", TeamDataDto.class))
+                .trainersDto(mapXmlFileToClass("trainers.xml", TrainersDto.class))
+                .varsDto(mapXmlFileToClass("vars.xml", VarsDto.class))
+                .matchesDto(mapXmlFileToClass("matches-team-20425.xml", MatchesDto.class))
+                .match41753112DetailDto(mapXmlFileToClass(
+                        "match-41753112.xml", MatchDetailDto.class))
+                .match41753124DetailDto(mapXmlFileToClass(
+                        "match-41753124.xml", MatchDetailDto.class))
+                .match41979864DetailDto(mapXmlFileToClass(
+                        "match-41979864.xml", MatchDetailDto.class))
+                .countriesDto(mapXmlFileToClass("countries.xml", CountriesDto.class))
+                .build();
+    }
+
+    private TestingDtos loadDtosWithVoidJuniors() throws IOException {
+        return TestingDtos.builder()
+                .juniorsDto(mapXmlFileToClass("juniors_void.xml", JuniorsDto.class))
                 .playersDto(mapXmlFileToClass("players-20425.xml", PlayersDto.class))
                 .teamDataDto(mapXmlFileToClass("team-20425.xml", TeamDataDto.class))
                 .trainersDto(mapXmlFileToClass("trainers.xml", TrainersDto.class))

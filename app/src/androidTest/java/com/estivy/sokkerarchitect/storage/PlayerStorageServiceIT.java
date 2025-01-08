@@ -18,12 +18,14 @@ import com.estivy.sokkerarchitect.storage.database.SokkerArchitectDatabase;
 import com.estivy.sokkerarchitect.storage.entities.CountryEntity;
 import com.estivy.sokkerarchitect.storage.entities.JuniorStatusEntity;
 import com.estivy.sokkerarchitect.storage.entities.PlayerStatusEntity;
+import com.estivy.sokkerarchitect.storage.entities.TeamEntity;
 import com.estivy.sokkerarchitect.storage.mapper.PlayerEntityMapper;
 import com.estivy.sokkerarchitect.storage.relations.PlayerWithStatuses;
 import com.estivy.sokkerarchitect.storage.repositories.CountryRepository;
 import com.estivy.sokkerarchitect.storage.repositories.JuniorStatusRepository;
 import com.estivy.sokkerarchitect.storage.repositories.PlayerRepository;
 import com.estivy.sokkerarchitect.storage.repositories.PlayerStatusRepository;
+import com.estivy.sokkerarchitect.storage.repositories.TeamRepository;
 import com.estivy.sokkerarchitect.storage.service.PlayerStorageService;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -61,6 +63,11 @@ public class PlayerStorageServiceIT {
         countryRepository.save(mapJsonFileToClass("countryEntities.json",
                 new TypeReference<List<CountryEntity>>() {
                 }));
+        TeamRepository teamRepository = db.teamRepository();
+        teamRepository.save(TeamEntity.builder()
+                        .id(23456)
+                        .countryId(19)
+                .build());
     }
 
     @After
