@@ -21,9 +21,11 @@ import com.estivy.sokkerarchitect.ui.theme.greenGraph
 @Composable
 fun Junior(player: Player) {
     Column {
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.CenterHorizontally))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterHorizontally)
+        )
         {
             Text(
                 text = player.name + " " + player.surname,
@@ -33,13 +35,7 @@ fun Junior(player: Player) {
             )
         }
         Graph(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(500.dp),
-            yValues = (0..17).map { (it + 1) },
             points = getPoints(player),
-            paddingSpace = 16.dp,
-            verticalStep = 1,
             graphAppearance = GraphAppearance(
                 graphAxisColor = Color.Black,
                 backgroundColor = Color.White
@@ -51,5 +47,12 @@ fun Junior(player: Player) {
 @Composable
 private fun getPoints(player: Player): List<GraphPoint> {
     return player.juniorStatuses.sortedBy { it.week }
-        .map { GraphPoint(value = it.skill, bar = 1f, greenGraph) }
+        .map {
+            GraphPoint(
+                value = it.skill,
+                bar = (if(it.trainerSkill == null) 18 else it.trainerSkill) / 18.0F,
+                color = greenGraph,
+                week = if (it.week == null) 0 else it.week.toInt()
+            )
+        }
 }

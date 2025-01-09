@@ -77,4 +77,5 @@
     <string name="no_cookies">Не се пронајдени колачиња во одговорот на sokker</string>
     <string name="no_team_id">Тим id не се најде во sokker одговор</string>
     <string name="goalkeeper">Голман</string>
+    <string name="weeks_ago">пред неколку недели</string>
 </resources>

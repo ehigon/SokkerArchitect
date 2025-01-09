@@ -3,39 +3,53 @@ package com.estivy.sokkerarchitect.ui.screens.composables
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PointMode
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.ui.screens.model.GraphAppearance
 import com.estivy.sokkerarchitect.ui.screens.model.GraphPoint
 
 
+private const val POINTS_IN_SCREEN = 10
+
+private const val GRAPH_HEIGHT = 500
+
 @Composable
 fun Graph(
-    modifier: Modifier,
-    yValues: List<Int>,
     points: List<GraphPoint>,
-    paddingSpace: Dp,
-    verticalStep: Int,
     graphAppearance: GraphAppearance
 ) {
+    val verticalStep = 1
+    val yValues = (-1..17).map { (it + 1) * verticalStep }
+    val screenWidth = LocalConfiguration.current.screenWidthDp
+    val paddingSpace = 16
     val density = LocalDensity.current
     val textPaint = remember(density) {
         Paint().apply {
@@ -44,39 +58,49 @@ fun Graph(
             textSize = density.run { 12.sp.toPx() }
         }
     }
-
-    Box(
-        modifier = modifier
-            .background(graphAppearance.backgroundColor)
-            .padding(horizontal = 8.dp, vertical = 12.dp),
-        contentAlignment = Center
-    ) {
-        Canvas(
-            modifier = Modifier.fillMaxSize(),
+    Column {
+        Row(
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp)
         ) {
-            val xAxisSpace = (size.width - paddingSpace.toPx()) / points.size
-            val yAxisSpace = size.height / yValues.size
-            drawBars(points, xAxisSpace)
-            placeXAxisPoints(points.size, xAxisSpace, textPaint)
-            placeYAxisPoints(yValues, paddingSpace, yAxisSpace, textPaint)
-            drawLines(points, xAxisSpace, yAxisSpace, verticalStep, graphAppearance)
+            Column() {
+                Canvas(
+                    modifier = Modifier
+                        .width(16.dp)
+                        .height(GRAPH_HEIGHT.dp)
+                ) {
+                    val yAxisSpace = size.height / yValues.size
+                    placeYAxisPoints(yValues, paddingSpace.dp, yAxisSpace, textPaint)
+                }
+            }
+            Column() {
+                val scrollState = rememberScrollState(Int.MAX_VALUE)
+                Row(
+                    modifier = Modifier.horizontalScroll(scrollState)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(GRAPH_HEIGHT.dp)
+                            .width((((screenWidth - (paddingSpace)) / POINTS_IN_SCREEN) * points.size).dp)
+                            .background(graphAppearance.backgroundColor)
+                    ) {
+                        Canvas(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            val xAxisSpace = size.width / points.size
+                            val yAxisSpace = size.height / yValues.size
+                            drawBars(points, xAxisSpace, yAxisSpace)
+                            placeXAxisPoints(points, xAxisSpace, textPaint)
+                            drawYPointingLines(yValues, yAxisSpace)
+                            drawLines(points, xAxisSpace, yAxisSpace, verticalStep, graphAppearance)
+                        }
+                    }
+                }
+            }
         }
-    }
-}
-
-
-private fun DrawScope.placeXAxisPoints(
-    points: Int,
-    xAxisSpace: Float,
-    textPaint: Paint
-) {
-    for (i in 0 until points) {
-        drawContext.canvas.nativeCanvas.drawText(
-            "${i + 1}",
-            (xAxisSpace * (i + 1)) - (xAxisSpace / points),
-            size.height - 30,
-            textPaint
-        )
+        Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+            Text(stringResource(R.string.weeks_ago))
+        }
     }
 }
 
@@ -96,18 +120,57 @@ private fun DrawScope.placeYAxisPoints(
     }
 }
 
+private fun DrawScope.drawYPointingLines(yValues: List<Int>, yAxisSpace: Float) {
+    val dotPadding = yAxisSpace / 4
+    for (i in yValues.indices) {
+        var j = 0.0F
+        val points : MutableList<Offset> = mutableListOf()
+        while (j < size.width) {
+            points.add(Offset(x = j, y = size.height - yAxisSpace * (i + 1)))
+            j += dotPadding
+        }
+        drawPoints(
+            points = points,
+            pointMode = PointMode.Points,
+            color = Color.Black,
+            strokeWidth = 7f,
+            cap = StrokeCap.Round
+        )
+    }
+}
+
+private fun DrawScope.placeXAxisPoints(
+    points: List<GraphPoint>,
+    xAxisSpace: Float,
+    textPaint: Paint
+) {
+    val lastWeek = points.last().week
+    for (i in points.indices) {
+        drawContext.canvas.nativeCanvas.drawText(
+            "${points[i].week - lastWeek}",
+            (xAxisSpace / 2) + (xAxisSpace * (i)),
+            size.height - 30,
+            textPaint
+        )
+    }
+}
+
 private fun DrawScope.drawBars(
     points: List<GraphPoint>,
-    xAxisSpace: Float
+    xAxisSpace: Float,
+    yAxisSpace: Float
 ) {
     val padding = xAxisSpace * 0.2f
-    for (i in 0 until points.size) {
-        val x = (xAxisSpace * (i + 1)) - (xAxisSpace / points.size) - (xAxisSpace / 2) + (padding/2)
-        val y = size.height * (1-points[i].bar)
+    for (i in points.indices) {
+        val x = (xAxisSpace / 2) + (xAxisSpace * (i)) - (xAxisSpace / 2) + (padding / 2)
+        val y = (size.height - yAxisSpace) * (1 - points[i].bar)
         drawRect(
             color = points[i].color,
             topLeft = Offset(x = x, y = y),
-            size = Size(height = size.height * points[i].bar, width = xAxisSpace - padding)
+            size = Size(
+                height = ((size.height - yAxisSpace) * points[i].bar),
+                width = xAxisSpace - padding
+            )
         )
     }
 }
@@ -120,10 +183,10 @@ private fun DrawScope.drawLines(
     graphAppearance: GraphAppearance
 ) {
     for (i in 0 until points.size - 1) {
-        val x1 = (xAxisSpace * (i + 1)) - (xAxisSpace / points.size)
-        val y1 = size.height - (yAxisSpace * (points[i].value / verticalStep.toFloat()))
-        val x2 = (xAxisSpace * (i + 2)) - (xAxisSpace / points.size)
-        val y2 = size.height - (yAxisSpace * (points[i + 1].value / verticalStep.toFloat()))
+        val x1 = (xAxisSpace / 2) + (xAxisSpace * (i))
+        val y1 = size.height - (yAxisSpace * ((points[i].value + 1) / verticalStep.toFloat()))
+        val x2 = (xAxisSpace / 2) + (xAxisSpace * (i + 1))
+        val y2 = size.height - (yAxisSpace * ((points[i + 1].value + 1) / verticalStep.toFloat()))
         drawLine(
             start = Offset(x = x1, y = y1),
             end = Offset(x = x2, y = y2),
@@ -136,29 +199,23 @@ private fun DrawScope.drawLines(
 @Preview
 @Composable
 fun GraphPreview() {
-    val yStep = 1
     val points = listOf(
-        GraphPoint(value = 12, bar = 0.8f, color = Color.Green),
-        GraphPoint(value = 13, bar = 0.9f, color = Color.Green),
-        GraphPoint(value = 13, bar = 1f, color = Color.Green),
-        GraphPoint(value = 13, bar = 0.8f, color = Color.Green),
-        GraphPoint(value = 13, bar = 0.8f, color = Color.Green),
-        GraphPoint(value = 13, bar = 0.8f, color = Color.Green),
-        GraphPoint(value = 14, bar = 0.95f, color = Color.Red),
-        GraphPoint(value = 14, bar = 0.8f, color = Color.Green),
-        GraphPoint(value = 14, bar = 0.8f, color = Color.Green),
-        GraphPoint(value = 14, bar = 0.8f, color = Color.Green),
-        GraphPoint(value = 15, bar = 0.8f, color = Color.Green),
-        GraphPoint(value = 15, bar = 0.8f, color = Color.Green)
+        GraphPoint(value = 12, bar = 0.8f, color = Color.Green, week = 115),
+        GraphPoint(value = 13, bar = 0.9f, color = Color.Green, week = 116),
+        GraphPoint(value = 13, bar = 1f, color = Color.Green, week = 117),
+        GraphPoint(value = 13, bar = 0.8f, color = Color.Green, week = 118),
+        GraphPoint(value = 13, bar = 0.8f, color = Color.Green, week = 119),
+        GraphPoint(value = 13, bar = 0.8f, color = Color.Green, week = 120),
+        GraphPoint(value = 14, bar = 0.95f, color = Color.Red, week = 121),
+        GraphPoint(value = 14, bar = 0.8f, color = Color.Green, week = 122),
+        GraphPoint(value = 14, bar = 0.8f, color = Color.Green, week = 123),
+        GraphPoint(value = 14, bar = 0.8f, color = Color.Green, week = 124),
+        GraphPoint(value = 15, bar = 0.8f, color = Color.Green, week = 126),
+        GraphPoint(value = 15, bar = 0.8f, color = Color.Green, week = 127),
+        GraphPoint(value = 15, bar = 0.8f, color = Color.Green, week = 128)
     )
     Graph(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(500.dp),
-        yValues = (0..17).map { (it + 1) * yStep },
         points = points,
-        paddingSpace = 16.dp,
-        verticalStep = yStep,
         graphAppearance = GraphAppearance(
             graphAxisColor = Color.Black,
             backgroundColor = Color.White

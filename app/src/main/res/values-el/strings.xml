@@ -77,4 +77,5 @@
     <string name="no_cookies">Δεν βρέθηκαν cookies στην απάντηση sokker</string>
     <string name="no_team_id">Το αναγνωριστικό ομάδας δεν βρέθηκε στην απάντηση sokker</string>
     <string name="goalkeeper">Τερματοφύλακας</string>
+    <string name="weeks_ago">πριν από εβδομάδες</string>
 </resources>

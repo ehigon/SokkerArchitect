@@ -77,4 +77,5 @@
     <string name="no_cookies">Nenhum cookie encontrado na resposta do sokker</string>
     <string name="no_team_id">ID da equipe não encontrado na resposta do sokker</string>
     <string name="goalkeeper">Goleiro</string>
+    <string name="weeks_ago">Semanas atrás</string>
 </resources>

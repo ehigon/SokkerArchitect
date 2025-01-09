@@ -77,4 +77,5 @@
     <string name="no_cookies">Odpowiedź z Sokkera nie zawierała żadnych ciasteczek</string>
     <string name="no_team_id">Odpowiedź z Sokkera nie zawierała identyfikatora zespołu</string>
     <string name="goalkeeper">Bramkarz</string>
+    <string name="weeks_ago">"Tygodnie temu "</string>
 </resources>

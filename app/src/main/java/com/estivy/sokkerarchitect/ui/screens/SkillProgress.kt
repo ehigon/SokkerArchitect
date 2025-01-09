@@ -3,7 +3,6 @@ package com.estivy.sokkerarchitect.ui.screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.estivy.sokkerarchitect.core.domain.Country
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus
@@ -24,6 +22,7 @@ import com.estivy.sokkerarchitect.ui.screens.model.Skill
 import com.estivy.sokkerarchitect.ui.theme.blueSA
 import com.estivy.sokkerarchitect.ui.theme.greenGraph
 import com.estivy.sokkerarchitect.ui.theme.redGraph
+import com.estivy.sokkerarchitect.ui.util.calculateEfficiency
 
 @Composable
 fun SkillProgress(player: Player, skill: Skill) {
@@ -40,13 +39,7 @@ fun SkillProgress(player: Player, skill: Skill) {
             )
         }
         Graph(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(500.dp),
-            yValues = (0..17).map { (it + 1) },
             points = getPoints(player, skill),
-            paddingSpace = 16.dp,
-            verticalStep = 1,
             graphAppearance = GraphAppearance(
                 graphAxisColor = Color.Black,
                 backgroundColor = Color.White
@@ -60,10 +53,15 @@ private fun getPoints(player: Player, skill: Skill): List<GraphPoint> {
         .map {
             GraphPoint(
                 value = skill.skill(it),
-                bar = if(it.injured != null && it.injured){0f} else{1f},
-                color = getColor(skill, it)
+                bar = if(it.injured != null && it.injured){0f} else{getTraining(it, skill)},
+                color = getColor(skill, it),
+                week = if(it.week == null) 0 else it.week.toInt()
             )
         }
+}
+
+fun getTraining(playerStatus: PlayerStatus, skill: Skill): Float {
+    return ((calculateEfficiency(playerStatus, skill)/100) * (playerStatus.trainerSkill?:0)/18).toFloat()
 }
 
 private fun getColor(skill: Skill, playerStatus: PlayerStatus): Color {

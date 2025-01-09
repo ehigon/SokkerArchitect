@@ -77,4 +77,5 @@
     <string name="no_cookies">No s\'ha trobat cookies en la resposta de sokker</string>
     <string name="no_team_id">No s\'ha trobat team id en la resposta de sokker</string>
     <string name="goalkeeper">Porter</string>
+    <string name="weeks_ago">Setmanes enrere</string>
 </resources>
