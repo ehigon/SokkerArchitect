@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.service.UpdateService
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
+import com.estivy.sokkerarchitect.ui.screens.composables.getMessage
 
 enum class Status {
     NONE,

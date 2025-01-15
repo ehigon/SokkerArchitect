@@ -27,6 +27,9 @@ class PlayersViewModel @Inject constructor(private val playersService: PlayersSe
     var juniorsUiState: PlayersUiState by mutableStateOf(PlayersUiState.Loading)
 
     fun retrievePlayers() {
+        if(playersUiState is PlayersUiState.Success){
+            return
+        }
         viewModelScope.launch((Dispatchers.Default)) {
             playersUiState = PlayersUiState.Loading
             playersUiState = try {
@@ -38,6 +41,9 @@ class PlayersViewModel @Inject constructor(private val playersService: PlayersSe
     }
 
     fun retrieveJuniors() {
+        if(juniorsUiState is PlayersUiState.Success){
+            return
+        }
         viewModelScope.launch((Dispatchers.Default)) {
             juniorsUiState = PlayersUiState.Loading
             juniorsUiState = try {
@@ -47,5 +53,10 @@ class PlayersViewModel @Inject constructor(private val playersService: PlayersSe
             }
 
         }
+    }
+
+    fun dataUpdated(){
+        playersUiState = PlayersUiState.Loading
+        juniorsUiState = PlayersUiState.Loading
     }
 }

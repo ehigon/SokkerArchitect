@@ -39,7 +39,8 @@ fun Junior(player: Player) {
             graphAppearance = GraphAppearance(
                 graphAxisColor = Color.Black,
                 backgroundColor = Color.White
-            )
+            ),
+            listener = {}
         )
     }
 }

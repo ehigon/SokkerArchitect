@@ -1,35 +1,65 @@
 package com.estivy.sokkerarchitect.ui.screens
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.zIndex
+import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.domain.Country
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus
 import com.estivy.sokkerarchitect.core.domain.TrainingType
 import com.estivy.sokkerarchitect.ui.screens.composables.Graph
+import com.estivy.sokkerarchitect.ui.screens.composables.Training
 import com.estivy.sokkerarchitect.ui.screens.model.GraphAppearance
 import com.estivy.sokkerarchitect.ui.screens.model.GraphPoint
 import com.estivy.sokkerarchitect.ui.screens.model.Skill
 import com.estivy.sokkerarchitect.ui.theme.blueSA
 import com.estivy.sokkerarchitect.ui.theme.greenGraph
+import com.estivy.sokkerarchitect.ui.theme.playerTitle
 import com.estivy.sokkerarchitect.ui.theme.redGraph
 import com.estivy.sokkerarchitect.ui.util.calculateEfficiency
 
 @Composable
 fun SkillProgress(player: Player, skill: Skill) {
+    val sortedPlayerStatuses = player.playerStatuses.sortedBy { it.week }
+    val show = remember { mutableStateOf(false) }
+    val status = remember { mutableStateOf(PlayerStatus.builder().build()) }
+    val weeksAgo = remember { mutableLongStateOf(0) }
     Column {
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.CenterHorizontally))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterHorizontally)
+        )
         {
             Text(
                 text = player.name + " " + player.surname + " - " + stringResource(skill.resource),
@@ -39,33 +69,79 @@ fun SkillProgress(player: Player, skill: Skill) {
             )
         }
         Graph(
-            points = getPoints(player, skill),
+            points = getPoints(sortedPlayerStatuses, skill),
             graphAppearance = GraphAppearance(
                 graphAxisColor = Color.Black,
                 backgroundColor = Color.White
-            )
+            ),
+            listener = {
+                if (it < sortedPlayerStatuses.size) {
+                    status.value = sortedPlayerStatuses[it]
+                    weeksAgo.longValue =
+                        sortedPlayerStatuses[it].week - sortedPlayerStatuses[sortedPlayerStatuses.size - 1].week
+                    show.value = true
+                }
+            }
         )
     }
+    TrainingPopUpBox(show, status, weeksAgo)
 }
 
-private fun getPoints(player: Player, skill: Skill): List<GraphPoint> {
-    return player.playerStatuses.sortedBy { it.week }
+private fun getPoints(playerStatuses: List<PlayerStatus>, skill: Skill): List<GraphPoint> {
+    return playerStatuses
         .map {
             GraphPoint(
                 value = skill.skill(it),
-                bar = if(it.injured != null && it.injured){0f} else{getTraining(it, skill)},
+                bar = getTraining(it),
                 color = getColor(skill, it),
-                week = if(it.week == null) 0 else it.week.toInt()
+                week = if (it.week == null) 0 else it.week.toInt()
             )
         }
 }
 
-fun getTraining(playerStatus: PlayerStatus, skill: Skill): Float {
-    return ((calculateEfficiency(playerStatus, skill)/100) * (playerStatus.trainerSkill?:0)/18).toFloat()
+fun getTraining(playerStatus: PlayerStatus): Float {
+    return ((calculateEfficiency(playerStatus) / 100) * (playerStatus.trainerSkill
+        ?: 0) / 18).toFloat()
 }
 
 private fun getColor(skill: Skill, playerStatus: PlayerStatus): Color {
     return if (skill.trained(playerStatus)) greenGraph else redGraph
+}
+
+@Composable
+fun TrainingPopUpBox(
+    show: MutableState<Boolean>,
+    status: MutableState<PlayerStatus>,
+    weeksAgo: MutableState<Long>
+) {
+    if (show.value) {
+        Popup(
+            alignment = Alignment.Center,
+            onDismissRequest = {
+                show.value = false
+            },
+            content = {
+                Box(
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .clip(RoundedCornerShape(4.dp))
+                        .border(BorderStroke(2.dp, MaterialTheme.colorScheme.secondary))
+                        .padding(10.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column {
+                        Text(
+                            stringResource(R.string.weeks_ago) + ": " + weeksAgo.value,
+                            Modifier.padding(top = 10.dp),
+                            style = playerTitle,
+                            color = MaterialTheme.colorScheme.secondary
+                        )
+                        Training(status.value)
+                    }
+                }
+            },
+        )
+    }
 }
 
 @Preview
@@ -141,7 +217,7 @@ fun SkillProgressPreview() {
                     .build()
             ),
 
-        )
+            )
         .build()
     SkillProgress(player, Skill.TECHNIQUE)
 }

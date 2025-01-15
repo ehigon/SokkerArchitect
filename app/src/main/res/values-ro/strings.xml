@@ -78,4 +78,14 @@
     <string name="no_team_id">ID-ul echipei nu a fost găsit în răspunsul sokker</string>
     <string name="goalkeeper">Portar</string>
     <string name="weeks_ago">Cu săptămâni în urmă</string>
+    <string name="characteritics">Caracteristici</string>
+    <string name="skills">Abilități</string>
+    <string name="last_training">Ultimul antrenament</string>
+    <string name="training_type">Tip de antrenament</string>
+    <string name="general">General</string>
+    <string name="official_minutes">Minute oficiale</string>
+    <string name="unofficial_minutes">Minute neoficiale</string>
+    <string name="coach_skill">Abilitatea de antrenor</string>
+    <string name="efficiency">Eficienţă</string>
+    <string name="injured">Accidentat</string>
 </resources>

@@ -78,4 +78,14 @@
     <string name="no_team_id">Team id not found in sokker response</string>
     <string name="goalkeeper">Goalkeeper</string>
     <string name="weeks_ago">Weeks ago</string>
+    <string name="characteritics">Characteristics</string>
+    <string name="skills">Skills</string>
+    <string name="last_training">Last training</string>
+    <string name="training_type">Training type</string>
+    <string name="general">General</string>
+    <string name="official_minutes">Official minutes</string>
+    <string name="unofficial_minutes">Non official minutes</string>
+    <string name="coach_skill">Coach\'s skill</string>
+    <string name="efficiency">Efficiency</string>
+    <string name="injured">Injured</string>
 </resources>

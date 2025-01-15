@@ -78,4 +78,14 @@
     <string name="no_team_id">Odpowiedź z Sokkera nie zawierała identyfikatora zespołu</string>
     <string name="goalkeeper">Bramkarz</string>
     <string name="weeks_ago">"Tygodnie temu "</string>
+    <string name="characteritics">Charakterystyka</string>
+    <string name="skills">Umiejętności</string>
+    <string name="last_training">Ostatni trening</string>
+    <string name="training_type">Typ szkolenia</string>
+    <string name="general">Ogólny</string>
+    <string name="official_minutes">Oficjalne minuty</string>
+    <string name="unofficial_minutes">Nieoficjalne minuty</string>
+    <string name="coach_skill">Umiejętność trenera</string>
+    <string name="efficiency">Efektywność</string>
+    <string name="injured">Ranny</string>
 </resources>

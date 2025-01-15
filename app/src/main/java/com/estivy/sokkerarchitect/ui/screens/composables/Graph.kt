@@ -3,6 +3,7 @@ package com.estivy.sokkerarchitect.ui.screens.composables
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -35,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.ui.screens.model.GraphAppearance
 import com.estivy.sokkerarchitect.ui.screens.model.GraphPoint
+import com.estivy.sokkerarchitect.ui.screens.model.TrainingWeekClickedEvent
 
 
 private const val POINTS_IN_SCREEN = 10
@@ -44,7 +47,8 @@ private const val GRAPH_HEIGHT = 500
 @Composable
 fun Graph(
     points: List<GraphPoint>,
-    graphAppearance: GraphAppearance
+    graphAppearance: GraphAppearance,
+    listener: (Int) -> Unit
 ) {
     val verticalStep = 1
     val yValues = (-1..17).map { (it + 1) * verticalStep }
@@ -85,7 +89,15 @@ fun Graph(
                             .background(graphAppearance.backgroundColor)
                     ) {
                         Canvas(
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .pointerInput(Unit) {
+                                    detectTapGestures(
+                                        onTap = { tapOffset ->
+                                            listener.invoke((tapOffset.x /(size.width / points.size)).toInt())
+                                        }
+                                    )
+                                }
                         ) {
                             val xAxisSpace = size.width / points.size
                             val yAxisSpace = size.height / yValues.size
@@ -124,7 +136,7 @@ private fun DrawScope.drawYPointingLines(yValues: List<Int>, yAxisSpace: Float) 
     val dotPadding = yAxisSpace / 4
     for (i in yValues.indices) {
         var j = 0.0F
-        val points : MutableList<Offset> = mutableListOf()
+        val points: MutableList<Offset> = mutableListOf()
         while (j < size.width) {
             points.add(Offset(x = j, y = size.height - yAxisSpace * (i + 1)))
             j += dotPadding
@@ -218,7 +230,8 @@ fun GraphPreview() {
         points = points,
         graphAppearance = GraphAppearance(
             graphAxisColor = Color.Black,
-            backgroundColor = Color.White
-        )
+            backgroundColor = Color.White,
+        ),
+        listener = {}
     )
 }

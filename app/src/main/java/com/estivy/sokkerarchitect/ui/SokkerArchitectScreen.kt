@@ -122,7 +122,8 @@ fun SokkerArchitectApp(
                         scope.launch {
                             drawerState.open()
                         }
-                    }
+                    },
+                    playersViewModel = playersViewModel
                 )
             }
         ) { innerPadding ->

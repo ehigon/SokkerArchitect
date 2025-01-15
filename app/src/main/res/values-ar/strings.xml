@@ -78,4 +78,14 @@
     <string name="no_team_id">لم يتم العثور على معرف الفريق في استجابة Sokker</string>
     <string name="goalkeeper">حارس المرمى</string>
     <string name="weeks_ago">منذ أسابيع</string>
+    <string name="characteritics">صفات</string>
+    <string name="skills">مهارات</string>
+    <string name="last_training">التدريب الأخير</string>
+    <string name="training_type">نوع التدريب</string>
+    <string name="general">عام</string>
+    <string name="official_minutes">محاضر رسمية</string>
+    <string name="unofficial_minutes">محاضر غير رسمية</string>
+    <string name="coach_skill">مهارة المدرب</string>
+    <string name="efficiency">كفاءة</string>
+    <string name="injured">مصاب</string>
 </resources>

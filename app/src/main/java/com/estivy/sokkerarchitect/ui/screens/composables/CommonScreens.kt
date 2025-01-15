@@ -1,4 +1,4 @@
-package com.estivy.sokkerarchitect.ui.screens
+package com.estivy.sokkerarchitect.ui.screens.composables
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

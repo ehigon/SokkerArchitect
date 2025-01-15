@@ -2,6 +2,7 @@ package com.estivy.sokkerarchitect.ui.screens
 
 import android.icu.text.DecimalFormat
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -9,8 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,23 +30,30 @@ import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.domain.Country
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus
+import com.estivy.sokkerarchitect.core.domain.TrainingType
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
+import com.estivy.sokkerarchitect.ui.screens.composables.Training
+import com.estivy.sokkerarchitect.ui.screens.composables.skill
 import com.estivy.sokkerarchitect.ui.theme.attributes
 import com.estivy.sokkerarchitect.ui.theme.attributesDown
 import com.estivy.sokkerarchitect.ui.theme.attributesUp
-import com.estivy.sokkerarchitect.ui.theme.characteritic
+import com.estivy.sokkerarchitect.ui.theme.characteristic
 import com.estivy.sokkerarchitect.ui.theme.title
 import com.estivy.sokkerarchitect.ui.util.Evolution
 import com.estivy.sokkerarchitect.ui.screens.model.Skill
+import com.estivy.sokkerarchitect.ui.theme.playerTitle
 
 @Composable
 fun Player(player: Player, navigateTo: (route: String) -> Unit) {
+    val scrollState = rememberScrollState()
     Column(
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.Start,
+        modifier = Modifier.verticalScroll(scrollState)
     ) {
         Name(player)
-        Characteristics(player, navigateTo)
-        Attributes(player, navigateTo)
+        Characteristics(player)
+        Skills(player, navigateTo)
+        TrainingWithTitle(player)
     }
 }
 
@@ -56,40 +67,50 @@ private fun Name(player: Player) {
 }
 
 @Composable
-private fun Characteristics(player: Player, navigateTo: (route: String) -> Unit) {
+private fun Characteristics(player: Player) {
     val dec = DecimalFormat("#,###")
     Text(
-        stringResource(R.string.age) + " " + player.age,
+        stringResource(R.string.characteritics),
         Modifier.padding(top = 10.dp),
-        style = characteritic
+        style = playerTitle,
+        color = MaterialTheme.colorScheme.secondary
+    )
+    Text(
+        stringResource(R.string.age) + " " + player.age,
+        style = characteristic
     )
     Text(
         stringResource(R.string.value) + " " + dec.format(player.valueInCurrency) + " " + player.currency,
-        style = characteritic
+        style = characteristic
     )
     Text(
         stringResource(R.string.height) + " " + player.height
                 + " " + stringResource(R.string.cm),
-        style = characteritic
+        style = characteristic
     )
     Text(
         stringResource(R.string.weight) + " " + player.weight
                 + " " + stringResource(R.string.kg),
-        style = characteritic
+        style = characteristic
     )
     Cards(player)
     Injury(player)
 }
 
 @Composable
-fun Attributes(player: Player, navigateTo: (route: String) -> Unit) {
+fun Skills(player: Player, navigateTo: (route: String) -> Unit) {
     val evolution = Evolution(player)
     val status = evolution.currentWeek
+    Text(
+        stringResource(R.string.skills),
+        Modifier.padding(top = 10.dp),
+        style = playerTitle,
+        color = MaterialTheme.colorScheme.secondary
+    )
     Row {
         Column {
             Text(
                 stringResource(R.string.tactical_discipline) + ":",
-                Modifier.padding(top = 14.dp),
                 style = attributes
             )
             Text(
@@ -133,7 +154,6 @@ fun Attributes(player: Player, navigateTo: (route: String) -> Unit) {
         Column(Modifier.padding(horizontal = 7.dp)) {
             Text(
                 skill(status.skillDiscipline),
-                Modifier.padding(top = 14.dp),
                 style = getAttributesStyle(evolution.getSkillDiscipline())
             )
             Text(
@@ -175,36 +195,35 @@ fun Attributes(player: Player, navigateTo: (route: String) -> Unit) {
             )
         }
         Column {
-            ProgressBar(player = player,
+            ProgressButton(player = player,
                 skill = Skill.DISCIPLINE,
-                navigateTo = navigateTo,
-                modifier = Modifier.padding(top = 14.dp))
-            ProgressBar(player = player,
+                navigateTo = navigateTo)
+            ProgressButton(player = player,
                 skill = Skill.FORM,
                 navigateTo = navigateTo)
-            ProgressBar(player = player,
+            ProgressButton(player = player,
                 skill = Skill.STAMINA,
                 navigateTo = navigateTo)
-            ProgressBar(player = player,
+            ProgressButton(player = player,
                 skill = Skill.PACE,
                 navigateTo = navigateTo,
                 modifier = Modifier.padding(top = 14.dp))
-            ProgressBar(player = player,
+            ProgressButton(player = player,
                 skill = Skill.TECHNIQUE,
                 navigateTo = navigateTo)
-            ProgressBar(player = player,
+            ProgressButton(player = player,
                 skill = Skill.PASSING,
                 navigateTo = navigateTo)
-            ProgressBar(player = player,
+            ProgressButton(player = player,
                 skill = Skill.KEEPER,
                 navigateTo = navigateTo)
-            ProgressBar(player = player,
+            ProgressButton(player = player,
                 skill = Skill.DEFENDING,
                 navigateTo = navigateTo)
-            ProgressBar(player = player,
+            ProgressButton(player = player,
                 skill = Skill.PLAYMAKING,
                 navigateTo = navigateTo)
-            ProgressBar(player = player,
+            ProgressButton(player = player,
                 skill = Skill.SCORING,
                 navigateTo = navigateTo)
         }
@@ -212,30 +231,14 @@ fun Attributes(player: Player, navigateTo: (route: String) -> Unit) {
 }
 
 @Composable
-private fun skill(skill: Int): String {
-    val skillName: String = when (skill) {
-        0 -> stringResource(R.string.tragic)
-        1 -> stringResource(R.string.hopeless)
-        2 -> stringResource(R.string.unsatisfactory)
-        3 -> stringResource(R.string.poor)
-        4 -> stringResource(R.string.weak)
-        5 -> stringResource(R.string.average)
-        6 -> stringResource(R.string.adequate)
-        7 -> stringResource(R.string.good)
-        8 -> stringResource(R.string.solid)
-        9 -> stringResource(R.string.very_good)
-        10 -> stringResource(R.string.excellent)
-        11 -> stringResource(R.string.formidable)
-        12 -> stringResource(R.string.outstanding)
-        13 -> stringResource(R.string.incredible)
-        14 -> stringResource(R.string.brilliant)
-        15 -> stringResource(R.string.magical)
-        16 -> stringResource(R.string.unearthly)
-        17 -> stringResource(R.string.divine)
-        18 -> stringResource(R.string.superdivine)
-        else -> ""
-    }
-    return "$skill ($skillName)"
+private fun TrainingWithTitle(player: Player) {
+    Text(
+        stringResource(R.string.last_training),
+        Modifier.padding(top = 10.dp),
+        style = playerTitle,
+        color = MaterialTheme.colorScheme.secondary
+    )
+    Training((player.playerStatuses.maxBy { ps -> ps.week }) ?: PlayerStatus())
 }
 
 fun getAttributesStyle(skillDiscipline: Int): TextStyle {
@@ -254,7 +257,7 @@ private fun Cards(player: Player) {
         Row {
             Text(
                 stringResource(R.string.cards),
-                style = characteritic
+                style = characteristic
             )
             if (player.cards <= 2) {
                 for (i in 0 until player.cards) {
@@ -262,7 +265,7 @@ private fun Cards(player: Player) {
                         painter = painterResource(id = R.drawable.yello_card),
                         contentDescription = stringResource(id = R.string.yellow_card),
                         Modifier
-                            .padding(vertical = 2.dp)
+                            .padding(vertical = 5.dp, horizontal = 2.dp)
                             .size(12.dp)
                     )
                 }
@@ -271,7 +274,7 @@ private fun Cards(player: Player) {
                     painter = painterResource(id = R.drawable.red_card),
                     contentDescription = stringResource(id = R.string.red_card),
                     Modifier
-                        .padding(vertical = 2.dp)
+                        .padding(vertical = 5.dp, horizontal = 2.dp)
                         .size(12.dp)
                 )
             }
@@ -285,13 +288,13 @@ fun Injury(player: Player) {
         Row {
             Text(
                 stringResource(R.string.injury) + " " + player.injuryDays + " " + stringResource(R.string.days),
-                style = characteritic
+                style = characteristic
             )
             Image(
                 painter = painterResource(id = if (player.injuryDays <= 7) R.drawable.injury_low else R.drawable.injury_high),
                 contentDescription = stringResource(id = R.string.red_card),
                 Modifier
-                    .padding(vertical = 2.dp)
+                    .padding(vertical = 6.dp, horizontal = 2.dp)
                     .size(12.dp)
             )
         }
@@ -299,14 +302,14 @@ fun Injury(player: Player) {
 }
 
 @Composable
-fun ProgressBar(
+fun ProgressButton(
     player: Player,
     skill: Skill,
     navigateTo: (route: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if(player.playerStatuses.size > 1) {
-        val finalModifier = modifier.height(26.dp).width(70.dp)
+        val finalModifier = modifier.height(24.2.dp).width(63.dp)
         Button(
             modifier = finalModifier,
             onClick = {
@@ -372,12 +375,12 @@ fun PlayerPreview() {
                     .skillTechnique(15)
                     .build(),
                 PlayerStatus.builder()
-                    .week(123)
+                    .week(124)
                     .skillForm(10)
                     .skillPace(9)
                     .skillKeeper(1)
                     .skillPassing(12)
-                    .skillDefending(11)
+                    .skillDefending(12)
                     .skillDiscipline(10)
                     .skillExperience(8)
                     .skillPlaymaking(9)
@@ -385,6 +388,9 @@ fun PlayerPreview() {
                     .skillStamina(17)
                     .skillTeamwork(12)
                     .skillTechnique(15)
+                    .officialMinutes(90)
+                    .trainerSkill(10)
+                    .trainingType(TrainingType.GENERAL)
                     .build()
             )
         )

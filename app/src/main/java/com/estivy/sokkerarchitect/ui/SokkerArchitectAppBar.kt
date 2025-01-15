@@ -27,10 +27,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.domain.exception.CredentialsLoginException
-import com.estivy.sokkerarchitect.core.domain.exception.LoginException
 import com.estivy.sokkerarchitect.core.service.UpdateService
-import com.estivy.sokkerarchitect.ui.screens.getMessage
-import com.estivy.sokkerarchitect.ui.util.LoginErrorMapping
+import com.estivy.sokkerarchitect.ui.screens.composables.getMessage
+import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
 
 
 enum class MessageDialog {
@@ -55,6 +54,7 @@ fun SokkerArchitectAppBar(
     updateService: UpdateService,
     navigateTo: (route: String) -> Unit,
     onNavigationIconClick: () -> Unit,
+    playersViewModel: PlayersViewModel
 ) {
     val shouldShowDialog = remember { mutableStateOf(MessageDialog.NONE) }
     val updating = remember { mutableStateOf(UpdateState.NOT_STARTED) }
@@ -84,6 +84,7 @@ fun SokkerArchitectAppBar(
                         navigateTo(SokkerArchitectScreen.UPDATING.route)
                         updateService.update()
                             .thenApply {
+                                playersViewModel.dataUpdated()
                                 updating.value = UpdateState.SUCCESS
                                 shouldShowDialog.value = MessageDialog.SUCCESS
                             }.exceptionally { e ->

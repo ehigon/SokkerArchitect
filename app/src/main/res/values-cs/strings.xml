@@ -78,4 +78,14 @@
     <string name="no_team_id">V odpovědi sokker nebylo nalezeno ID týmu</string>
     <string name="goalkeeper">Brankář</string>
     <string name="weeks_ago">Před týdny</string>
+    <string name="characteritics">Charakteristika</string>
+    <string name="skills">Dovednosti</string>
+    <string name="last_training">Poslední trénink</string>
+    <string name="training_type">Typ školení</string>
+    <string name="general">Generál</string>
+    <string name="official_minutes">úřední zápis</string>
+    <string name="unofficial_minutes">Neoficiální minuty</string>
+    <string name="coach_skill">Trenérské dovednosti</string>
+    <string name="efficiency">Účinnost</string>
+    <string name="injured">Zraněný</string>
 </resources>

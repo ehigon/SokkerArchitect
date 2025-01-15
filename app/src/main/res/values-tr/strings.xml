@@ -78,4 +78,14 @@
     <string name="no_team_id">Sokker yanıtında takım kimliği bulunamadı</string>
     <string name="goalkeeper">Kaleci</string>
     <string name="weeks_ago">Haftalar önce</string>
+    <string name="characteritics">Özellikler</string>
+    <string name="skills">Yetenekler</string>
+    <string name="last_training">Son eğitim</string>
+    <string name="training_type">Eğitim türü</string>
+    <string name="general">Genel</string>
+    <string name="official_minutes">Oynanan resmi dakikalar</string>
+    <string name="unofficial_minutes">Oynanan resmi olmayan dakikalar</string>
+    <string name="coach_skill">Antrenör becerisi</string>
+    <string name="efficiency">Yeterlik</string>
+    <string name="injured">Yaralı</string>
 </resources>

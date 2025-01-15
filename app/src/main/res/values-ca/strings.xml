@@ -78,4 +78,14 @@
     <string name="no_team_id">No s\'ha trobat team id en la resposta de sokker</string>
     <string name="goalkeeper">Porter</string>
     <string name="weeks_ago">Setmanes enrere</string>
+    <string name="characteritics">Característiques</string>
+    <string name="skills">Habilitats</string>
+    <string name="last_training">Últim entrenament</string>
+    <string name="training_type">Tipus d\'entrenament</string>
+    <string name="general">General</string>
+    <string name="official_minutes">Minuts oficials</string>
+    <string name="unofficial_minutes">Minuts no oficials</string>
+    <string name="coach_skill">Habilitat de l\'entrenador</string>
+    <string name="efficiency">Eficiència</string>
+    <string name="injured">Lesionat</string>
 </resources>

@@ -78,4 +78,14 @@
     <string name="no_team_id">Το αναγνωριστικό ομάδας δεν βρέθηκε στην απάντηση sokker</string>
     <string name="goalkeeper">Τερματοφύλακας</string>
     <string name="weeks_ago">πριν από εβδομάδες</string>
+    <string name="characteritics">Χαρακτηριστικά</string>
+    <string name="skills">Δεξιότητες</string>
+    <string name="last_training">Τελευταία προπόνηση</string>
+    <string name="training_type">Τύπος εκπαίδευσης</string>
+    <string name="general">Γενικός</string>
+    <string name="official_minutes">Παίχτηκαν επίσημα λεπτά</string>
+    <string name="unofficial_minutes">Παίχτηκαν ανεπίσημα λεπτά</string>
+    <string name="coach_skill">Ικανότητα προπονητή</string>
+    <string name="efficiency">Αποδοτικότητα</string>
+    <string name="injured">Τραυματίας</string>
 </resources>

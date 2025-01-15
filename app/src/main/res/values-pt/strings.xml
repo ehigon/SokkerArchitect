@@ -78,4 +78,14 @@
     <string name="no_team_id">ID da equipe não encontrado na resposta do sokker</string>
     <string name="goalkeeper">Goleiro</string>
     <string name="weeks_ago">Semanas atrás</string>
+    <string name="characteritics">Características</string>
+    <string name="skills">Habilidades</string>
+    <string name="last_training">Último treinamento</string>
+    <string name="training_type">Tipo de treinamento</string>
+    <string name="general">Em geral</string>
+    <string name="official_minutes">Minutos oficiais</string>
+    <string name="unofficial_minutes">Minutos não oficiais</string>
+    <string name="coach_skill">Habilidade do treinador</string>
+    <string name="efficiency">Eficiência</string>
+    <string name="injured">Ferido</string>
 </resources>

@@ -78,4 +78,14 @@
     <string name="no_team_id">Team-ID niet gevonden in sokker-antwoord</string>
     <string name="goalkeeper">Doelman</string>
     <string name="weeks_ago">"Weken geleden "</string>
+    <string name="characteritics">Kenmerken</string>
+    <string name="skills">Vaardigheden</string>
+    <string name="last_training">Laatste training</string>
+    <string name="training_type">Trainingstype</string>
+    <string name="general">Algemeen</string>
+    <string name="official_minutes">officiële notulen</string>
+    <string name="unofficial_minutes">Onofficiële notulen</string>
+    <string name="coach_skill">Coachvaardigheid</string>
+    <string name="efficiency">Efficiëntie</string>
+    <string name="injured">Gewond</string>
 </resources>

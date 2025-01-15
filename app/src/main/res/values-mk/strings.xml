@@ -78,4 +78,14 @@
     <string name="no_team_id">Тим id не се најде во sokker одговор</string>
     <string name="goalkeeper">Голман</string>
     <string name="weeks_ago">пред неколку недели</string>
+    <string name="characteritics">Карактеристики</string>
+    <string name="skills">Вештини</string>
+    <string name="last_training">Последен тренинг</string>
+    <string name="training_type">Тип на обука</string>
+    <string name="general">Општо</string>
+    <string name="official_minutes">Одиграни официјални минути</string>
+    <string name="unofficial_minutes">Одиграни неофицијални минути</string>
+    <string name="coach_skill">Тренерска вештина</string>
+    <string name="efficiency">Ефикасност</string>
+    <string name="injured">Повреден</string>
 </resources>
