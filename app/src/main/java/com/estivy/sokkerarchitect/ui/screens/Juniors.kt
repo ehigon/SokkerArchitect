@@ -29,6 +29,7 @@ import com.estivy.sokkerarchitect.core.domain.JuniorStatus
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
 import com.estivy.sokkerarchitect.ui.screens.composables.ErrorScreen
+import com.estivy.sokkerarchitect.ui.screens.composables.FinishAppBackPressHandler
 import com.estivy.sokkerarchitect.ui.screens.composables.LoadingScreen
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
@@ -36,6 +37,7 @@ import com.estivy.sokkerarchitect.ui.util.JuniorEvolution
 
 @Composable
 fun Juniors(playersViewModel: PlayersViewModel, navigateTo: (route: String) -> Unit) {
+    FinishAppBackPressHandler()
     val modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center)
@@ -100,11 +102,13 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
             {
                 Text(player.name + " " + player.surname)
                 Row(
-                    modifier = Modifier.fillMaxWidth().noRowPadding(evolution),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .noRowPadding(evolution),
                     horizontalArrangement = Arrangement.End
                 )
                 {
-                    if(evolution.currentWeek.formation == JuniorFormation.GOALKEEPER){
+                    if (evolution.currentWeek.formation == JuniorFormation.GOALKEEPER) {
                         Image(
                             painter = painterResource(id = R.drawable.goalkeeper),
                             contentDescription = stringResource(id = R.string.goalkeeper),

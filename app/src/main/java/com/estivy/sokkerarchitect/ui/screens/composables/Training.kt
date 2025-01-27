@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.estivy.sokkerarchitect.R
+import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus
 import com.estivy.sokkerarchitect.core.domain.TrainingType
 import com.estivy.sokkerarchitect.ui.theme.characteristic
@@ -101,5 +102,41 @@ fun getTrainingName(trainingType: TrainingType?): String {
         TrainingType.DEFENDING -> stringResource(R.string.defender)
         TrainingType.SCORING -> stringResource(R.string.striker)
         TrainingType.PACE -> stringResource(R.string.pace)
+    }
+}
+
+@Composable
+fun Cards(player: Player, verticalPadding: Int, size: Int) {
+    if (player.cards <= 2) {
+        for (i in 0 until player.cards) {
+            Image(
+                painter = painterResource(id = R.drawable.yello_card),
+                contentDescription = stringResource(id = R.string.yellow_card),
+                Modifier
+                    .padding(vertical = verticalPadding.dp, horizontal = 2.dp)
+                    .size(size.dp)
+            )
+        }
+    } else {
+        Image(
+            painter = painterResource(id = R.drawable.red_card),
+            contentDescription = stringResource(id = R.string.red_card),
+            Modifier
+                .padding(vertical = verticalPadding.dp, horizontal = 2.dp)
+                .size(size.dp)
+        )
+    }
+}
+
+@Composable
+fun Injury(player: Player, verticalPadding: Int, size: Int) {
+    if (player.injuryDays != null && player.injuryDays > 0) {
+        Image(
+            painter = painterResource(id = if (player.injuryDays <= 7) R.drawable.injury_low else R.drawable.injury_high),
+            contentDescription = stringResource(id = R.string.red_card),
+            Modifier
+                .padding(vertical = verticalPadding.dp, horizontal = 2.dp)
+                .size(size.dp)
+        )
     }
 }

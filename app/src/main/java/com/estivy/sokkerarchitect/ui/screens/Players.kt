@@ -26,14 +26,20 @@ import com.estivy.sokkerarchitect.core.domain.Country
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
+import com.estivy.sokkerarchitect.ui.screens.composables.Cards
 import com.estivy.sokkerarchitect.ui.screens.composables.ErrorScreen
+import com.estivy.sokkerarchitect.ui.screens.composables.FinishAppBackPressHandler
+import com.estivy.sokkerarchitect.ui.screens.composables.Injury
 import com.estivy.sokkerarchitect.ui.screens.composables.LoadingScreen
+import com.estivy.sokkerarchitect.ui.screens.composables.skill
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
+import com.estivy.sokkerarchitect.ui.theme.subPlayer
 import com.estivy.sokkerarchitect.ui.util.Evolution
 
 @Composable
 fun Players(playersViewModel: PlayersViewModel, navigateTo: (route: String) -> Unit) {
+    FinishAppBackPressHandler()
     val modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center)
@@ -91,28 +97,53 @@ fun PlayerRow(
             modifier = Modifier.padding(8.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(player.name + " " + player.surname)
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
+            Column(
             ) {
-                for (i in 0 until evolution.getIncreases()) {
-                    Image(
-                        painter = painterResource(id = R.drawable.up_arrow),
-                        contentDescription = stringResource(id = R.string.increase),
-                        Modifier
-                            .padding(vertical = 2.dp)
-                            .size(12.dp)
-                    )
+                Row() {
+                    Text(player.name + " " + player.surname)
                 }
-                for (i in 0 until evolution.getDecreases()) {
-                    Image(
-                        painter = painterResource(id = R.drawable.down_arrow),
-                        contentDescription = stringResource(id = R.string.decrease),
-                        Modifier
-                            .padding(vertical = 2.dp)
-                            .size(12.dp)
-                    )
+                Row(
+                    modifier = Modifier.padding(top = 3.dp)
+                ) {
+                    val currentWeek = player.playerStatuses.maxBy { ps -> ps.week }
+                    if(currentWeek != null) {
+                        Text(
+                            stringResource(R.string.age) + " " + player.age,
+                            style = subPlayer
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 10.dp),
+                            text = stringResource(R.string.form) + ": " + skill(currentWeek.skillForm),
+                            style = subPlayer
+                        )
+                    }
+                }
+            }
+            Column() {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Injury(player, 12, 16)
+                    Cards(player, 12, 16)
+                    for (i in 0 until evolution.getIncreases()) {
+                        Image(
+                            painter = painterResource(id = R.drawable.up_arrow),
+                            contentDescription = stringResource(id = R.string.increase),
+                            Modifier
+                                .padding(vertical = 12.dp)
+                                .size(16.dp)
+                        )
+                    }
+                    for (i in 0 until evolution.getDecreases()) {
+                        Image(
+                            painter = painterResource(id = R.drawable.down_arrow),
+                            contentDescription = stringResource(id = R.string.decrease),
+                            Modifier
+                                .padding(vertical = 12.dp)
+                                .size(16.dp)
+                        )
+                    }
                 }
             }
         }
@@ -130,7 +161,7 @@ fun PlayerRowPreview() {
         .height(183)
         .weight(80.5)
         .cards(1)
-        .injuryDays(5)
+        .injuryDays(6)
         .country(
             Country.builder()
                 .name("Spain")

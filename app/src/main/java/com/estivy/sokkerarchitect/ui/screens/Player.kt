@@ -32,6 +32,8 @@ import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus
 import com.estivy.sokkerarchitect.core.domain.TrainingType
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
+import com.estivy.sokkerarchitect.ui.screens.composables.Cards
+import com.estivy.sokkerarchitect.ui.screens.composables.Injury
 import com.estivy.sokkerarchitect.ui.screens.composables.Training
 import com.estivy.sokkerarchitect.ui.screens.composables.skill
 import com.estivy.sokkerarchitect.ui.theme.attributes
@@ -95,6 +97,32 @@ private fun Characteristics(player: Player) {
     )
     Cards(player)
     Injury(player)
+}
+
+@Composable
+private fun Injury(player: Player) {
+    if (player.injuryDays != null && player.injuryDays > 0) {
+        Row {
+            Text(
+                stringResource(R.string.injury) + " " + player.injuryDays + " " + stringResource(R.string.days),
+                style = characteristic
+            )
+            Injury(player, 6, 12)
+        }
+    }
+}
+
+@Composable
+private fun Cards(player: Player) {
+    if (player.cards != null && player.cards > 0) {
+        Row {
+            Text(
+                stringResource(R.string.cards),
+                style = characteristic
+            )
+            Cards(player, 5, 12)
+        }
+    }
 }
 
 @Composable
@@ -195,37 +223,57 @@ fun Skills(player: Player, navigateTo: (route: String) -> Unit) {
             )
         }
         Column {
-            ProgressButton(player = player,
+            ProgressButton(
+                player = player,
                 skill = Skill.DISCIPLINE,
-                navigateTo = navigateTo)
-            ProgressButton(player = player,
+                navigateTo = navigateTo
+            )
+            ProgressButton(
+                player = player,
                 skill = Skill.FORM,
-                navigateTo = navigateTo)
-            ProgressButton(player = player,
+                navigateTo = navigateTo
+            )
+            ProgressButton(
+                player = player,
                 skill = Skill.STAMINA,
-                navigateTo = navigateTo)
-            ProgressButton(player = player,
+                navigateTo = navigateTo
+            )
+            ProgressButton(
+                player = player,
                 skill = Skill.PACE,
                 navigateTo = navigateTo,
-                modifier = Modifier.padding(top = 14.dp))
-            ProgressButton(player = player,
+                modifier = Modifier.padding(top = 14.dp)
+            )
+            ProgressButton(
+                player = player,
                 skill = Skill.TECHNIQUE,
-                navigateTo = navigateTo)
-            ProgressButton(player = player,
+                navigateTo = navigateTo
+            )
+            ProgressButton(
+                player = player,
                 skill = Skill.PASSING,
-                navigateTo = navigateTo)
-            ProgressButton(player = player,
+                navigateTo = navigateTo
+            )
+            ProgressButton(
+                player = player,
                 skill = Skill.KEEPER,
-                navigateTo = navigateTo)
-            ProgressButton(player = player,
+                navigateTo = navigateTo
+            )
+            ProgressButton(
+                player = player,
                 skill = Skill.DEFENDING,
-                navigateTo = navigateTo)
-            ProgressButton(player = player,
+                navigateTo = navigateTo
+            )
+            ProgressButton(
+                player = player,
                 skill = Skill.PLAYMAKING,
-                navigateTo = navigateTo)
-            ProgressButton(player = player,
+                navigateTo = navigateTo
+            )
+            ProgressButton(
+                player = player,
                 skill = Skill.SCORING,
-                navigateTo = navigateTo)
+                navigateTo = navigateTo
+            )
         }
     }
 }
@@ -252,64 +300,16 @@ fun getAttributesStyle(skillDiscipline: Int): TextStyle {
 }
 
 @Composable
-private fun Cards(player: Player) {
-    if (player.cards != null && player.cards > 0) {
-        Row {
-            Text(
-                stringResource(R.string.cards),
-                style = characteristic
-            )
-            if (player.cards <= 2) {
-                for (i in 0 until player.cards) {
-                    Image(
-                        painter = painterResource(id = R.drawable.yello_card),
-                        contentDescription = stringResource(id = R.string.yellow_card),
-                        Modifier
-                            .padding(vertical = 5.dp, horizontal = 2.dp)
-                            .size(12.dp)
-                    )
-                }
-            } else {
-                Image(
-                    painter = painterResource(id = R.drawable.red_card),
-                    contentDescription = stringResource(id = R.string.red_card),
-                    Modifier
-                        .padding(vertical = 5.dp, horizontal = 2.dp)
-                        .size(12.dp)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun Injury(player: Player) {
-    if (player.injuryDays != null && player.injuryDays > 0) {
-        Row {
-            Text(
-                stringResource(R.string.injury) + " " + player.injuryDays + " " + stringResource(R.string.days),
-                style = characteristic
-            )
-            Image(
-                painter = painterResource(id = if (player.injuryDays <= 7) R.drawable.injury_low else R.drawable.injury_high),
-                contentDescription = stringResource(id = R.string.red_card),
-                Modifier
-                    .padding(vertical = 6.dp, horizontal = 2.dp)
-                    .size(12.dp)
-            )
-        }
-    }
-}
-
-@Composable
 fun ProgressButton(
     player: Player,
     skill: Skill,
     navigateTo: (route: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if(player.playerStatuses.size > 1) {
-        val finalModifier = modifier.height(24.2.dp).width(63.dp)
+    if (player.playerStatuses.size > 1) {
+        val finalModifier = modifier
+            .height(24.2.dp)
+            .width(63.dp)
         Button(
             modifier = finalModifier,
             onClick = {
