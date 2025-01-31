@@ -88,4 +88,5 @@
     <string name="coach_skill">Coachvaardigheid</string>
     <string name="efficiency">Efficiëntie</string>
     <string name="injured">Gewond</string>
+    <string name="sokker_credentials">sokker.org-referenties</string>
 </resources>

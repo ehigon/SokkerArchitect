@@ -88,4 +88,5 @@
     <string name="coach_skill">Тренерска вештина</string>
     <string name="efficiency">Ефикасност</string>
     <string name="injured">Повреден</string>
+    <string name="sokker_credentials">sokker.org ингеренциите</string>
 </resources>

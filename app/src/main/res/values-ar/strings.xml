@@ -88,4 +88,5 @@
     <string name="coach_skill">مهارة المدرب</string>
     <string name="efficiency">كفاءة</string>
     <string name="injured">مصاب</string>
+    <string name="sokker_credentials">بيانات اعتماد sokker.org</string>
 </resources>

@@ -159,7 +159,7 @@ private fun DrawScope.placeXAxisPoints(
     val lastWeek = points.last().week
     for (i in points.indices) {
         drawContext.canvas.nativeCanvas.drawText(
-            "${points[i].week - lastWeek}",
+            "${lastWeek - points[i].week}",
             (xAxisSpace / 2) + (xAxisSpace * (i)),
             size.height - 30,
             textPaint

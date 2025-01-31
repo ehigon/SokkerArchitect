@@ -88,4 +88,5 @@
     <string name="coach_skill">Coach\'s skill</string>
     <string name="efficiency">Efficiency</string>
     <string name="injured">Injured</string>
+    <string name="sokker_credentials">sokker.org credentials</string>
 </resources>

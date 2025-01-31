@@ -97,9 +97,8 @@ fun PlayerRow(
             modifier = Modifier.padding(8.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Column(
-            ) {
-                Row() {
+            Column {
+                Row {
                     Text(player.name + " " + player.surname)
                 }
                 Row(
@@ -119,7 +118,7 @@ fun PlayerRow(
                     }
                 }
             }
-            Column() {
+            Column {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End

@@ -2,21 +2,29 @@ package com.estivy.sokkerarchitect.ui.screens
 
 import android.icu.text.DecimalFormat
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,14 +44,14 @@ import com.estivy.sokkerarchitect.ui.screens.composables.Cards
 import com.estivy.sokkerarchitect.ui.screens.composables.Injury
 import com.estivy.sokkerarchitect.ui.screens.composables.Training
 import com.estivy.sokkerarchitect.ui.screens.composables.skill
+import com.estivy.sokkerarchitect.ui.screens.model.Skill
 import com.estivy.sokkerarchitect.ui.theme.attributes
 import com.estivy.sokkerarchitect.ui.theme.attributesDown
 import com.estivy.sokkerarchitect.ui.theme.attributesUp
 import com.estivy.sokkerarchitect.ui.theme.characteristic
+import com.estivy.sokkerarchitect.ui.theme.playerTitle
 import com.estivy.sokkerarchitect.ui.theme.title
 import com.estivy.sokkerarchitect.ui.util.Evolution
-import com.estivy.sokkerarchitect.ui.screens.model.Skill
-import com.estivy.sokkerarchitect.ui.theme.playerTitle
 
 @Composable
 fun Player(player: Player, navigateTo: (route: String) -> Unit) {
@@ -52,10 +60,27 @@ fun Player(player: Player, navigateTo: (route: String) -> Unit) {
         horizontalAlignment = Alignment.Start,
         modifier = Modifier.verticalScroll(scrollState)
     ) {
+        val playerStatus =
+            remember { mutableStateOf(player.playerStatuses.maxBy { ps -> ps.week }) }
         Name(player)
-        Characteristics(player)
-        Skills(player, navigateTo)
-        TrainingWithTitle(player)
+        Row(modifier = Modifier.height(IntrinsicSize.Max)) {
+            Column(modifier = Modifier.fillMaxHeight()) {
+
+                Characteristics(player)
+            }
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Bottom
+            ) {
+                if (player.playerStatuses.size > 1) {
+                    Box(modifier = Modifier.align(Alignment.End)) {
+                        WeekSelection(player, playerStatus)
+                    }
+                }
+            }
+        }
+        Skills(player, playerStatus, navigateTo)
+        TrainingWithTitle(playerStatus)
     }
 }
 
@@ -100,6 +125,45 @@ private fun Characteristics(player: Player) {
 }
 
 @Composable
+private fun WeekSelection(player: Player, playerStatus: MutableState<PlayerStatus>) {
+    val isDropDownExpanded = remember { mutableStateOf(false) }
+    val currentPlayerStatus = player.playerStatuses.maxBy { ps -> ps.week }
+    val values = player.playerStatuses
+
+
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.clickable {
+            isDropDownExpanded.value = true
+        }
+    ) {
+        Text(
+            text = stringResource(R.string.weeks_ago) + ": " +
+                    "${currentPlayerStatus.week - playerStatus.value.week}"
+        )
+        Image(
+            painter = painterResource(id = R.drawable.drop_down_arrow),
+            contentDescription = "DropDown Icon"
+        )
+    }
+    DropdownMenu(
+        expanded = isDropDownExpanded.value,
+        onDismissRequest = {
+            isDropDownExpanded.value = false
+        }) {
+        values.forEachIndexed { _, status ->
+            DropdownMenuItem(
+                text = { Text(text = "${currentPlayerStatus.week - status.week}") },
+                onClick = {
+                    isDropDownExpanded.value = false
+                    playerStatus.value = status
+                })
+        }
+    }
+}
+
+@Composable
 private fun Injury(player: Player) {
     if (player.injuryDays != null && player.injuryDays > 0) {
         Row {
@@ -126,8 +190,12 @@ private fun Cards(player: Player) {
 }
 
 @Composable
-fun Skills(player: Player, navigateTo: (route: String) -> Unit) {
-    val evolution = Evolution(player)
+fun Skills(
+    player: Player,
+    playerStatus: MutableState<PlayerStatus>,
+    navigateTo: (route: String) -> Unit
+) {
+    val evolution = Evolution(player, playerStatus.value.week)
     val status = evolution.currentWeek
     Text(
         stringResource(R.string.skills),
@@ -279,14 +347,14 @@ fun Skills(player: Player, navigateTo: (route: String) -> Unit) {
 }
 
 @Composable
-private fun TrainingWithTitle(player: Player) {
+private fun TrainingWithTitle(playerStatus: MutableState<PlayerStatus>) {
     Text(
         stringResource(R.string.last_training),
         Modifier.padding(top = 10.dp),
         style = playerTitle,
         color = MaterialTheme.colorScheme.secondary
     )
-    Training((player.playerStatuses.maxBy { ps -> ps.week }) ?: PlayerStatus())
+    Training(playerStatus.value)
 }
 
 fun getAttributesStyle(skillDiscipline: Int): TextStyle {

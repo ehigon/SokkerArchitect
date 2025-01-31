@@ -88,4 +88,5 @@
     <string name="coach_skill">Trenérské dovednosti</string>
     <string name="efficiency">Účinnost</string>
     <string name="injured">Zraněný</string>
+    <string name="sokker_credentials">přihlašovací údaje sokker.org</string>
 </resources>

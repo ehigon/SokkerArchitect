@@ -39,9 +39,9 @@ fun Login(updateService: UpdateService, navigateTo: (route: String) -> Unit) {
     val status = remember { mutableStateOf(Status.NONE) }
     val exception = remember { mutableStateOf(null as RuntimeException?) }
     val loading = remember { mutableStateOf(false) }
-    if(loading.value) {
+    if (loading.value) {
         Updating()
-    }else{
+    } else {
         Login(updateService, status, exception, loading)
     }
 
@@ -69,6 +69,10 @@ private fun Login(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = stringResource(R.string.sokker_credentials)+":",
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
         User(
             user, onValueChange = { user = it },
             Modifier.padding(bottom = 8.dp)

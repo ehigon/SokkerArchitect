@@ -78,7 +78,7 @@ fun SkillProgress(player: Player, skill: Skill) {
                 if (it < sortedPlayerStatuses.size) {
                     status.value = sortedPlayerStatuses[it]
                     weeksAgo.longValue =
-                        sortedPlayerStatuses[it].week - sortedPlayerStatuses[sortedPlayerStatuses.size - 1].week
+                        sortedPlayerStatuses[sortedPlayerStatuses.size - 1].week - sortedPlayerStatuses[it].week
                     show.value = true
                 }
             }

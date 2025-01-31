@@ -88,4 +88,5 @@
     <string name="coach_skill">Antrenör becerisi</string>
     <string name="efficiency">Yeterlik</string>
     <string name="injured">Yaralı</string>
+    <string name="sokker_credentials">sokker.org kimlik bilgileri</string>
 </resources>

@@ -9,11 +9,13 @@ class Evolution{
 
     private var lastWeek: PlayerStatus
 
-    constructor(player: Player){
-        val optCurrentWeek = player.playerStatuses.maxBy { ps -> ps.week }
+    constructor(player: Player) : this(player, player.playerStatuses.map { ps -> ps.week }.max())
+
+    constructor(player: Player, week: Long){
+        val optCurrentWeek = player.playerStatuses.first { ps -> ps.week == week }
         currentWeek = optCurrentWeek?:PlayerStatus()
         val optLastWeek: PlayerStatus? = player.playerStatuses
-            .filter { ps -> ps.week != currentWeek.week }.maxByOrNull { ps -> ps.week }
+            .filter { ps -> ps.week < currentWeek.week }.maxByOrNull { ps -> ps.week }
         lastWeek = optLastWeek?:currentWeek
     }
 

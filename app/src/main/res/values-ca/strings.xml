@@ -88,4 +88,5 @@
     <string name="coach_skill">Habilitat de l\'entrenador</string>
     <string name="efficiency">Eficiència</string>
     <string name="injured">Lesionat</string>
+    <string name="sokker_credentials">Credencials de sokker.org</string>
 </resources>
