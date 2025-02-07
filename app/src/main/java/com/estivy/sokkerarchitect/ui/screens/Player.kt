@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -36,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.domain.Country
+import com.estivy.sokkerarchitect.core.domain.JuniorStatus
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.domain.PlayerStatus
 import com.estivy.sokkerarchitect.core.domain.TrainingType
@@ -69,14 +72,38 @@ fun Player(player: Player, navigateTo: (route: String) -> Unit) {
                 Characteristics(player)
             }
             Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Bottom
+                modifier = Modifier.fillMaxSize()
             ) {
-                if (player.playerStatuses.size > 1) {
-                    Box(modifier = Modifier.align(Alignment.End)) {
-                        WeekSelection(player, playerStatus)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    if (player.juniorStatuses != null && player.juniorStatuses.isNotEmpty()) {
+                        Button(
+                            modifier = Modifier.height(30.dp),
+                            contentPadding = PaddingValues(5.dp),
+                            onClick = {
+                                navigateTo(
+                                    SokkerArchitectScreen.PLAYER_JUNIOR.route
+                                        .replace("{id}", player.id.toString())
+                                )
+                            }
+                        ) {
+                            Text(stringResource(R.string.view_junior_period))
+                        }
                     }
                 }
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    if (player.playerStatuses.size > 1) {
+                        Box(modifier = Modifier.align(Alignment.Bottom)) {
+                            WeekSelection(player, playerStatus)
+                        }
+                    }
+                }
+
             }
         }
         Skills(player, playerStatus, navigateTo)
@@ -459,6 +486,12 @@ fun PlayerPreview() {
                     .officialMinutes(90)
                     .trainerSkill(10)
                     .trainingType(TrainingType.GENERAL)
+                    .build()
+            )
+        )
+        .juniorStatuses(
+            listOf(
+                JuniorStatus.builder()
                     .build()
             )
         )

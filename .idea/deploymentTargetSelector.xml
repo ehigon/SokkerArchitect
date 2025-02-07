@@ -4,16 +4,19 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-01-06T20:37:49.723559635Z">
+        <DropdownSelection timestamp="2025-02-07T21:08:58.324114921Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=/home/esteban/.android/avd/Pixel_8a_API_35.avd" />
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=c2d5a78" />
             </handle>
           </Target>
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
       <SelectionState runConfigName="All Tests">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="given_junior_when_updateWithSeniorData_then_playerBecomesSenior()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

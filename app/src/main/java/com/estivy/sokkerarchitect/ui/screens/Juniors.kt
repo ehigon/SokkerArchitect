@@ -19,9 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.domain.Country
 import com.estivy.sokkerarchitect.core.domain.JuniorFormation
@@ -30,9 +30,11 @@ import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
 import com.estivy.sokkerarchitect.ui.screens.composables.ErrorScreen
 import com.estivy.sokkerarchitect.ui.screens.composables.FinishAppBackPressHandler
+import com.estivy.sokkerarchitect.ui.screens.composables.JuniorDetails
 import com.estivy.sokkerarchitect.ui.screens.composables.LoadingScreen
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
+import com.estivy.sokkerarchitect.ui.theme.subPlayer
 import com.estivy.sokkerarchitect.ui.util.JuniorEvolution
 
 @Composable
@@ -117,15 +119,7 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
                                 .size(20.dp)
                         )
                     }
-                    Text(
-                        fontSize = 12.sp,
-                        text = stringResource(R.string.age) + " " + player.age
-                    )
-                    TextWithValue(stringResource(R.string.skill), evolution.currentWeek.skill)
-                    TextWithValue(
-                        stringResource(R.string.weeks),
-                        evolution.currentWeek.remainingWeeks
-                    )
+                    JuniorDetails(evolution.currentWeek, subPlayer)
                     if (evolution.getSkill() > 0) {
                         Image(
                             painter = painterResource(id = R.drawable.up_arrow),
@@ -154,19 +148,6 @@ fun Modifier.noRowPadding(evolution: JuniorEvolution): Modifier {
         return this then Modifier.padding(horizontal = 12.dp)
     }
     return this
-}
-
-@Composable
-fun TextWithValue(name: String, value: Int) {
-    Text(
-        modifier = Modifier.padding(start = 8.dp),
-        fontSize = 12.sp,
-        text = name + if (value > 9) {
-            ": "
-        } else {
-            ":   "
-        } + value
-    )
 }
 
 @Preview

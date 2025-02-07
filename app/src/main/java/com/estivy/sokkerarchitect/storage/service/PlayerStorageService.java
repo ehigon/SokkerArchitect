@@ -4,7 +4,6 @@ import com.estivy.sokkerarchitect.core.domain.Player;
 import com.estivy.sokkerarchitect.storage.entities.JuniorStatusEntity;
 import com.estivy.sokkerarchitect.storage.entities.PlayerEntity;
 import com.estivy.sokkerarchitect.storage.entities.PlayerStatusEntity;
-import com.estivy.sokkerarchitect.storage.entities.TeamEntity;
 import com.estivy.sokkerarchitect.storage.mapper.PlayerEntityMapper;
 import com.estivy.sokkerarchitect.storage.relations.PlayerWithStatuses;
 import com.estivy.sokkerarchitect.storage.relations.TeamWithCountry;
@@ -34,7 +33,7 @@ public class PlayerStorageService {
 
     @Inject
     public PlayerStorageService(PlayerRepository playerRepository, PlayerStatusRepository playerStatusRepository, JuniorStatusRepository juniorStatusRepository,
-                                PlayerEntityMapper playerEntityMapper, TeamRepository teamRepository){
+                                PlayerEntityMapper playerEntityMapper, TeamRepository teamRepository) {
         this.playerRepository = playerRepository;
         this.playerStatusRepository = playerStatusRepository;
         this.juniorStatusRepository = juniorStatusRepository;
@@ -42,13 +41,13 @@ public class PlayerStorageService {
         this.teamRepository = teamRepository;
     }
 
-    public List<Player> findSeniorActivePlayers(){
+    public List<Player> findSeniorActivePlayers() {
         List<PlayerWithStatuses> playerWithStatuses = playerRepository.findAllSeniorCompleteActive();
         TeamWithCountry team = teamRepository.findTeamWithcountry();
         return playerEntityMapper.mapToDomain(playerWithStatuses, team.getCountry());
     }
 
-    public List<Player> findJuniorActivePlayers(){
+    public List<Player> findJuniorActivePlayers() {
         List<PlayerWithStatuses> playerWithStatuses = playerRepository.findAllJuniorCompleteActive();
         TeamWithCountry team = teamRepository.findTeamWithcountry();
         return playerEntityMapper.mapToDomain(playerWithStatuses, team.getCountry());
@@ -68,7 +67,10 @@ public class PlayerStorageService {
     private void saveOrUpdateExistingPlayerStatuses(List<Player> players) {
         players.stream()
                 .filter(p -> p.getPlayerStatuses() != null)
-                .forEach(this::saveOrUpdateExistingPlayerStatuses);
+                .forEach(player -> {
+                    saveOrUpdateExistingPlayerStatuses(player);
+                    addExistingJuniorStatuses(player);
+                });
     }
 
     private void saveOrUpdateExistingPlayerStatuses(Player player) {
@@ -77,7 +79,7 @@ public class PlayerStorageService {
         List<PlayerStatusEntity> playerStatuses = new ArrayList<>(
                 playerStatusRepository.findAllPlayerStatusesByPlayerId(player.getId()));
 
-        for(PlayerStatusEntity newPlayerStatusEntity : newPlayerStatuses){
+        for (PlayerStatusEntity newPlayerStatusEntity : newPlayerStatuses) {
             Optional<PlayerStatusEntity> optExistingPlayerStatus
                     = findPlayerStatus(playerStatuses, newPlayerStatusEntity);
             playerStatuses.add(optExistingPlayerStatus
@@ -87,6 +89,19 @@ public class PlayerStorageService {
         playerStatusRepository.save(playerStatuses);
     }
 
+    private void addExistingJuniorStatuses(Player player) {
+        List<PlayerEntity> playerEntities = playerRepository.finAllByNameAndSurnameAndDistinctId(
+                player.getName(), player.getSurname(), player.getId());
+        for(PlayerEntity playerEntity : playerEntities) {
+            List<JuniorStatusEntity> juniorStatusEntities = juniorStatusRepository.
+                    findAllJuniorStatusesByPlayerId(playerEntity.getId());
+            System.out.println("Updating " + juniorStatusEntities.size() + " junior statuses for player " + player.getName() + " " + player.getSurname() );
+            juniorStatusEntities.forEach(j -> j.setPlayerId(player.getId()));
+            juniorStatusRepository.save(juniorStatusEntities);
+            playerRepository.deleteById(playerEntity.getId());
+        }
+    }
+
     private void saveOrUpdateExistingJuniorStatuses(List<Player> players) {
         players.stream()
                 .filter(p -> p.getJuniorStatuses() != null)
@@ -94,12 +109,12 @@ public class PlayerStorageService {
     }
 
     private void saveOrUpdateExistingJuniorStatuses(Player player) {
-        List<JuniorStatusEntity> newjuniorStatuses =
+        List<JuniorStatusEntity> newJuniorStatuses =
                 playerEntityMapper.mapJuniorStatusToEntity(player.getJuniorStatuses(), player.getId());
         List<JuniorStatusEntity> juniorStatuses = new ArrayList<>(
                 juniorStatusRepository.findAllJuniorStatusesByPlayerId(player.getId()));
 
-        for(JuniorStatusEntity newJuniorStatus : newjuniorStatuses){
+        for (JuniorStatusEntity newJuniorStatus : newJuniorStatuses) {
             Optional<JuniorStatusEntity> optExistingPlayerStatus
                     = findJuniorStatus(juniorStatuses, newJuniorStatus);
             juniorStatuses.add(optExistingPlayerStatus
@@ -110,28 +125,28 @@ public class PlayerStorageService {
     }
 
     private Optional<PlayerStatusEntity> findPlayerStatus(List<PlayerStatusEntity> playerStatuses,
-              PlayerStatusEntity playerStatusEntity) {
+                                                          PlayerStatusEntity playerStatusEntity) {
         return playerStatuses.stream()
                 .filter(p -> p.getWeek().equals(playerStatusEntity.getWeek()))
                 .findFirst();
     }
 
     private Optional<JuniorStatusEntity> findJuniorStatus(List<JuniorStatusEntity> juniorStatuses,
-              JuniorStatusEntity newJuniorStatus) {
+                                                          JuniorStatusEntity newJuniorStatus) {
         return juniorStatuses.stream()
                 .filter(j -> j.getWeek().equals(newJuniorStatus.getWeek()))
                 .findFirst();
     }
 
     private PlayerStatusEntity updatePlayerStatus(PlayerStatusEntity existingPlayerStatus,
-            PlayerStatusEntity newPlayerStatus) {
+                                                  PlayerStatusEntity newPlayerStatus) {
         existingPlayerStatus.setSkillForm(newPlayerStatus.getSkillForm());
         existingPlayerStatus.setTransferList(newPlayerStatus.getTransferList());
         return existingPlayerStatus;
     }
 
     private JuniorStatusEntity updateJuniorStatus(JuniorStatusEntity existingJuniorStatus,
-            JuniorStatusEntity newJuniorStatus) {
+                                                  JuniorStatusEntity newJuniorStatus) {
         existingJuniorStatus.setFormation(newJuniorStatus.getFormation());
         existingJuniorStatus.setSkill(newJuniorStatus.getSkill());
         existingJuniorStatus.setRemainingWeeks(newJuniorStatus.getRemainingWeeks());
@@ -143,7 +158,7 @@ public class PlayerStorageService {
         List<PlayerEntity> playerEntitiesToUpdate = playerEntities.stream()
                 .filter(p -> !existsInUpdate(p, players))
                 .collect(Collectors.toList());
-        if(playerEntitiesToUpdate.isEmpty()){
+        if (playerEntitiesToUpdate.isEmpty()) {
             return;
         }
         playerEntitiesToUpdate.forEach(p -> p.setActive(false));

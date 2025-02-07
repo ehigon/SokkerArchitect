@@ -48,6 +48,7 @@ enum class SokkerArchitectScreen(val route: String, @StringRes val title: Int) {
     LOGIN(route = "login", title = R.string.login_sc),
     PLAYERS(route = "players", title = R.string.players_sc),
     PLAYER(route = "player/{id}", title = R.string.player_sc),
+    PLAYER_JUNIOR(route = "player/{id}/junior", title = R.string.player_sc),
     JUNIORS(route = "juniors", title = R.string.juniors_sc),
     SKILL_PROGRESS(route = "player/{id}/skill/{skill}", title = R.string.skill_progress_sc),
     UPDATING(route = "updating", title = R.string.updating_sc),
@@ -166,6 +167,15 @@ fun SokkerArchitectApp(
                         Player(player) {
                             navController.navigate(it)
                         }
+                    }
+                }
+                composable(
+                    route = SokkerArchitectScreen.PLAYER_JUNIOR.route,
+                    arguments = listOf(navArgument("id") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val id = backStackEntry.arguments?.getString("id")
+                    searchPlayer(playersViewModel, id)?.let { player ->
+                        Junior(player)
                     }
                 }
                 composable(route = SokkerArchitectScreen.JUNIORS.route) {

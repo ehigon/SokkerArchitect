@@ -37,7 +37,6 @@ import androidx.compose.ui.unit.sp
 import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.ui.screens.model.GraphAppearance
 import com.estivy.sokkerarchitect.ui.screens.model.GraphPoint
-import com.estivy.sokkerarchitect.ui.screens.model.TrainingWeekClickedEvent
 
 
 private const val POINTS_IN_SCREEN = 10
@@ -66,7 +65,7 @@ fun Graph(
         Row(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp)
         ) {
-            Column() {
+            Column {
                 Canvas(
                     modifier = Modifier
                         .width(16.dp)
@@ -76,7 +75,7 @@ fun Graph(
                     placeYAxisPoints(yValues, paddingSpace.dp, yAxisSpace, textPaint)
                 }
             }
-            Column() {
+            Column {
                 val scrollState = rememberScrollState(Int.MAX_VALUE)
                 Row(
                     modifier = Modifier.horizontalScroll(scrollState)
@@ -94,7 +93,7 @@ fun Graph(
                                 .pointerInput(Unit) {
                                     detectTapGestures(
                                         onTap = { tapOffset ->
-                                            listener.invoke((tapOffset.x /(size.width / points.size)).toInt())
+                                            listener.invoke((tapOffset.x / (size.width / points.size)).toInt())
                                         }
                                     )
                                 }
@@ -103,8 +102,21 @@ fun Graph(
                             val yAxisSpace = size.height / yValues.size
                             drawBars(points, xAxisSpace, yAxisSpace)
                             placeXAxisPoints(points, xAxisSpace, textPaint)
-                            drawYPointingLines(yValues, yAxisSpace)
-                            drawLines(points, xAxisSpace, yAxisSpace, verticalStep, graphAppearance)
+                            drawYPointingLines(yValues, yAxisSpace, graphAppearance.pointingLineColor)
+                            drawLines(
+                                points,
+                                xAxisSpace,
+                                yAxisSpace,
+                                verticalStep,
+                                graphAppearance.lineColor
+                            )
+                            drawPoints(
+                                points,
+                                xAxisSpace,
+                                yAxisSpace,
+                                verticalStep,
+                                graphAppearance.lineColor
+                            )
                         }
                     }
                 }
@@ -132,7 +144,7 @@ private fun DrawScope.placeYAxisPoints(
     }
 }
 
-private fun DrawScope.drawYPointingLines(yValues: List<Int>, yAxisSpace: Float) {
+private fun DrawScope.drawYPointingLines(yValues: List<Int>, yAxisSpace: Float, pointingLineColor: Color) {
     val dotPadding = yAxisSpace / 4
     for (i in yValues.indices) {
         var j = 0.0F
@@ -144,7 +156,7 @@ private fun DrawScope.drawYPointingLines(yValues: List<Int>, yAxisSpace: Float) 
         drawPoints(
             points = points,
             pointMode = PointMode.Points,
-            color = Color.Black,
+            color = pointingLineColor,
             strokeWidth = 7f,
             cap = StrokeCap.Round
         )
@@ -192,7 +204,7 @@ private fun DrawScope.drawLines(
     xAxisSpace: Float,
     yAxisSpace: Float,
     verticalStep: Int,
-    graphAppearance: GraphAppearance
+    lineColor: Color
 ) {
     for (i in 0 until points.size - 1) {
         val x1 = (xAxisSpace / 2) + (xAxisSpace * (i))
@@ -202,10 +214,32 @@ private fun DrawScope.drawLines(
         drawLine(
             start = Offset(x = x1, y = y1),
             end = Offset(x = x2, y = y2),
-            color = graphAppearance.lineColor,
+            color = lineColor,
             strokeWidth = 7f
         )
     }
+}
+
+fun DrawScope.drawPoints(
+    points: List<GraphPoint>,
+    xAxisSpace: Float,
+    yAxisSpace: Float,
+    verticalStep: Int,
+    lineColor: Color
+) {
+    val pointList: MutableList<Offset> = mutableListOf()
+    for (i in 0 until points.size) {
+        val x = (xAxisSpace / 2) + (xAxisSpace * (i))
+        val y = size.height - (yAxisSpace * ((points[i].value + 1) / verticalStep.toFloat()))
+        pointList.add(Offset(x = x, y = y))
+    }
+    drawPoints(
+        points = pointList,
+        pointMode = PointMode.Points,
+        color = lineColor,
+        strokeWidth = 20f,
+        cap = StrokeCap.Round
+    )
 }
 
 @Preview

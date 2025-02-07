@@ -11,8 +11,6 @@ import com.estivy.sokkerarchitect.storage.relations.PlayerWithStatuses;
 
 import java.util.List;
 
-import kotlinx.coroutines.flow.Flow;
-
 @Dao
 public interface PlayerRepository {
 
@@ -38,5 +36,9 @@ public interface PlayerRepository {
             "from player_statuses where player_statuses.playerId = players.id) = 0")
     List<PlayerWithStatuses> findAllJuniorCompleteActive();
 
+    @Query("SELECT * FROM players WHERE name = :name AND surname = :surname AND id != :id")
+    List<PlayerEntity> finAllByNameAndSurnameAndDistinctId(String name, String surname, Long id);
 
+    @Query("DELETE FROM players WHERE id = :id")
+    void deleteById(Long id);
 }
