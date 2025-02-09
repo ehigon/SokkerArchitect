@@ -5,6 +5,7 @@ import com.estivy.sokkerarchitect.storage.service.PlayerStorageService;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,5 +27,13 @@ public class PlayersService {
     @NotNull
     public List<Player> findJuniors() {
         return playerStorageService.findJuniorActivePlayers();
+    }
+
+    public List<Player> findAll() {
+        return playerStorageService.findAll();
+    }
+
+    public void save(List<Player> players){
+        playerStorageService.save(players);
     }
 }

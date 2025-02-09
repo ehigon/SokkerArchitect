@@ -41,4 +41,17 @@ public interface PlayerRepository {
 
     @Query("DELETE FROM players WHERE id = :id")
     void deleteById(Long id);
+
+    @Query("SELECT * FROM players WHERE id = :id")
+    List<PlayerEntity> findById(Long id);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void save(PlayerEntity player);
+
+    @Query("DELETE FROM players " +
+            "WHERE (SELECT COUNT(*) from player_statuses " +
+                "where player_statuses.playerId = players.id) = 0 " +
+            "AND (SELECT COUNT(*) from junior_statuses " +
+                "where junior_statuses.playerId = players.id) = 0")
+    void deleteOrphanedPlayers();
 }

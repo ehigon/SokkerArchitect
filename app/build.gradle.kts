@@ -95,6 +95,7 @@ dependencies {
     implementation(libs.jackson.annotations)
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.gson)
 
 }
 

@@ -58,6 +58,7 @@ public class PlayerStorageService {
         saveOrUpdateExistingPlayerStatuses(players);
         saveOrUpdateExistingJuniorStatuses(players);
         flagInactivePlayers(players);
+        deleteOrphanedPlayers();
     }
 
     private void savePlayers(List<Player> players) {
@@ -66,7 +67,7 @@ public class PlayerStorageService {
 
     private void saveOrUpdateExistingPlayerStatuses(List<Player> players) {
         players.stream()
-                .filter(p -> p.getPlayerStatuses() != null)
+                .filter(p -> p.getPlayerStatuses() != null && !p.getPlayerStatuses().isEmpty())
                 .forEach(player -> {
                     saveOrUpdateExistingPlayerStatuses(player);
                     addExistingJuniorStatuses(player);
@@ -76,6 +77,7 @@ public class PlayerStorageService {
     private void saveOrUpdateExistingPlayerStatuses(Player player) {
         List<PlayerStatusEntity> newPlayerStatuses =
                 playerEntityMapper.mapStatusToEntity(player.getPlayerStatuses(), player.getId());
+
         List<PlayerStatusEntity> playerStatuses = new ArrayList<>(
                 playerStatusRepository.findAllPlayerStatusesByPlayerId(player.getId()));
 
@@ -86,25 +88,26 @@ public class PlayerStorageService {
                     .map(p -> updatePlayerStatus(p, newPlayerStatusEntity))
                     .orElse(newPlayerStatusEntity));
         }
-        playerStatusRepository.save(playerStatuses);
+        if(!playerStatuses.isEmpty()) {
+            playerStatusRepository.save(playerStatuses);
+        }
     }
 
     private void addExistingJuniorStatuses(Player player) {
         List<PlayerEntity> playerEntities = playerRepository.finAllByNameAndSurnameAndDistinctId(
                 player.getName(), player.getSurname(), player.getId());
-        for(PlayerEntity playerEntity : playerEntities) {
+        for (PlayerEntity playerEntity : playerEntities) {
             List<JuniorStatusEntity> juniorStatusEntities = juniorStatusRepository.
                     findAllJuniorStatusesByPlayerId(playerEntity.getId());
-            System.out.println("Updating " + juniorStatusEntities.size() + " junior statuses for player " + player.getName() + " " + player.getSurname() );
+            System.out.println("Updating " + juniorStatusEntities.size() + " junior statuses for player " + player.getName() + " " + player.getSurname());
             juniorStatusEntities.forEach(j -> j.setPlayerId(player.getId()));
             juniorStatusRepository.save(juniorStatusEntities);
-            playerRepository.deleteById(playerEntity.getId());
         }
     }
 
     private void saveOrUpdateExistingJuniorStatuses(List<Player> players) {
         players.stream()
-                .filter(p -> p.getJuniorStatuses() != null)
+                .filter(p -> p.getJuniorStatuses() != null && !p.getJuniorStatuses().isEmpty())
                 .forEach(this::saveOrUpdateExistingJuniorStatuses);
     }
 
@@ -121,7 +124,9 @@ public class PlayerStorageService {
                     .map(j -> updateJuniorStatus(j, newJuniorStatus))
                     .orElse(newJuniorStatus));
         }
-        juniorStatusRepository.save(juniorStatuses);
+        if(!juniorStatuses.isEmpty()) {
+            juniorStatusRepository.save(juniorStatuses);
+        }
     }
 
     private Optional<PlayerStatusEntity> findPlayerStatus(List<PlayerStatusEntity> playerStatuses,
@@ -170,4 +175,13 @@ public class PlayerStorageService {
                 .anyMatch(p -> p.getId().equals(playerEntity.getId()));
     }
 
+    public List<Player> findAll() {
+        List<PlayerWithStatuses> players = playerRepository.findAllComplete();
+        TeamWithCountry team = teamRepository.findTeamWithcountry();
+        return playerEntityMapper.mapToDomain(players, team.getCountry());
+    }
+
+    private void deleteOrphanedPlayers() {
+        playerRepository.deleteOrphanedPlayers();
+    }
 }

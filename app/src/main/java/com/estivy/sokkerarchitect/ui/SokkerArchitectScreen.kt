@@ -28,8 +28,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.estivy.sokkerarchitect.R
+import com.estivy.sokkerarchitect.core.service.PlayersService
 import com.estivy.sokkerarchitect.core.service.UpdateService
 import com.estivy.sokkerarchitect.security.service.PasswordStorageService
+import com.estivy.sokkerarchitect.ui.screens.ImportExport
 import com.estivy.sokkerarchitect.ui.screens.Junior
 import com.estivy.sokkerarchitect.ui.screens.Juniors
 import com.estivy.sokkerarchitect.ui.screens.Login
@@ -52,7 +54,8 @@ enum class SokkerArchitectScreen(val route: String, @StringRes val title: Int) {
     JUNIORS(route = "juniors", title = R.string.juniors_sc),
     SKILL_PROGRESS(route = "player/{id}/skill/{skill}", title = R.string.skill_progress_sc),
     UPDATING(route = "updating", title = R.string.updating_sc),
-    JUNIOR(route = "junior/{id}", title = R.string.junior_sc);
+    JUNIOR(route = "junior/{id}", title = R.string.junior_sc),
+    IMPORT_EXPORT(route = "import_export", title = R.string.import_export_sc);
 
     companion object {
         fun fromRoute(route: String): SokkerArchitectScreen {
@@ -66,6 +69,7 @@ enum class SokkerArchitectScreen(val route: String, @StringRes val title: Int) {
 @Composable
 fun SokkerArchitectApp(
     updateService: UpdateService,
+    playersService: PlayersService,
     playersViewModel: PlayersViewModel,
     passwordStorageService: PasswordStorageService
 ) {
@@ -101,6 +105,16 @@ fun SokkerArchitectApp(
                         selected = false,
                         onClick = {
                             navController.navigate(SokkerArchitectScreen.JUNIORS.route)
+                            scope.launch {
+                                drawerState.close()
+                            }
+                        }
+                    )
+                    NavigationDrawerItem(
+                        label = { Text(stringResource(R.string.import_export_sc)) },
+                        selected = false,
+                        onClick = {
+                            navController.navigate(SokkerArchitectScreen.IMPORT_EXPORT.route)
                             scope.launch {
                                 drawerState.close()
                             }
@@ -195,6 +209,9 @@ fun SokkerArchitectApp(
                 }
                 composable(route = SokkerArchitectScreen.UPDATING.route) {
                     Updating()
+                }
+                composable(route = SokkerArchitectScreen.IMPORT_EXPORT.route) {
+                    ImportExport(playersService, playersViewModel)
                 }
             }
         }

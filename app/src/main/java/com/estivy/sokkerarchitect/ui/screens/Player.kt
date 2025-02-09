@@ -157,7 +157,6 @@ private fun WeekSelection(player: Player, playerStatus: MutableState<PlayerStatu
     val currentPlayerStatus = player.playerStatuses.maxBy { ps -> ps.week }
     val values = player.playerStatuses
 
-
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
@@ -179,7 +178,7 @@ private fun WeekSelection(player: Player, playerStatus: MutableState<PlayerStatu
         onDismissRequest = {
             isDropDownExpanded.value = false
         }) {
-        values.forEachIndexed { _, status ->
+        values.sortedBy { status -> status.week }.forEachIndexed { _, status ->
             DropdownMenuItem(
                 text = { Text(text = "${currentPlayerStatus.week - status.week}") },
                 onClick = {
