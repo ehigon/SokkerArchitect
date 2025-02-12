@@ -89,4 +89,15 @@
     <string name="efficiency">Effizienz</string>
     <string name="injured">Verletzt</string>
     <string name="sokker_credentials">sokker.org-Anmeldeinformationen</string>
+    <string name="view_junior_period">Siehe Jugendbühne</string>
+    <string name="import_export_sc">Import/Export</string>
+    <string name="export_data">Export</string>
+    <string name="import_data">Import</string>
+    <string name="import_error">Daten können nicht importiert werden</string>
+    <string name="export_error">Daten können nicht exportiert werden</string>
+    <string name="import_success">Daten erfolgreich importiert</string>
+    <string name="export_success">Daten erfolgreich exportiert</string>
+    <string name="notes_sc">Noten</string>
+    <string name="notes">Noten</string>
+    <string name="save">halten</string>
 </resources>

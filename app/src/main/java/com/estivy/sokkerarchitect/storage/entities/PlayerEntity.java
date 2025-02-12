@@ -51,4 +51,5 @@ public class PlayerEntity {
     private Integer injuryDays;
     private National national;
     private boolean active;
+    private String notes;
 }

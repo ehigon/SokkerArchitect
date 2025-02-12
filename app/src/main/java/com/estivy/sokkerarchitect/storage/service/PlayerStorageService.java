@@ -61,8 +61,21 @@ public class PlayerStorageService {
         deleteOrphanedPlayers();
     }
 
+    public void saveNotes(Long id, String notes) {
+        playerRepository.updateNotes(id, notes);
+    }
+
     private void savePlayers(List<Player> players) {
+        List<PlayerEntity> playerEntities = playerRepository.findByIds(players.stream().map(Player::getId).collect(Collectors.toList()));
+        players.forEach(p -> setNotes(p, playerEntities));
         playerRepository.save(playerEntityMapper.mapToEntity(players));
+    }
+
+    private void setNotes(Player player, List<PlayerEntity> playerEntities) {
+        playerEntities.stream()
+                .filter(p -> p.getId().equals(player.getId()))
+                .findFirst()
+                .ifPresent(p -> player.setNotes(p.getNotes()));
     }
 
     private void saveOrUpdateExistingPlayerStatuses(List<Player> players) {

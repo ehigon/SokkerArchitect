@@ -89,4 +89,15 @@
     <string name="efficiency">كفاءة</string>
     <string name="injured">مصاب</string>
     <string name="sokker_credentials">بيانات اعتماد sokker.org</string>
+    <string name="view_junior_period">شاهد مرحلة الشباب</string>
+    <string name="import_export_sc">استيراد/تصدير</string>
+    <string name="export_data">يصدّر</string>
+    <string name="import_data">استيراد</string>
+    <string name="import_error">لا يمكن استيراد البيانات</string>
+    <string name="export_error">لا يمكن تصدير البيانات</string>
+    <string name="import_success">تم استيراد البيانات بنجاح</string>
+    <string name="export_success">تم تصدير البيانات بنجاح</string>
+    <string name="notes_sc">الدرجات</string>
+    <string name="notes">الدرجات</string>
+    <string name="save">يحفظ</string>
 </resources>

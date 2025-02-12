@@ -89,4 +89,15 @@
     <string name="efficiency">Ефикасност</string>
     <string name="injured">Повреден</string>
     <string name="sokker_credentials">sokker.org ингеренциите</string>
+    <string name="view_junior_period">Види младешка фаза</string>
+    <string name="import_export_sc">Увоз/Извоз</string>
+    <string name="export_data">Извоз</string>
+    <string name="import_data">Увоз</string>
+    <string name="import_error">Не може да се увезат податоци</string>
+    <string name="export_error">Не може да се извезат податоци</string>
+    <string name="import_success">Податоците се успешно увезени</string>
+    <string name="export_success">Податоците се успешно извезени</string>
+    <string name="notes_sc">Оценки</string>
+    <string name="notes">Оценки</string>
+    <string name="save">задржи</string>
 </resources>

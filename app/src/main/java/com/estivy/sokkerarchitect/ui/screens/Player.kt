@@ -57,7 +57,10 @@ import com.estivy.sokkerarchitect.ui.theme.title
 import com.estivy.sokkerarchitect.ui.util.Evolution
 
 @Composable
-fun Player(player: Player, navigateTo: (route: String) -> Unit) {
+fun Player(
+    player: Player,
+    navigateTo: (route: String) -> Unit
+) {
     val scrollState = rememberScrollState()
     Column(
         horizontalAlignment = Alignment.Start,
@@ -74,6 +77,38 @@ fun Player(player: Player, navigateTo: (route: String) -> Unit) {
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Button(
+                        modifier = Modifier
+                            .height(45.dp)
+                            .width(50.dp),
+                        onClick = {
+                            navigateTo(
+                                SokkerArchitectScreen.NOTES.route.replace(
+                                    "{id}", player.id.toString()
+                                )
+                            )
+                        },
+                        contentPadding = PaddingValues(0.dp),
+                        content = {
+                            Image(
+                                painter = painterResource(id = R.drawable.notes),
+                                contentDescription = stringResource(id = R.string.notes_sc),
+                                modifier = Modifier.fillMaxHeight(),
+                                contentScale = ContentScale.Inside
+                            )
+                        },
+                        colors = ButtonColors(
+                            containerColor = Color.Transparent,
+                            contentColor = Color.Transparent,
+                            disabledContentColor = Color.Transparent,
+                            disabledContainerColor = Color.Transparent
+                        )
+                    )
+                }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
@@ -402,8 +437,8 @@ fun ProgressButton(
 ) {
     if (player.playerStatuses.size > 1) {
         val finalModifier = modifier
-            .height(24.2.dp)
-            .width(63.dp)
+            .height(23.2.dp)
+            .width(26.dp)
         Button(
             modifier = finalModifier,
             onClick = {
@@ -413,12 +448,13 @@ fun ProgressButton(
                     ).replace("{skill}", skill.name)
                 )
             },
+            contentPadding = PaddingValues(1.dp),
             content = {
                 Image(
                     painter = painterResource(id = R.drawable.bar_chart),
                     contentDescription = stringResource(id = R.string.evolution_graph),
                     modifier = Modifier.fillMaxHeight(),
-                    contentScale = ContentScale.FillBounds
+                    contentScale = ContentScale.Inside
                 )
             },
             colors = ButtonColors(

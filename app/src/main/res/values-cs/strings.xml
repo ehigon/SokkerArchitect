@@ -89,4 +89,15 @@
     <string name="efficiency">Účinnost</string>
     <string name="injured">Zraněný</string>
     <string name="sokker_credentials">přihlašovací údaje sokker.org</string>
+    <string name="view_junior_period">Viz fáze mládí</string>
+    <string name="import_export_sc">Import/Export</string>
+    <string name="export_data">Import</string>
+    <string name="import_data">Export</string>
+    <string name="import_error">Nelze importovat data</string>
+    <string name="export_error">Nelze exportovat data</string>
+    <string name="import_success">Data byla úspěšně importována</string>
+    <string name="export_success">Data byla úspěšně exportována</string>
+    <string name="notes_sc">Známky</string>
+    <string name="notes">Známky</string>
+    <string name="save">zachovat</string>
 </resources>

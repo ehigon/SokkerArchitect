@@ -89,4 +89,15 @@
     <string name="efficiency">Eficienţă</string>
     <string name="injured">Accidentat</string>
     <string name="sokker_credentials">acreditările sokker.org</string>
+    <string name="view_junior_period">Vezi etapa tineretului</string>
+    <string name="import_export_sc">Import/Export</string>
+    <string name="export_data">Export</string>
+    <string name="import_data">Import</string>
+    <string name="import_error">Nu se pot importa date</string>
+    <string name="export_error">Nu se pot exporta date</string>
+    <string name="import_success">Datele au fost importate cu succes</string>
+    <string name="export_success">Datele au fost exportate cu succes</string>
+    <string name="notes_sc">Note</string>
+    <string name="notes">Note</string>
+    <string name="save">păstrează</string>
 </resources>

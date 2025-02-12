@@ -75,6 +75,7 @@ public interface PlayerEntityMapper {
     @Mapping(target = "national", source = "player.player.national")
     @Mapping(target = "valueInCurrency", expression = "java(getValueInCurrency(player, country))")
     @Mapping(target = "currency", source = "country.currencyName")
+    @Mapping(target = "notes", source = "player.player.notes")
     Player mapToDomain(PlayerWithStatuses player, CountryEntity country);
 
     default Double getValueInCurrency(PlayerWithStatuses player, CountryEntity country){

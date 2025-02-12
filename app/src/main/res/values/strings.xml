@@ -97,4 +97,7 @@
     <string name="export_error">Unable to export the data</string>
     <string name="import_success">Data imported successfully</string>
     <string name="export_success">Data exported successfully</string>
+    <string name="notes_sc">Notes</string>
+    <string name="notes">Notes</string>
+    <string name="save">save</string>
 </resources>

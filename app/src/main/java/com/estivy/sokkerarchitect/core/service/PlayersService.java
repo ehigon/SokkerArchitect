@@ -5,7 +5,6 @@ import com.estivy.sokkerarchitect.storage.service.PlayerStorageService;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,5 +34,9 @@ public class PlayersService {
 
     public void save(List<Player> players){
         playerStorageService.save(players);
+    }
+
+    public void saveNotes(Long id, String notes) {
+        playerStorageService.saveNotes(id, notes);
     }
 }

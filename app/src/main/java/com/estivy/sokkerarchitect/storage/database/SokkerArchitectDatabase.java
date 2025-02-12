@@ -16,7 +16,7 @@ import com.estivy.sokkerarchitect.storage.repositories.TeamRepository;
 
 @Database(entities = {PlayerEntity.class, PlayerStatusEntity.class, JuniorStatusEntity.class,
         CountryEntity.class, TeamEntity.class},
-        version = 3,
+        version = 4,
         exportSchema = false)
 public abstract class SokkerArchitectDatabase extends RoomDatabase {
 

@@ -35,6 +35,7 @@ import com.estivy.sokkerarchitect.ui.screens.ImportExport
 import com.estivy.sokkerarchitect.ui.screens.Junior
 import com.estivy.sokkerarchitect.ui.screens.Juniors
 import com.estivy.sokkerarchitect.ui.screens.Login
+import com.estivy.sokkerarchitect.ui.screens.Notes
 import com.estivy.sokkerarchitect.ui.screens.Player
 import com.estivy.sokkerarchitect.ui.screens.Players
 import com.estivy.sokkerarchitect.ui.screens.SkillProgress
@@ -55,12 +56,13 @@ enum class SokkerArchitectScreen(val route: String, @StringRes val title: Int) {
     SKILL_PROGRESS(route = "player/{id}/skill/{skill}", title = R.string.skill_progress_sc),
     UPDATING(route = "updating", title = R.string.updating_sc),
     JUNIOR(route = "junior/{id}", title = R.string.junior_sc),
-    IMPORT_EXPORT(route = "import_export", title = R.string.import_export_sc);
+    IMPORT_EXPORT(route = "import_export", title = R.string.import_export_sc),
+    NOTES(route = "player/{id}/notes", title = R.string.notes_sc);
 
     companion object {
         fun fromRoute(route: String): SokkerArchitectScreen {
             entries.filter { it.route == route }.forEach { return it }
-            return PLAYERS;
+            return PLAYERS
         }
     }
 }
@@ -212,6 +214,19 @@ fun SokkerArchitectApp(
                 }
                 composable(route = SokkerArchitectScreen.IMPORT_EXPORT.route) {
                     ImportExport(playersService, playersViewModel)
+                }
+                composable(
+                    route = SokkerArchitectScreen.NOTES.route,
+                    arguments = listOf(navArgument("id") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val id = backStackEntry.arguments?.getString("id")
+                    searchPlayer(playersViewModel, id)?.let { player ->
+                        Notes(
+                            player = player,
+                            saveNotes = { id, notes -> playersService.saveNotes(id, notes) },
+                            navigateUp = { navController.navigateUp() }
+                        )
+                    }
                 }
             }
         }

@@ -89,4 +89,15 @@
     <string name="efficiency">Αποδοτικότητα</string>
     <string name="injured">Τραυματίας</string>
     <string name="sokker_credentials">διαπιστευτήρια sokker.org</string>
+    <string name="view_junior_period">Δείτε το νεανικό στάδιο</string>
+    <string name="import_export_sc">Εισαγωγή/Εξαγωγή</string>
+    <string name="export_data">Εξαγωγή</string>
+    <string name="import_data">Εισαγωγή</string>
+    <string name="import_error">Δεν είναι δυνατή η εισαγωγή δεδομένων</string>
+    <string name="export_error">Δεν είναι δυνατή η εξαγωγή δεδομένων</string>
+    <string name="import_success">Τα δεδομένα εισήχθησαν με επιτυχία</string>
+    <string name="export_success">Τα δεδομένα εξήχθησαν με επιτυχία</string>
+    <string name="notes_sc">Βαθμοί</string>
+    <string name="notes">Βαθμοί</string>
+    <string name="save">διατήρηση</string>
 </resources>

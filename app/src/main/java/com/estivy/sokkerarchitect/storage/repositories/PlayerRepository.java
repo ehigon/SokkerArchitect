@@ -54,4 +54,10 @@ public interface PlayerRepository {
             "AND (SELECT COUNT(*) from junior_statuses " +
                 "where junior_statuses.playerId = players.id) = 0")
     void deleteOrphanedPlayers();
+
+    @Query("SELECT * FROM players WHERE id in (:ids)")
+    List<PlayerEntity> findByIds(List<Long> ids);
+
+    @Query("UPDATE players SET notes = :notes WHERE id = :id")
+    void updateNotes(Long id, String notes);
 }

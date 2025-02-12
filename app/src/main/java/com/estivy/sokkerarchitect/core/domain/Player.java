@@ -43,5 +43,6 @@ public class Player {
     private Integer ntMatches;
     private Integer injuryDays;
     private National national;
+    private String notes;
 
 }
