@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.estivy.sokkerarchitect"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.estivy.sokkerarchitect"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 7
         versionName = "1.6"
 

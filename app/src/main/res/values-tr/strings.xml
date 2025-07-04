@@ -100,4 +100,5 @@
     <string name="notes_sc">Notlar</string>
     <string name="notes">Notlar</string>
     <string name="save">kale</string>
+    <string name="number_of_players">Oyuncu sayısı:</string>
 </resources>

@@ -19,7 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.estivy.sokkerarchitect.R
@@ -34,6 +34,7 @@ import com.estivy.sokkerarchitect.ui.screens.composables.JuniorDetails
 import com.estivy.sokkerarchitect.ui.screens.composables.LoadingScreen
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
+import com.estivy.sokkerarchitect.ui.theme.blueSA
 import com.estivy.sokkerarchitect.ui.theme.subPlayer
 import com.estivy.sokkerarchitect.ui.util.JuniorEvolution
 
@@ -65,11 +66,18 @@ fun JuniorsScreen(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = stringResource(id = R.string.number_of_players)
+                    + " " + juniorsUiStateSuccess.players.size.toString(),
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
         LazyColumn(
             contentPadding = PaddingValues(horizontal = 1.dp),
         ) {
-            items(juniorsUiStateSuccess.players.sortedBy
-            { JuniorEvolution(it).currentWeek.remainingWeeks }) { player ->
+            items(
+                juniorsUiStateSuccess.players.sortedBy
+                { JuniorEvolution(it).currentWeek.remainingWeeks }) { player ->
                 JuniorRow(player, navigateTo)
             }
         }
@@ -152,7 +160,7 @@ fun Modifier.noRowPadding(evolution: JuniorEvolution): Modifier {
 
 @Preview
 @Composable
-fun JuniorRowPreview() {
+fun JuniorScreenPreview() {
     val player: Player = Player.builder()
         .name("Esteban")
         .surname("Higon")
@@ -185,5 +193,5 @@ fun JuniorRowPreview() {
             )
         )
         .build()
-    JuniorRow(player) { println(it) }
+    JuniorsScreen(PlayersUiState.Success(listOf(player)), Modifier, navigateTo = { })
 }

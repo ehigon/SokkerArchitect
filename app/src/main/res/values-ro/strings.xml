@@ -100,4 +100,5 @@
     <string name="notes_sc">Note</string>
     <string name="notes">Note</string>
     <string name="save">păstrează</string>
+    <string name="number_of_players">Numar de jucatori:</string>
 </resources>

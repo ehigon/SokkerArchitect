@@ -101,4 +101,5 @@
     <string name="notes_sc">Nilai</string>
     <string name="notes">Nilai</string>
     <string name="save">menyimpan</string>
+    <string name="number_of_players">Jumlah pemain:</string>
 </resources>

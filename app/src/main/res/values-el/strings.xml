@@ -100,4 +100,5 @@
     <string name="notes_sc">Βαθμοί</string>
     <string name="notes">Βαθμοί</string>
     <string name="save">διατήρηση</string>
+    <string name="number_of_players">Αριθμός παικτών:</string>
 </resources>

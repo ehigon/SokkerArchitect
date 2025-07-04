@@ -100,4 +100,5 @@
     <string name="notes_sc">Gradi</string>
     <string name="notes">Gradi</string>
     <string name="save">Mantenere</string>
+    <string name="number_of_players">Numero di giocatori:</string>
 </resources>

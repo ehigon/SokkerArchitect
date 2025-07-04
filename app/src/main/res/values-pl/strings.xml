@@ -100,4 +100,5 @@
     <string name="notes_sc">Oceny</string>
     <string name="notes">Oceny</string>
     <string name="save">trzymać</string>
+    <string name="number_of_players">Liczba graczy:</string>
 </resources>
