@@ -17,14 +17,15 @@ import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.ui.screens.composables.Graph
 import com.estivy.sokkerarchitect.ui.screens.composables.JuniorDetails
 import com.estivy.sokkerarchitect.ui.screens.model.GraphAppearance
-import com.estivy.sokkerarchitect.ui.screens.model.GraphPoint
+import com.estivy.sokkerarchitect.ui.screens.model.SimpleLinearRegression
 import com.estivy.sokkerarchitect.ui.theme.blueSA
-import com.estivy.sokkerarchitect.ui.theme.greenGraph
 import com.estivy.sokkerarchitect.ui.theme.juniorDetail
-import com.estivy.sokkerarchitect.ui.theme.subPlayer
+import com.estivy.sokkerarchitect.ui.util.getGraphPoints
 
 @Composable
 fun Junior(player: Player) {
+    val points = getGraphPoints(player)
+    val linearRegression = SimpleLinearRegression(points)
     Column {
         Row(
             modifier = Modifier
@@ -44,30 +45,22 @@ fun Junior(player: Player) {
                 .align(Alignment.CenterHorizontally)
         )
         {
-            JuniorDetails(player.juniorStatuses.sortedBy { it.week }.last(), juniorDetail)
+            JuniorDetails(
+                currentWeek = player.juniorStatuses.sortedBy { it.week }.last(),
+                talent = if(points.size < 2) null else 1F / linearRegression.b1,
+                textStyle = juniorDetail
+            )
         }
         Graph(
-            points = getPoints(player),
+            points = points,
             graphAppearance = GraphAppearance(
                 graphAxisColor = Color.Black,
                 backgroundColor = Color.White
             ),
-            listener = {}
+            listener = {},
+            linearRegression = linearRegression
         )
     }
-}
-
-@Composable
-private fun getPoints(player: Player): List<GraphPoint> {
-    return player.juniorStatuses.sortedBy { it.week }
-        .map {
-            GraphPoint(
-                value = it.skill,
-                bar = (if (it.trainerSkill == null) 18 else it.trainerSkill) / 18.0F,
-                color = greenGraph,
-                week = if (it.week == null) 0 else it.week.toInt()
-            )
-        }
 }
 
 
@@ -92,16 +85,44 @@ fun JuniorPreview() {
         .juniorStatuses(
             listOf(
                 JuniorStatus.builder()
-                    .week(123)
+                    .week(119)
+                    .skill(7)
+                    .remainingWeeks(6)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(17)
+                    .build(),
+                JuniorStatus.builder()
+                    .week(120)
+                    .skill(7)
+                    .remainingWeeks(5)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(17)
+                    .build(),
+                JuniorStatus.builder()
+                    .week(121)
                     .skill(7)
                     .remainingWeeks(4)
                     .formation(JuniorFormation.FIELD_PLAYER)
                     .age(17)
                     .build(),
                 JuniorStatus.builder()
-                    .week(124)
-                    .skill(8)
+                    .week(122)
+                    .skill(7)
                     .remainingWeeks(3)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(17)
+                    .build(),
+                JuniorStatus.builder()
+                    .week(123)
+                    .skill(8)
+                    .remainingWeeks(2)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(17)
+                    .build(),
+                JuniorStatus.builder()
+                    .week(124)
+                    .skill(9)
+                    .remainingWeeks(1)
                     .formation(JuniorFormation.FIELD_PLAYER)
                     .age(17)
                     .build()

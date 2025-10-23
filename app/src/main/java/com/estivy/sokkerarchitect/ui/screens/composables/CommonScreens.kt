@@ -26,7 +26,7 @@ fun ErrorScreen(exception: Exception) {
 
 @Composable
 fun getMessage(exception: RuntimeException?): String {
-    if(exception == null || exception !is LoginException){
+    if (exception == null || exception !is LoginException) {
         return stringResource(R.string.unknown)
     }
     return stringResource(LoginErrorMapping.fromLoginError(exception.loginError).resource)
@@ -34,7 +34,8 @@ fun getMessage(exception: RuntimeException?): String {
 
 @Composable
 fun JuniorDetails(
-    currentWeek : JuniorStatus,
+    currentWeek: JuniorStatus,
+    talent: Float?,
     textStyle: TextStyle,
     textAlign: TextAlign = TextAlign.Unspecified
 ) {
@@ -45,6 +46,12 @@ fun JuniorDetails(
     )
     TextWithValue(stringResource(R.string.skill), currentWeek.skill, textStyle, textAlign)
     TextWithValue(stringResource(R.string.weeks), currentWeek.remainingWeeks, textStyle, textAlign)
+    Text(
+        modifier = Modifier.padding(start = 8.dp),
+        style = textStyle,
+        text = stringResource(R.string.talent) + ": " + if (talent != null) "%.2f".format(talent) else "-",
+        textAlign = textAlign
+    )
 }
 
 @Composable

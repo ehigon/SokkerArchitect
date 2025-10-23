@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.ui.screens.model.GraphAppearance
 import com.estivy.sokkerarchitect.ui.screens.model.GraphPoint
+import com.estivy.sokkerarchitect.ui.screens.model.SimpleLinearRegression
 
 
 private const val POINTS_IN_SCREEN = 10
@@ -47,7 +48,8 @@ private const val GRAPH_HEIGHT = 500
 fun Graph(
     points: List<GraphPoint>,
     graphAppearance: GraphAppearance,
-    listener: (Int) -> Unit
+    listener: (Int) -> Unit,
+    linearRegression: SimpleLinearRegression? = null
 ) {
     val verticalStep = 1
     val yValues = (-1..17).map { (it + 1) * verticalStep }
@@ -102,7 +104,11 @@ fun Graph(
                             val yAxisSpace = size.height / yValues.size
                             drawBars(points, xAxisSpace, yAxisSpace)
                             placeXAxisPoints(points, xAxisSpace, textPaint)
-                            drawYPointingLines(yValues, yAxisSpace, graphAppearance.pointingLineColor)
+                            drawYPointingLines(
+                                yValues,
+                                yAxisSpace,
+                                graphAppearance.pointingLineColor
+                            )
                             drawLines(
                                 points,
                                 xAxisSpace,
@@ -115,8 +121,18 @@ fun Graph(
                                 xAxisSpace,
                                 yAxisSpace,
                                 verticalStep,
-                                graphAppearance.lineColor
+                                graphAppearance.lineColor,
                             )
+                            if (linearRegression != null && points.size > 2) {
+                                drawLinearRegression(
+                                    linearRegression,
+                                    xAxisSpace,
+                                    yAxisSpace,
+                                    verticalStep,
+                                    graphAppearance.trendLineColor,
+                                    points.size
+                                )
+                            }
                         }
                     }
                 }
@@ -144,7 +160,11 @@ private fun DrawScope.placeYAxisPoints(
     }
 }
 
-private fun DrawScope.drawYPointingLines(yValues: List<Int>, yAxisSpace: Float, pointingLineColor: Color) {
+private fun DrawScope.drawYPointingLines(
+    yValues: List<Int>,
+    yAxisSpace: Float,
+    pointingLineColor: Color
+) {
     val dotPadding = yAxisSpace / 4
     for (i in yValues.indices) {
         var j = 0.0F
@@ -220,7 +240,7 @@ private fun DrawScope.drawLines(
     }
 }
 
-fun DrawScope.drawPoints(
+private fun DrawScope.drawPoints(
     points: List<GraphPoint>,
     xAxisSpace: Float,
     yAxisSpace: Float,
@@ -239,6 +259,28 @@ fun DrawScope.drawPoints(
         color = lineColor,
         strokeWidth = 20f,
         cap = StrokeCap.Round
+    )
+}
+
+private fun DrawScope.drawLinearRegression(
+    linearRegression: SimpleLinearRegression,
+    xAxisSpace: Float,
+    yAxisSpace: Float,
+    verticalStep: Int,
+    lineColor: Color,
+    numPoints: Int
+) {
+    val firstY = linearRegression.calculateY(1F)
+    val lastY = linearRegression.calculateY(numPoints.toFloat())
+    val x1 = xAxisSpace / 2
+    val y1 = size.height - (yAxisSpace * (firstY + 1 / verticalStep.toFloat()))
+    val x2 = (xAxisSpace / 2) + (xAxisSpace * (numPoints - 1))
+    val y2 = size.height - (yAxisSpace * (lastY + 1 / verticalStep.toFloat()))
+    drawLine(
+        start = Offset(x = x1, y = y1),
+        end = Offset(x = x2, y = y2),
+        color = lineColor,
+        strokeWidth = 7f
     )
 }
 
@@ -266,6 +308,7 @@ fun GraphPreview() {
             graphAxisColor = Color.Black,
             backgroundColor = Color.White,
         ),
-        listener = {}
+        listener = {},
+        linearRegression = SimpleLinearRegression(points)
     )
 }

@@ -34,9 +34,11 @@ import com.estivy.sokkerarchitect.ui.screens.composables.JuniorDetails
 import com.estivy.sokkerarchitect.ui.screens.composables.LoadingScreen
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
+import com.estivy.sokkerarchitect.ui.screens.model.SimpleLinearRegression
 import com.estivy.sokkerarchitect.ui.theme.blueSA
 import com.estivy.sokkerarchitect.ui.theme.subPlayer
 import com.estivy.sokkerarchitect.ui.util.JuniorEvolution
+import com.estivy.sokkerarchitect.ui.util.getGraphPoints
 
 @Composable
 fun Juniors(playersViewModel: PlayersViewModel, navigateTo: (route: String) -> Unit) {
@@ -127,7 +129,7 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
                                 .size(20.dp)
                         )
                     }
-                    JuniorDetails(evolution.currentWeek, subPlayer)
+                    JuniorDetails(evolution.currentWeek, getTalent(player), subPlayer)
                     if (evolution.getSkill() > 0) {
                         Image(
                             painter = painterResource(id = R.drawable.up_arrow),
@@ -149,6 +151,14 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
             }
         }
     }
+}
+
+fun getTalent(player: Player): Float? {
+    val graphPoints = getGraphPoints(player)
+    if(graphPoints.size < 2){
+        return null
+    }
+    return 1/SimpleLinearRegression(getGraphPoints(player)).b1
 }
 
 fun Modifier.noRowPadding(evolution: JuniorEvolution): Modifier {
