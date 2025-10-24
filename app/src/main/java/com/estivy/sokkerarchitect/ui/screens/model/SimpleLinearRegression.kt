@@ -14,7 +14,7 @@ class SimpleLinearRegression(points: List<GraphPoint>) {
     private fun sumXY(points: List<GraphPoint>): Float {
         var sum = 0
         for (i in 0 until points.size) {
-            sum += (i + 1) * points[i].value
+            sum += (points[i].week) * points[i].value
         }
         return sum.toFloat()
     }
@@ -22,7 +22,7 @@ class SimpleLinearRegression(points: List<GraphPoint>) {
     private fun sumX(points: List<GraphPoint>): Float {
         var sum = 0
         for (i in 0 until points.size) {
-            sum += (i + 1)
+            sum += (points[i].week)
         }
         return sum.toFloat()
     }
@@ -38,7 +38,7 @@ class SimpleLinearRegression(points: List<GraphPoint>) {
     private fun sumXX(points: List<GraphPoint>): Float {
         var sum = 0
         for (i in 0 until points.size) {
-            sum += (i + 1) * (i + 1)
+            sum += (points[i].week) * (points[i].week)
         }
         return sum.toFloat()
     }

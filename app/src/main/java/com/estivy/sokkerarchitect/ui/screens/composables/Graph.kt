@@ -130,7 +130,7 @@ fun Graph(
                                     yAxisSpace,
                                     verticalStep,
                                     graphAppearance.trendLineColor,
-                                    points.size
+                                    points
                                 )
                             }
                         }
@@ -268,20 +268,35 @@ private fun DrawScope.drawLinearRegression(
     yAxisSpace: Float,
     verticalStep: Int,
     lineColor: Color,
-    numPoints: Int
+    points: List<GraphPoint>
 ) {
-    val firstY = linearRegression.calculateY(1F)
-    val lastY = linearRegression.calculateY(numPoints.toFloat())
+    for(i in 0 until points.size){
+        val point = points[i]
+        val firstY = linearRegression.calculateY(point.week.toFloat() - 0.5F)
+        val lastY = linearRegression.calculateY(point.week.toFloat() + 0.5F)
+        val x1 = (xAxisSpace * (i))
+        val x2 = (xAxisSpace * (i+1))
+        val y1 = size.height - (yAxisSpace * (firstY + 1 / verticalStep.toFloat()))
+        val y2 = size.height - (yAxisSpace * (lastY + 1 / verticalStep.toFloat()))
+        drawLine(
+            start = Offset(x = x1, y = y1),
+            end = Offset(x = x2, y = y2),
+            color = lineColor,
+            strokeWidth = 7f
+        )
+    }
+    /*val firstY = linearRegression.calculateY(points.first().week.toFloat())
+    val lastY = linearRegression.calculateY(points.last().week.toFloat())
     val x1 = xAxisSpace / 2
     val y1 = size.height - (yAxisSpace * (firstY + 1 / verticalStep.toFloat()))
-    val x2 = (xAxisSpace / 2) + (xAxisSpace * (numPoints - 1))
+    val x2 = (xAxisSpace / 2) + (xAxisSpace * (points.size - 1))
     val y2 = size.height - (yAxisSpace * (lastY + 1 / verticalStep.toFloat()))
     drawLine(
         start = Offset(x = x1, y = y1),
         end = Offset(x = x2, y = y2),
         color = lineColor,
         strokeWidth = 7f
-    )
+    )*/
 }
 
 @Preview
