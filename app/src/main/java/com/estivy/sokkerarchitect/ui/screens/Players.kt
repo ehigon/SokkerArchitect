@@ -45,7 +45,7 @@ fun Players(playersViewModel: PlayersViewModel, navigateTo: (route: String) -> U
         .fillMaxSize()
         .wrapContentSize(Alignment.Center)
     when (playersViewModel.playersUiState) {
-        is PlayersUiState.Loading -> LoadingScreen()
+        is PlayersUiState.Loading, PlayersUiState.NotStarted -> LoadingScreen()
         is PlayersUiState.Success -> PlayersScreen(
             (playersViewModel.playersUiState as PlayersUiState.Success),
             modifier,

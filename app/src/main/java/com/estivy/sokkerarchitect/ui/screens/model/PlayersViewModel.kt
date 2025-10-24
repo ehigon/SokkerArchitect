@@ -10,53 +10,75 @@ import com.estivy.sokkerarchitect.core.service.PlayersService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.concurrent.locks.ReentrantLock
 import javax.inject.Inject
+import kotlin.concurrent.withLock
 
 sealed interface PlayersUiState {
     data class Success(val players: List<Player>) : PlayersUiState
     data class Error(val exception: Exception) : PlayersUiState
     object Loading : PlayersUiState
+    object NotStarted : PlayersUiState
 }
 
 @HiltViewModel
 class PlayersViewModel @Inject constructor(private val playersService: PlayersService) :
     ViewModel() {
-    var playersUiState: PlayersUiState by mutableStateOf(PlayersUiState.Loading)
+
+    val lock = ReentrantLock()
+
+    var playersUiState: PlayersUiState by mutableStateOf(PlayersUiState.NotStarted)
         private set
 
-    var juniorsUiState: PlayersUiState by mutableStateOf(PlayersUiState.Loading)
+    var juniorsUiState: PlayersUiState by mutableStateOf(PlayersUiState.NotStarted)
 
     fun retrievePlayers() {
-        if(playersUiState is PlayersUiState.Success){
-            return
+        lock.withLock {
+            if(playersUiState !is PlayersUiState.NotStarted){
+                return
+            }
+            playersUiState = PlayersUiState.Loading
         }
         viewModelScope.launch((Dispatchers.Default)) {
-            playersUiState = PlayersUiState.Loading
-            playersUiState = try {
-                PlayersUiState.Success(playersService.findPlayers())
+            try {
+                val players = playersService.findPlayers()
+                lock.withLock {
+                    playersUiState = PlayersUiState.Success(players)
+                }
             } catch (ex: Exception) {
-                PlayersUiState.Error(ex)
+                lock.withLock {
+                    playersUiState = PlayersUiState.Error(ex)
+                }
             }
         }
     }
 
     fun retrieveJuniors() {
-        if(juniorsUiState is PlayersUiState.Success){
-            return
+        lock.withLock {
+            if(juniorsUiState !is PlayersUiState.NotStarted){
+                return
+            }
+            juniorsUiState = PlayersUiState.Loading
         }
         viewModelScope.launch((Dispatchers.Default)) {
-            juniorsUiState = PlayersUiState.Loading
-            juniorsUiState = try {
-                PlayersUiState.Success(playersService.findJuniors())
+            try {
+                val juniors = playersService.findJuniors()
+                lock.withLock {
+                    juniorsUiState = PlayersUiState.Success(juniors)
+                }
             } catch (ex: Exception) {
-                PlayersUiState.Error(ex)
-            }
+                lock.withLock {
+                    juniorsUiState = PlayersUiState.Error(ex)
+                }
 
+            }
         }
     }
 
     fun dataUpdated(){
-        playersUiState = PlayersUiState.Loading
-        juniorsUiState = PlayersUiState.Loading
+        lock.withLock {
+            playersUiState = PlayersUiState.NotStarted
+            juniorsUiState = PlayersUiState.NotStarted
+        }
     }
 }

@@ -49,6 +49,7 @@ fun Login(updateService: UpdateService, navigateTo: (route: String) -> Unit) {
         LoginErrorAlertDialog(status = status, getMessage(exception.value))
     }
     if (status.value == Status.SUCCESS) {
+        status.value = Status.NONE
         navigateTo(SokkerArchitectScreen.PLAYERS.route)
     }
 }
