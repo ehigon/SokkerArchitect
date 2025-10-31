@@ -76,7 +76,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    annotationProcessor(libs.hilt.android.compiler)
     implementation(libs.retrofit)
     implementation(libs.converter.scalars)
     compileOnly(libs.lombok)

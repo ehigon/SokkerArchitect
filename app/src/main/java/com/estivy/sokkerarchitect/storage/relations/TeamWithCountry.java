@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor(onConstructor_=@__({@Ignore}))
+@AllArgsConstructor
 public class TeamWithCountry {
     @Embedded
     private TeamEntity team;

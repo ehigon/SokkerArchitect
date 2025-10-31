@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor(onConstructor_=@__({@Ignore}))
+@AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter

@@ -46,6 +46,7 @@ public interface PlayerMapper {
     @Mapping(target = "juniorStatuses", ignore = true)
     @Mapping(target = "valueInCurrency", ignore = true)
     @Mapping(target = "currency", ignore = true)
+    @Mapping(target = "notes", ignore = true)
     Player toDomain(PlayerDto player, Optional<TrainerDto> optPrincipalTrainer, TeamDto team,
                     List<MatchDetailDto> lastWeekMatchDetails, VarsDto vars, CountriesDto countries);
 
@@ -198,6 +199,7 @@ public interface PlayerMapper {
     @Mapping(target = "name", source = "junior.name")
     @Mapping(target = "valueInCurrency", ignore = true)
     @Mapping(target = "currency", ignore = true)
+    @Mapping(target = "notes", ignore = true)
     Player toDomain(JuniorDto junior, VarsDto vars, Country country, Optional<TrainerDto> optJuniorTrainer);
 
     @Mapping(target = "remainingWeeks", source="junior.weeks")
