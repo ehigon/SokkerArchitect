@@ -3,9 +3,6 @@ package com.estivy.sokkerarchitect.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -70,7 +67,7 @@ fun SokkerArchitectAppBar(
             if (shouldShowMenu) {
                 IconButton(onClick = onNavigationIconClick) {
                     Icon(
-                        imageVector = Icons.Default.Menu,
+                        painter = painterResource(R.drawable.menu),
                         contentDescription = null,
                     )
                 }
@@ -157,7 +154,7 @@ fun UpdateAlertDialog(
                     )
                 }
             },
-            icon = { Icons.Default.Info }
+            icon = { R.drawable.info }
         )
     }
 }

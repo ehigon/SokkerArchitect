@@ -5,11 +5,12 @@ plugins {
     kotlin("plugin.lombok") version "2.0.21"
     id("io.freefair.lombok") version "8.10"
     id("kotlin-kapt")
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.estivy.sokkerarchitect"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.estivy.sokkerarchitect"
