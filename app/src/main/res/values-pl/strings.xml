@@ -102,4 +102,8 @@
     <string name="save">trzymać</string>
     <string name="number_of_players">Liczba graczy:</string>
     <string name="talent">Talent</string>
+    <string name="expected_skill">Oczekiwana umiejętność</string>
+    <string name="estimated_skill">Szacowana umiejętność</string>
+    <string name="current">aktualny</string>
+    <string name="finalsk">koniec</string>
 </resources>

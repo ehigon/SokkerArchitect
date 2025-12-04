@@ -103,4 +103,8 @@
     <string name="save">menyimpan</string>
     <string name="number_of_players">Jumlah pemain:</string>
     <string name="talent">Bakat</string>
+    <string name="expected_skill">Keterampilan yang Diharapkan</string>
+    <string name="estimated_skill">Keterampilan yang diperkirakan</string>
+    <string name="current">saat ini</string>
+    <string name="finalsk">akhir</string>
 </resources>

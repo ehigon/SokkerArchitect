@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.service.PlayersService
+import com.estivy.sokkerarchitect.ui.util.getGraphPoints
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +16,7 @@ import javax.inject.Inject
 import kotlin.concurrent.withLock
 
 sealed interface PlayersUiState {
-    data class Success(val players: List<Player>) : PlayersUiState
+    data class Success(val players: List<PlayerWrapper>) : PlayersUiState
     data class Error(val exception: Exception) : PlayersUiState
     object Loading : PlayersUiState
     object NotStarted : PlayersUiState
@@ -43,7 +44,7 @@ class PlayersViewModel @Inject constructor(private val playersService: PlayersSe
             try {
                 val players = playersService.findPlayers()
                 lock.withLock {
-                    playersUiState = PlayersUiState.Success(players)
+                    playersUiState = PlayersUiState.Success(toPlayerWrapper(players))
                 }
             } catch (ex: Exception) {
                 lock.withLock {
@@ -64,7 +65,7 @@ class PlayersViewModel @Inject constructor(private val playersService: PlayersSe
             try {
                 val juniors = playersService.findJuniors()
                 lock.withLock {
-                    juniorsUiState = PlayersUiState.Success(juniors)
+                    juniorsUiState = PlayersUiState.Success(toPlayerWrapper(juniors))
                 }
             } catch (ex: Exception) {
                 lock.withLock {
@@ -80,5 +81,16 @@ class PlayersViewModel @Inject constructor(private val playersService: PlayersSe
             playersUiState = PlayersUiState.NotStarted
             juniorsUiState = PlayersUiState.NotStarted
         }
+    }
+
+    fun toPlayerWrapper(players: List<Player>): List<PlayerWrapper> {
+        return players.asSequence()
+            .map { player -> toPlayerWrapper(player) }
+            .toList()
+    }
+
+    fun toPlayerWrapper(player: Player) : PlayerWrapper {
+        val points = getGraphPoints(player)
+        return PlayerWrapper(player, SimpleLinearRegression(points), points)
     }
 }

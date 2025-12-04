@@ -102,4 +102,8 @@
     <string name="save">păstrează</string>
     <string name="number_of_players">Numar de jucatori:</string>
     <string name="talent">Talent</string>
+    <string name="expected_skill">Abilitatea așteptată</string>
+    <string name="estimated_skill">Abilitatea estimată</string>
+    <string name="current">actual</string>
+    <string name="finalsk">Sfârşit</string>
 </resources>

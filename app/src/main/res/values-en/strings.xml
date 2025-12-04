@@ -102,4 +102,8 @@
     <string name="save">save</string>
     <string name="number_of_players">Number of players:</string>
     <string name="talent">Talent</string>
+    <string name="expected_skill">Expected Skill</string>
+    <string name="estimated_skill">Estimated skill</string>
+    <string name="current">current</string>
+    <string name="finalsk">final</string>
 </resources>

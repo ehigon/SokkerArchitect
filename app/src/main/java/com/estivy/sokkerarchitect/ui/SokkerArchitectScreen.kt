@@ -180,7 +180,7 @@ fun SokkerArchitectApp(
                 ) { backStackEntry ->
                     val id = backStackEntry.arguments?.getString("id")
                     searchPlayer(playersViewModel, id)?.let { player ->
-                        Player(player) {
+                        Player(player.player) {
                             navController.navigate(it)
                         }
                     }
@@ -222,7 +222,7 @@ fun SokkerArchitectApp(
                     val id = backStackEntry.arguments?.getString("id")
                     searchPlayer(playersViewModel, id)?.let { player ->
                         Notes(
-                            player = player,
+                            player = player.player,
                             saveNotes = { id, notes -> playersService.saveNotes(id, notes) },
                             navigateUp = { navController.navigateUp() }
                         )

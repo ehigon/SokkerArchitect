@@ -32,6 +32,7 @@ import com.estivy.sokkerarchitect.ui.screens.composables.ErrorScreen
 import com.estivy.sokkerarchitect.ui.screens.composables.FinishAppBackPressHandler
 import com.estivy.sokkerarchitect.ui.screens.composables.JuniorDetails
 import com.estivy.sokkerarchitect.ui.screens.composables.LoadingScreen
+import com.estivy.sokkerarchitect.ui.screens.model.PlayerWrapper
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
 import com.estivy.sokkerarchitect.ui.screens.model.SimpleLinearRegression
@@ -79,7 +80,7 @@ fun JuniorsScreen(
         ) {
             items(
                 juniorsUiStateSuccess.players.sortedBy
-                { JuniorEvolution(it).currentWeek.remainingWeeks }) { player ->
+                { JuniorEvolution(it.player).currentWeek.remainingWeeks }) { player ->
                 JuniorRow(player, navigateTo)
             }
         }
@@ -88,16 +89,17 @@ fun JuniorsScreen(
 }
 
 @Composable
-fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
+fun JuniorRow(player: PlayerWrapper, navigateTo: (route: String) -> Unit) {
 
-    val evolution = JuniorEvolution(player)
+    val evolution = JuniorEvolution(player.player)
     Card(
         modifier = Modifier
             .padding(1.dp)
             .fillMaxWidth(),
         onClick = {
-            if (player.juniorStatuses.size > 1) {
-                navigateTo(SokkerArchitectScreen.JUNIOR.route.replace("{id}", player.id.toString()))
+            if (player.player.juniorStatuses.size > 1) {
+                navigateTo(SokkerArchitectScreen.JUNIOR.route
+                    .replace("{id}", player.player.id.toString()))
             }
         }
 
@@ -112,7 +114,7 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
                 verticalArrangement = Arrangement.Bottom
             )
             {
-                Text(player.name + " " + player.surname)
+                Text(player.player.name + " " + player.player.surname)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -129,7 +131,7 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
                                 .size(20.dp)
                         )
                     }
-                    JuniorDetails(evolution.currentWeek, getTalent(player), subPlayer)
+                    JuniorDetails(evolution.currentWeek, player, subPlayer)
                     if (evolution.getSkill() > 0) {
                         Image(
                             painter = painterResource(id = R.drawable.up_arrow),
@@ -151,14 +153,6 @@ fun JuniorRow(player: Player, navigateTo: (route: String) -> Unit) {
             }
         }
     }
-}
-
-fun getTalent(player: Player): Float? {
-    val graphPoints = getGraphPoints(player)
-    if(graphPoints.size < 2){
-        return null
-    }
-    return 1/SimpleLinearRegression(getGraphPoints(player)).b1
 }
 
 fun Modifier.noRowPadding(evolution: JuniorEvolution): Modifier {
@@ -193,15 +187,62 @@ fun JuniorScreenPreview() {
                     .skill(7)
                     .remainingWeeks(4)
                     .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(19)
                     .build(),
                 JuniorStatus.builder()
                     .week(124)
                     .skill(8)
                     .remainingWeeks(3)
                     .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(19)
                     .build()
             )
         )
         .build()
-    JuniorsScreen(PlayersUiState.Success(listOf(player)), Modifier, navigateTo = { })
+    val points = getGraphPoints(player)
+    val playerWrapper = PlayerWrapper(player, SimpleLinearRegression(points), points)
+    val player2: Player = Player.builder()
+        .name("Esteban")
+        .surname("Higon")
+        .value(1345678986)
+        .age(19)
+        .height(183)
+        .weight(80.5)
+        .cards(1)
+        .injuryDays(5)
+        .country(
+            Country.builder()
+                .name("Spain")
+                .countryId(34)
+                .build()
+        )
+        .juniorStatuses(
+            listOf(
+                JuniorStatus.builder()
+                    .week(122)
+                    .skill(7)
+                    .remainingWeeks(5)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(19)
+                    .build(),
+                JuniorStatus.builder()
+                    .week(123)
+                    .skill(8)
+                    .remainingWeeks(4)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(19)
+                    .build(),
+                JuniorStatus.builder()
+                    .week(124)
+                    .skill(8)
+                    .remainingWeeks(3)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(19)
+                    .build()
+            )
+        )
+        .build()
+    val points2 = getGraphPoints(player2)
+    val playerWrapper2 = PlayerWrapper(player2, SimpleLinearRegression(points2), points2)
+    JuniorsScreen(PlayersUiState.Success(listOf(playerWrapper, playerWrapper2)), Modifier, navigateTo = { })
 }

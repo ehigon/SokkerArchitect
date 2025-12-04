@@ -33,10 +33,13 @@ import com.estivy.sokkerarchitect.ui.screens.composables.FinishAppBackPressHandl
 import com.estivy.sokkerarchitect.ui.screens.composables.Injury
 import com.estivy.sokkerarchitect.ui.screens.composables.LoadingScreen
 import com.estivy.sokkerarchitect.ui.screens.composables.skill
+import com.estivy.sokkerarchitect.ui.screens.model.PlayerWrapper
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
+import com.estivy.sokkerarchitect.ui.screens.model.SimpleLinearRegression
 import com.estivy.sokkerarchitect.ui.theme.subPlayer
 import com.estivy.sokkerarchitect.ui.util.Evolution
+import com.estivy.sokkerarchitect.ui.util.getGraphPoints
 
 @Composable
 fun Players(playersViewModel: PlayersViewModel, navigateTo: (route: String) -> Unit) {
@@ -76,7 +79,7 @@ fun PlayersScreen(
         LazyColumn(
             contentPadding = PaddingValues(horizontal = 1.dp),
         ) {
-            items(playersViewModelSuccess.players.sortedBy { it.surname + it.name }) { player ->
+            items(playersViewModelSuccess.players.sortedBy { it.player.surname + it.player.name }) { player ->
                 PlayerRow(player, navigateTo)
             }
         }
@@ -86,16 +89,17 @@ fun PlayersScreen(
 
 @Composable
 fun PlayerRow(
-    player: Player,
+    player: PlayerWrapper,
     navigateTo: (route: String) -> Unit
 ) {
-    val evolution = Evolution(player)
+    val evolution = Evolution(player.player)
     Card(
         modifier = Modifier
             .padding(1.dp)
             .fillMaxWidth(),
         onClick = {
-            navigateTo(SokkerArchitectScreen.PLAYER.route.replace("{id}", player.id.toString()))
+            navigateTo(SokkerArchitectScreen.PLAYER.route
+                .replace("{id}", player.player.id.toString()))
         }
 
     )
@@ -106,15 +110,15 @@ fun PlayerRow(
         ) {
             Column {
                 Row {
-                    Text(player.name + " " + player.surname)
+                    Text(player.player.name + " " + player.player.surname)
                 }
                 Row(
                     modifier = Modifier.padding(top = 3.dp)
                 ) {
-                    val currentWeek = player.playerStatuses.maxBy { ps -> ps.week }
+                    val currentWeek = player.player.playerStatuses.maxBy { ps -> ps.week }
                     if(currentWeek != null) {
                         Text(
-                            stringResource(R.string.age) + " " + player.age,
+                            stringResource(R.string.age) + " " + player.player.age,
                             style = subPlayer
                         )
                         Text(
@@ -130,8 +134,8 @@ fun PlayerRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    Injury(player, 12, 16)
-                    Cards(player, 12, 16)
+                    Injury(player.player, 12, 16)
+                    Cards(player.player, 12, 16)
                     for (i in 0 until evolution.getIncreases()) {
                         Image(
                             painter = painterResource(id = R.drawable.up_arrow),
@@ -209,6 +213,8 @@ fun PlayerRowPreview() {
             )
         )
         .build()
-    PlayersScreen(PlayersUiState.Success(listOf(player)), Modifier, {})
+    val points = getGraphPoints(player)
+    val playerWrapper = PlayerWrapper(player, SimpleLinearRegression(points), points)
+    PlayersScreen(PlayersUiState.Success(listOf(playerWrapper)), Modifier, {})
 }
 

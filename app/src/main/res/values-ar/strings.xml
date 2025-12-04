@@ -102,4 +102,8 @@
     <string name="save">يحفظ</string>
     <string name="number_of_players">عدد اللاعبين:</string>
     <string name="talent">الموهبة</string>
+    <string name="expected_skill">المهارة المتوقعة</string>
+    <string name="estimated_skill">المهارة المقدرة</string>
+    <string name="current">حاضِر</string>
+    <string name="finalsk">نهاية</string>
 </resources>

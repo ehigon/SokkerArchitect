@@ -14,18 +14,28 @@ import com.estivy.sokkerarchitect.core.domain.Country
 import com.estivy.sokkerarchitect.core.domain.JuniorFormation
 import com.estivy.sokkerarchitect.core.domain.JuniorStatus
 import com.estivy.sokkerarchitect.core.domain.Player
-import com.estivy.sokkerarchitect.ui.screens.composables.Graph
+import com.estivy.sokkerarchitect.ui.screens.composables.graph.Graph
 import com.estivy.sokkerarchitect.ui.screens.composables.JuniorDetails
 import com.estivy.sokkerarchitect.ui.screens.model.GraphAppearance
+import com.estivy.sokkerarchitect.ui.screens.model.PlayerWrapper
 import com.estivy.sokkerarchitect.ui.screens.model.SimpleLinearRegression
 import com.estivy.sokkerarchitect.ui.theme.blueSA
 import com.estivy.sokkerarchitect.ui.theme.juniorDetail
 import com.estivy.sokkerarchitect.ui.util.getGraphPoints
 
 @Composable
-fun Junior(player: Player) {
-    val points = getGraphPoints(player)
-    val linearRegression = SimpleLinearRegression(points)
+fun Junior(player: PlayerWrapper) {
+    val graphAppearance = GraphAppearance(
+        graphAxisColor = Color.Black,
+        backgroundColor = Color.White
+    )
+    val yValues = (-1..17).map { (it + 1) }
+    val drawer = createJuniorDrawer(
+        points = player.points,
+        yValues = yValues,
+        graphAppearance,
+        linearRegression = player.linearRegression
+    )
     Column {
         Row(
             modifier = Modifier
@@ -34,7 +44,7 @@ fun Junior(player: Player) {
         )
         {
             Text(
-                text = player.name + " " + player.surname,
+                text = player.player.name + " " + player.player.surname,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
                 color = blueSA
@@ -46,19 +56,17 @@ fun Junior(player: Player) {
         )
         {
             JuniorDetails(
-                currentWeek = player.juniorStatuses.sortedBy { it.week }.last(),
-                talent = if(points.size < 2) null else 1F / linearRegression.b1,
+                currentWeek = player.player.juniorStatuses.sortedBy { it.week }.last(),
+                player = player,
                 textStyle = juniorDetail
             )
         }
         Graph(
-            points = points,
-            graphAppearance = GraphAppearance(
-                graphAxisColor = Color.Black,
-                backgroundColor = Color.White
-            ),
+            points = player.points,
+            graphAppearance = graphAppearance,
             listener = {},
-            linearRegression = linearRegression
+            drawer = drawer,
+            yValues = yValues,
         )
     }
 }
@@ -129,5 +137,7 @@ fun JuniorPreview() {
             )
         )
         .build()
-    Junior(player)
+    val points = getGraphPoints(player)
+    val playerWrapper = PlayerWrapper(player, SimpleLinearRegression(points), points)
+    Junior(playerWrapper)
 }

@@ -1,10 +1,11 @@
 package com.estivy.sokkerarchitect.ui.util
 
 import com.estivy.sokkerarchitect.core.domain.Player
+import com.estivy.sokkerarchitect.ui.screens.model.PlayerWrapper
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
 
-fun searchPlayer(playersViewModel: PlayersViewModel, id: String?): Player? {
+fun searchPlayer(playersViewModel: PlayersViewModel, id: String?): PlayerWrapper? {
     id?.let {
         if (playersViewModel.playersUiState is PlayersUiState.Success) {
             return searchPlayer(
@@ -16,7 +17,7 @@ fun searchPlayer(playersViewModel: PlayersViewModel, id: String?): Player? {
     return null
 }
 
-fun searchJunior(playersViewModel: PlayersViewModel, id: String?): Player? {
+fun searchJunior(playersViewModel: PlayersViewModel, id: String?): PlayerWrapper? {
     id?.let {
         if (playersViewModel.juniorsUiState is PlayersUiState.Success) {
             return searchPlayer(
@@ -28,6 +29,6 @@ fun searchJunior(playersViewModel: PlayersViewModel, id: String?): Player? {
     return null
 }
 
-private fun searchPlayer(players: List<Player>, id: Long): Player {
-    return players.filter { it.id.equals(id) }[0]
+private fun searchPlayer(players: List<PlayerWrapper>, id: Long): PlayerWrapper {
+    return players.filter { it.player.id.equals(id) }[0]
 }

@@ -102,4 +102,8 @@
     <string name="save">guardar</string>
     <string name="number_of_players">Numero de jugadores:</string>
     <string name="talent">Talento</string>
+    <string name="expected_skill">Habilidad Esperada</string>
+    <string name="estimated_skill">Habilidad estimada</string>
+    <string name="current">actual</string>
+    <string name="finalsk">final</string>
 </resources>

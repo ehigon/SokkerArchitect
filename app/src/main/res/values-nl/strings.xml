@@ -102,4 +102,8 @@
     <string name="save">houden</string>
     <string name="number_of_players">Aantal spelers:</string>
     <string name="talent">Talent</string>
+    <string name="expected_skill">Verwachte vaardigheid</string>
+    <string name="estimated_skill">Geschatte vaardigheid</string>
+    <string name="current">huidig</string>
+    <string name="finalsk">einde</string>
 </resources>

@@ -102,4 +102,8 @@
     <string name="save">garder</string>
     <string name="number_of_players">Nombre de joueurs :</string>
     <string name="talent">Talent</string>
+    <string name="expected_skill">Compétence attendue</string>
+    <string name="estimated_skill">Compétence estimée</string>
+    <string name="current">actuel</string>
+    <string name="finalsk">fin</string>
 </resources>

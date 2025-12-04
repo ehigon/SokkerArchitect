@@ -103,4 +103,8 @@
     <string name="save">запази</string>
     <string name="number_of_players">Брой играчи:</string>
     <string name="talent">талант</string>
+    <string name="expected_skill">Очаквано умение</string>
+    <string name="estimated_skill">Приблизително умение</string>
+    <string name="current">ток</string>
+    <string name="finalsk">край</string>
 </resources>
