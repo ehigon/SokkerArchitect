@@ -1,18 +1,5 @@
 package com.estivy.sokkerarchitect.core.domain;
 
-import com.tickaroo.tikxml.annotation.PropertyElement;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Getter
-@Setter
 public class Team {
     private Long teamId;
     private String name;
@@ -36,4 +23,388 @@ public class Team {
     private Integer trainingTypeDef;
     private Integer trainingTypeMid;
     private Integer trainingTypeAtt;
+
+
+    public Team() {
+    }
+
+    public Team(Long teamId, String name, Integer countryId, Integer regionId, String dateCreated, Double rank, Integer national, Integer colShirtKeep, Integer colTrausKeep, Integer colShirt, Integer colTraus, Integer colShirt2, Integer colTraus2, String arenaName, Long money, Integer fanclubCount, Integer fanclubMood, Integer juniorsMax, Integer trainingTypeGk, Integer trainingTypeDef, Integer trainingTypeMid, Integer trainingTypeAtt) {
+        this.teamId = teamId;
+        this.name = name;
+        this.countryId = countryId;
+        this.regionId = regionId;
+        this.dateCreated = dateCreated;
+        this.rank = rank;
+        this.national = national;
+        this.colShirtKeep = colShirtKeep;
+        this.colTrausKeep = colTrausKeep;
+        this.colShirt = colShirt;
+        this.colTraus = colTraus;
+        this.colShirt2 = colShirt2;
+        this.colTraus2 = colTraus2;
+        this.arenaName = arenaName;
+        this.money = money;
+        this.fanclubCount = fanclubCount;
+        this.fanclubMood = fanclubMood;
+        this.juniorsMax = juniorsMax;
+        this.trainingTypeGk = trainingTypeGk;
+        this.trainingTypeDef = trainingTypeDef;
+        this.trainingTypeMid = trainingTypeMid;
+        this.trainingTypeAtt = trainingTypeAtt;
+    }
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Integer countryId) {
+        this.countryId = countryId;
+    }
+
+    public Integer getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Integer regionId) {
+        this.regionId = regionId;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public Double getRank() {
+        return rank;
+    }
+
+    public void setRank(Double rank) {
+        this.rank = rank;
+    }
+
+    public Integer getNational() {
+        return national;
+    }
+
+    public void setNational(Integer national) {
+        this.national = national;
+    }
+
+    public Integer getColShirtKeep() {
+        return colShirtKeep;
+    }
+
+    public void setColShirtKeep(Integer colShirtKeep) {
+        this.colShirtKeep = colShirtKeep;
+    }
+
+    public Integer getColTrausKeep() {
+        return colTrausKeep;
+    }
+
+    public void setColTrausKeep(Integer colTrausKeep) {
+        this.colTrausKeep = colTrausKeep;
+    }
+
+    public Integer getColShirt() {
+        return colShirt;
+    }
+
+    public void setColShirt(Integer colShirt) {
+        this.colShirt = colShirt;
+    }
+
+    public Integer getColTraus() {
+        return colTraus;
+    }
+
+    public void setColTraus(Integer colTraus) {
+        this.colTraus = colTraus;
+    }
+
+    public Integer getColShirt2() {
+        return colShirt2;
+    }
+
+    public void setColShirt2(Integer colShirt2) {
+        this.colShirt2 = colShirt2;
+    }
+
+    public Integer getColTraus2() {
+        return colTraus2;
+    }
+
+    public void setColTraus2(Integer colTraus2) {
+        this.colTraus2 = colTraus2;
+    }
+
+    public String getArenaName() {
+        return arenaName;
+    }
+
+    public void setArenaName(String arenaName) {
+        this.arenaName = arenaName;
+    }
+
+    public Long getMoney() {
+        return money;
+    }
+
+    public void setMoney(Long money) {
+        this.money = money;
+    }
+
+    public Integer getFanclubCount() {
+        return fanclubCount;
+    }
+
+    public void setFanclubCount(Integer fanclubCount) {
+        this.fanclubCount = fanclubCount;
+    }
+
+    public Integer getFanclubMood() {
+        return fanclubMood;
+    }
+
+    public void setFanclubMood(Integer fanclubMood) {
+        this.fanclubMood = fanclubMood;
+    }
+
+    public Integer getJuniorsMax() {
+        return juniorsMax;
+    }
+
+    public void setJuniorsMax(Integer juniorsMax) {
+        this.juniorsMax = juniorsMax;
+    }
+
+    public Integer getTrainingTypeGk() {
+        return trainingTypeGk;
+    }
+
+    public void setTrainingTypeGk(Integer trainingTypeGk) {
+        this.trainingTypeGk = trainingTypeGk;
+    }
+
+    public Integer getTrainingTypeDef() {
+        return trainingTypeDef;
+    }
+
+    public void setTrainingTypeDef(Integer trainingTypeDef) {
+        this.trainingTypeDef = trainingTypeDef;
+    }
+
+    public Integer getTrainingTypeMid() {
+        return trainingTypeMid;
+    }
+
+    public void setTrainingTypeMid(Integer trainingTypeMid) {
+        this.trainingTypeMid = trainingTypeMid;
+    }
+
+    public Integer getTrainingTypeAtt() {
+        return trainingTypeAtt;
+    }
+
+    public void setTrainingTypeAtt(Integer trainingTypeAtt) {
+        this.trainingTypeAtt = trainingTypeAtt;
+    }
+
+    public static TeamBuilder builder() {
+        return new TeamBuilder();
+    }
+
+    public static class TeamBuilder {
+        private Long teamId;
+        private String name;
+        private Integer countryId;
+        private Integer regionId;
+        private String dateCreated;
+        private Double rank;
+        private Integer national;
+        private Integer colShirtKeep;
+        private Integer colTrausKeep;
+        private Integer colShirt;
+        private Integer colTraus;
+        private Integer colShirt2;
+        private Integer colTraus2;
+        private String arenaName;
+        private Long money;
+        private Integer fanclubCount;
+        private Integer fanclubMood;
+        private Integer juniorsMax;
+        private Integer trainingTypeGk;
+        private Integer trainingTypeDef;
+        private Integer trainingTypeMid;
+        private Integer trainingTypeAtt;
+
+        TeamBuilder() {
+        }
+
+        public TeamBuilder teamId(Long teamId) {
+            this.teamId = teamId;
+            return this;
+        }
+
+        public TeamBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public TeamBuilder countryId(Integer countryId) {
+            this.countryId = countryId;
+            return this;
+        }
+
+        public TeamBuilder regionId(Integer regionId) {
+            this.regionId = regionId;
+            return this;
+        }
+
+        public TeamBuilder dateCreated(String dateCreated) {
+            this.dateCreated = dateCreated;
+            return this;
+        }
+
+        public TeamBuilder rank(Double rank) {
+            this.rank = rank;
+            return this;
+        }
+
+        public TeamBuilder national(Integer national) {
+            this.national = national;
+            return this;
+        }
+
+        public TeamBuilder colShirtKeep(Integer colShirtKeep) {
+            this.colShirtKeep = colShirtKeep;
+            return this;
+        }
+
+        public TeamBuilder colTrausKeep(Integer colTrausKeep) {
+            this.colTrausKeep = colTrausKeep;
+            return this;
+        }
+
+        public TeamBuilder colShirt(Integer colShirt) {
+            this.colShirt = colShirt;
+            return this;
+        }
+
+        public TeamBuilder colTraus(Integer colTraus) {
+            this.colTraus = colTraus;
+            return this;
+        }
+
+        public TeamBuilder colShirt2(Integer colShirt2) {
+            this.colShirt2 = colShirt2;
+            return this;
+        }
+
+        public TeamBuilder colTraus2(Integer colTraus2) {
+            this.colTraus2 = colTraus2;
+            return this;
+        }
+
+        public TeamBuilder arenaName(String arenaName) {
+            this.arenaName = arenaName;
+            return this;
+        }
+
+        public TeamBuilder money(Long money) {
+            this.money = money;
+            return this;
+        }
+
+        public TeamBuilder fanclubCount(Integer fanclubCount) {
+            this.fanclubCount = fanclubCount;
+            return this;
+        }
+
+        public TeamBuilder fanclubMood(Integer fanclubMood) {
+            this.fanclubMood = fanclubMood;
+            return this;
+        }
+
+        public TeamBuilder juniorsMax(Integer juniorsMax) {
+            this.juniorsMax = juniorsMax;
+            return this;
+        }
+
+        public TeamBuilder trainingTypeGk(Integer trainingTypeGk) {
+            this.trainingTypeGk = trainingTypeGk;
+            return this;
+        }
+
+        public TeamBuilder trainingTypeDef(Integer trainingTypeDef) {
+            this.trainingTypeDef = trainingTypeDef;
+            return this;
+        }
+
+        public TeamBuilder trainingTypeMid(Integer trainingTypeMid) {
+            this.trainingTypeMid = trainingTypeMid;
+            return this;
+        }
+
+        public TeamBuilder trainingTypeAtt(Integer trainingTypeAtt) {
+            this.trainingTypeAtt = trainingTypeAtt;
+            return this;
+        }
+
+        public Team build() {
+            return new Team(
+                    teamId, name, countryId, regionId, dateCreated, rank, national,
+                    colShirtKeep, colTrausKeep, colShirt, colTraus, colShirt2, colTraus2,
+                    arenaName, money, fanclubCount, fanclubMood, juniorsMax,
+                    trainingTypeGk, trainingTypeDef, trainingTypeMid, trainingTypeAtt
+            );
+        }
+
+        @Override
+        public String toString() {
+            return "Team.TeamBuilder(" +
+                    "teamId=" + teamId +
+                    ", name=" + name +
+                    ", countryId=" + countryId +
+                    ", regionId=" + regionId +
+                    ", dateCreated=" + dateCreated +
+                    ", rank=" + rank +
+                    ", national=" + national +
+                    ", colShirtKeep=" + colShirtKeep +
+                    ", colTrausKeep=" + colTrausKeep +
+                    ", colShirt=" + colShirt +
+                    ", colTraus=" + colTraus +
+                    ", colShirt2=" + colShirt2 +
+                    ", colTraus2=" + colTraus2 +
+                    ", arenaName=" + arenaName +
+                    ", money=" + money +
+                    ", fanclubCount=" + fanclubCount +
+                    ", fanclubMood=" + fanclubMood +
+                    ", juniorsMax=" + juniorsMax +
+                    ", trainingTypeGk=" + trainingTypeGk +
+                    ", trainingTypeDef=" + trainingTypeDef +
+                    ", trainingTypeMid=" + trainingTypeMid +
+                    ", trainingTypeAtt=" + trainingTypeAtt +
+                    ")";
+        }
+    }
 }

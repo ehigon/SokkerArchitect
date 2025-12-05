@@ -11,15 +11,6 @@ import com.estivy.sokkerarchitect.storage.entities.PlayerStatusEntity;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor(onConstructor_=@__({@Ignore}))
 public class PlayerWithStatuses {
     @Embedded
     private PlayerEntity player;
@@ -38,4 +29,68 @@ public class PlayerWithStatuses {
             entityColumn = "countryId"
     )
     private CountryEntity country;
+
+    public PlayerWithStatuses() {
+    }
+
+    @Ignore
+    public PlayerWithStatuses(PlayerEntity player, List<PlayerStatusEntity> playerStatuses,
+                              List<JuniorStatusEntity> juniorStatuses, CountryEntity country) {
+        this.player = player;
+        this.playerStatuses = playerStatuses;
+        this.juniorStatuses = juniorStatuses;
+        this.country = country;
+    }
+
+    public PlayerEntity getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(PlayerEntity player) {
+        this.player = player;
+    }
+
+    public List<PlayerStatusEntity> getPlayerStatuses() {
+        return playerStatuses;
+    }
+
+    public void setPlayerStatuses(List<PlayerStatusEntity> playerStatuses) {
+        this.playerStatuses = playerStatuses;
+    }
+
+    public List<JuniorStatusEntity> getJuniorStatuses() {
+        return juniorStatuses;
+    }
+
+    public void setJuniorStatuses(List<JuniorStatusEntity> juniorStatuses) {
+        this.juniorStatuses = juniorStatuses;
+    }
+
+    public CountryEntity getCountry() {
+        return country;
+    }
+
+    public void setCountry(CountryEntity country) {
+        this.country = country;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private PlayerEntity player;
+        private List<PlayerStatusEntity> playerStatuses;
+        private List<JuniorStatusEntity> juniorStatuses;
+        private CountryEntity country;
+
+        public Builder player(PlayerEntity player) { this.player = player; return this; }
+        public Builder playerStatuses(List<PlayerStatusEntity> playerStatuses) { this.playerStatuses = playerStatuses; return this; }
+        public Builder juniorStatuses(List<JuniorStatusEntity> juniorStatuses) { this.juniorStatuses = juniorStatuses; return this; }
+        public Builder country(CountryEntity country) { this.country = country; return this; }
+
+        public PlayerWithStatuses build() {
+            return new PlayerWithStatuses(player, playerStatuses, juniorStatuses, country);
+        }
+    }
 }

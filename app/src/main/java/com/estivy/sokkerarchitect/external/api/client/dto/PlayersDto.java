@@ -5,19 +5,40 @@ import com.tickaroo.tikxml.annotation.Xml;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Getter
-@Setter
 @Xml
 public class PlayersDto {
     @Element
     private List<PlayerDto> players;
+
+    public PlayersDto() {
+    }
+
+    public PlayersDto(List<PlayerDto> players) {
+        this.players = players;
+    }
+
+    public List<PlayerDto> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<PlayerDto> players) {
+        this.players = players;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private List<PlayerDto> players;
+
+        public Builder players(List<PlayerDto> players) {
+            this.players = players;
+            return this;
+        }
+
+        public PlayersDto build() {
+            return new PlayersDto(players);
+        }
+    }
 }

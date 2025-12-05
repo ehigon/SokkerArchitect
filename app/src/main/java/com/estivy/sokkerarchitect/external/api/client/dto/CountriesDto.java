@@ -5,20 +5,25 @@ import com.tickaroo.tikxml.annotation.Xml;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Getter
-@Setter
 @Xml
 public class CountriesDto {
     @Element
     private List<CountryDto> countries;
+
+    public CountriesDto() {
+    }
+
+    public CountriesDto(List<CountryDto> countries) {
+        this.countries = countries;
+    }
+
+    public List<CountryDto> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(List<CountryDto> countries) {
+        this.countries = countries;
+    }
 
 }

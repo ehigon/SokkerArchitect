@@ -2,9 +2,6 @@ package com.estivy.sokkerarchitect.core.domain;
 
 import java.util.Arrays;
 
-import lombok.Getter;
-
-@Getter
 public enum JuniorFormation {
     GOALKEEPER(0), FIELD_PLAYER(1);
 
@@ -18,5 +15,9 @@ public enum JuniorFormation {
         return Arrays.stream(JuniorFormation.values())
                 .filter(n -> n.getValue() == value)
                 .findFirst().orElse(FIELD_PLAYER);
+    }
+
+    public int getValue() {
+        return value;
     }
 }

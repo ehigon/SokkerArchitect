@@ -5,19 +5,24 @@ import com.tickaroo.tikxml.annotation.Xml;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Getter
-@Setter
 @Xml(name = "arena")
 public class ArenaDto {
     @Element
     private List<StandDto> stand;
+
+    public ArenaDto() {
+    }
+
+    public ArenaDto(List<StandDto> stand) {
+        this.stand = stand;
+    }
+
+    public List<StandDto> getStand() {
+        return stand;
+    }
+
+    public void setStand(List<StandDto> stand) {
+        this.stand = stand;
+    }
 }

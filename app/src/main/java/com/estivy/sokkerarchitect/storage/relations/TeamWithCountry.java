@@ -5,18 +5,8 @@ import androidx.room.Ignore;
 import androidx.room.Relation;
 
 import com.estivy.sokkerarchitect.storage.entities.CountryEntity;
-import com.estivy.sokkerarchitect.storage.entities.PlayerEntity;
 import com.estivy.sokkerarchitect.storage.entities.TeamEntity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor(onConstructor_=@__({@Ignore}))
 public class TeamWithCountry {
     @Embedded
     private TeamEntity team;
@@ -25,4 +15,45 @@ public class TeamWithCountry {
             entityColumn = "countryId"
     )
     private CountryEntity country;
+
+    public TeamWithCountry() {
+    }
+
+    @Ignore
+    public TeamWithCountry(TeamEntity team, CountryEntity country) {
+        this.team = team;
+        this.country = country;
+    }
+
+    public TeamEntity getTeam() {
+        return team;
+    }
+
+    public void setTeam(TeamEntity team) {
+        this.team = team;
+    }
+
+    public CountryEntity getCountry() {
+        return country;
+    }
+
+    public void setCountry(CountryEntity country) {
+        this.country = country;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private TeamEntity team;
+        private CountryEntity country;
+
+        public Builder team(TeamEntity team) { this.team = team; return this; }
+        public Builder country(CountryEntity country) { this.country = country; return this; }
+
+        public TeamWithCountry build() {
+            return new TeamWithCountry(team, country);
+        }
+    }
 }

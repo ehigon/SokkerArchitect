@@ -2,9 +2,6 @@ package com.estivy.sokkerarchitect.core.domain;
 
 import java.util.Arrays;
 
-import lombok.Getter;
-
-@Getter
 public enum TrainingType {
 
     GENERAL(0),
@@ -27,5 +24,9 @@ public enum TrainingType {
         return Arrays.stream(TrainingType.values())
                 .filter(n -> n.getValue() == value)
                 .findFirst().orElse(GENERAL);
+    }
+
+    public int getValue() {
+        return value;
     }
 }

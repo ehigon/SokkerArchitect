@@ -1,6 +1,5 @@
 package com.estivy.sokkerarchitect.core.domain.exception;
 
-import lombok.Getter;
 
 public enum LoginError {
     BAD_PASSWORD(1, "bad password"),
@@ -13,10 +12,8 @@ public enum LoginError {
     NO_COOKIES(-3, "No cookies found in sokker response"),
     NO_TEAM_ID(-4, "Team id not found in sokker response");
 
-    @Getter
     private int code;
 
-    @Getter
     private String message;
 
     LoginError(int code, String message){
@@ -32,5 +29,12 @@ public enum LoginError {
         return UNKNOWN;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }
 
