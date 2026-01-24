@@ -157,7 +157,9 @@ fun UpdateAlertDialog(
                     )
                 }
             },
-            icon = { Icons.Default.Info }
+            icon = {
+                Icon(imageVector = Icons.Default.Info, contentDescription = null)
+            }
         )
     }
 }
@@ -191,7 +193,13 @@ fun UpdateErrorAlertDialog(
                     )
                 }
             },
-            icon = { android.R.drawable.stat_sys_warning }
+            icon = {
+                Icon(
+                    painter = painterResource(id = android.R.drawable.stat_sys_warning),
+                    contentDescription = stringResource(R.string.update_error_title),
+                    tint = Color.Red
+                )
+            }
         )
     }
 }

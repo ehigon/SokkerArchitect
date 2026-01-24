@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.estivy.sokkerarchitect"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.estivy.sokkerarchitect"
@@ -88,7 +88,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
     implementation(libs.gson)
-
+    implementation(libs.androidx.ui.icons.extended)
 }
 
 kapt {
