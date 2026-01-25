@@ -2,6 +2,8 @@ package com.estivy.sokkerarchitect.external.api.client.mapper;
 
 import static com.estivy.sokkerarchitect.core.domain.TrainingType.GENERAL;
 
+import androidx.core.util.Pair;
+
 import com.estivy.sokkerarchitect.core.domain.Country;
 import com.estivy.sokkerarchitect.core.domain.JuniorStatus;
 import com.estivy.sokkerarchitect.core.domain.Player;
@@ -10,6 +12,7 @@ import com.estivy.sokkerarchitect.core.domain.TrainingType;
 import com.estivy.sokkerarchitect.external.api.client.dto.CountriesDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.CountryDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.JuniorDto;
+import com.estivy.sokkerarchitect.external.api.client.dto.LeagueDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.PlayerDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.PlayerStatDto;
@@ -39,7 +42,7 @@ public interface PlayerMapper {
                     "player.getNational()))")
     @Mapping(target = "playerStatuses",
             expression = "java(java.util.List.of(toDomainStatus(player, optPrincipalTrainer, team, " +
-                    "lastWeekMatchDetails, vars)))")
+                    "lastWeekMatchDetails, vars, leagueDetails)))")
     @Mapping(target = "name", source = "player.name")
     @Mapping(target = "country", expression = "java(findCountry(countries, player.getCountryId()))")
     @Mapping(target = "teamId", source = "player.teamId")
@@ -47,16 +50,17 @@ public interface PlayerMapper {
     @Mapping(target = "valueInCurrency", ignore = true)
     @Mapping(target = "currency", ignore = true)
     Player toDomain(PlayerDto player, Optional<TrainerDto> optPrincipalTrainer, TeamDto team,
-                    List<MatchDetailDto> lastWeekMatchDetails, VarsDto vars, CountriesDto countries);
+                    List<MatchDetailDto> lastWeekMatchDetails, VarsDto vars, CountriesDto countries,
+                    List<LeagueDetailDto> leagueDetails);
 
 
     default PlayerStatus toDomainStatus(PlayerDto player, Optional<TrainerDto> optPrincipalTrainer,
-                TeamDto team, List<MatchDetailDto> lastWeekMatchDetails, VarsDto vars){
+                TeamDto team, List<MatchDetailDto> lastWeekMatchDetails, VarsDto vars, List<LeagueDetailDto> leagueDetails){
         PlayerStatus playerStatus = toDomainStatusBase(player);
         playerStatus.setTrainingType(getTrainingType(player, team));
         optPrincipalTrainer.ifPresent(pTrainer ->playerStatus.setTrainerSkill(
                 getTrainingSkill(playerStatus.getTrainingType(), pTrainer)));
-        setMinutesPlayed(playerStatus, player, lastWeekMatchDetails, team.getTeamId());
+        setMinutesPlayed(playerStatus, player, lastWeekMatchDetails, team.getTeamId(), leagueDetails);
         setWeek(playerStatus, getTrainingWeek(vars));
         setInjured(playerStatus, player, vars);
         return playerStatus;
@@ -104,15 +108,20 @@ public interface PlayerMapper {
     }
 
     default void setMinutesPlayed(PlayerStatus playerStatus, PlayerDto player,
-                                  List<MatchDetailDto> lastWeekMatchDetails, Long teamId){
-        addTrainedTime(playerStatus, player, lastWeekMatchDetails, teamId, true);
-        addTrainedTime(playerStatus, player, lastWeekMatchDetails, teamId, false);
+                                  List<MatchDetailDto> lastWeekMatchDetails, Long teamId,
+                                  List<LeagueDetailDto> leagueDetails){
+        addTrainedTime(playerStatus, player, lastWeekMatchDetails, teamId, true, leagueDetails);
+        addTrainedTime(playerStatus, player, lastWeekMatchDetails, teamId, false, leagueDetails);
     }
 
     default void addTrainedTime(PlayerStatus playerStatus, PlayerDto player,
-                                List<MatchDetailDto> lastWeekMatchDetails, Long teamId, boolean official){
+                                List<MatchDetailDto> lastWeekMatchDetails, Long teamId, boolean official,
+                                List<LeagueDetailDto> leagueDetails){
         lastWeekMatchDetails.stream()
-                .filter(m -> isOfficial(m) == official)
+                .map(m -> getPairLeague(m, leagueDetails))
+                .filter(p -> !isArcade(p.second))
+                .filter(p -> isOfficial(p.second) == official)
+                .map(p -> p.first)
                 .flatMap(m -> m.getPlayerStats().stream())
                 .filter(ps -> ps.getTeamId().equals(teamId))
                 .flatMap(ps -> ps.getPlayerStat().stream())
@@ -121,8 +130,23 @@ public interface PlayerMapper {
                 .forEach(p -> addTrainedTime(playerStatus, p, official));
     }
 
-    default boolean isOfficial(MatchDetailDto matchDetail){
-        return matchDetail.getInfo().getSeason() != 0 || matchDetail.getInfo().getRound() != 0;
+    default boolean isArcade(LeagueDetailDto second){
+        return second.getInfo().getType() == 11;
+    }
+
+    default boolean isOfficial(LeagueDetailDto leagueDetail){
+        return leagueDetail.getInfo().getOfficial() == 1;
+    }
+
+    default Pair<MatchDetailDto, LeagueDetailDto> getPairLeague(MatchDetailDto m, List<LeagueDetailDto> leagueDetails){
+        return Pair.create(m, getLeague(m, leagueDetails).orElseThrow(() -> new RuntimeException("Unable to find league details")));
+    }
+
+
+    default Optional<LeagueDetailDto> getLeague(MatchDetailDto matchDetail, List<LeagueDetailDto> leagueDetails) {
+        return leagueDetails.stream()
+                .filter(l -> l.getInfo().getLeagueId().equals(matchDetail.getInfo().getLeagueId()))
+                .findFirst();
     }
 
     default void addTrainedTime(PlayerStatus playerStatus, PlayerStatDto playerStat, boolean official) {

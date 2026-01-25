@@ -12,9 +12,11 @@ import com.estivy.sokkerarchitect.external.api.client.SokkerClient;
 import com.estivy.sokkerarchitect.external.api.client.dto.CountriesDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.JuniorDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.JuniorsDto;
+import com.estivy.sokkerarchitect.external.api.client.dto.LeagueDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.LoginResultDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchDto;
+import com.estivy.sokkerarchitect.external.api.client.dto.MatchInfoDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchesDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.PlayerDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.PlayersDto;
@@ -28,6 +30,7 @@ import com.estivy.sokkerarchitect.external.api.client.mapper.TeamMapper;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -61,16 +64,17 @@ public class UpdateRetrievalService {
         MatchesDto matchesDto = sokkerClient.getMatches(xmlSession, teamId);
         List<Long> lastWeekMatchesIds = getWeekMatchIds(matchesDto, getTrainingWeek(vars));
         List<MatchDetailDto> lastWeekMatchDetails = getMatchDetails(xmlSession, lastWeekMatchesIds);
+        List<LeagueDetailDto> leagueDetails = getLeagueDetails(xmlSession, lastWeekMatchDetails);
         return generateStatus(juniors, players, trainers, vars, lastWeekMatchDetails,
-                teamData.getTeam(), countries);
+                teamData.getTeam(), countries, leagueDetails);
     }
 
     private Status generateStatus(JuniorsDto juniors, PlayersDto players, TrainersDto trainers,
                                   VarsDto vars, List<MatchDetailDto> lastWeekMatchDetails, TeamDto teamDto,
-                                  CountriesDto countries) {
+                                  CountriesDto countries, List<LeagueDetailDto> leagueDetails) {
         Status status = new Status();
         status.setPlayers(getPlayerList(juniors, players, trainers, lastWeekMatchDetails, teamDto,
-                vars, countries));
+                vars, countries, leagueDetails));
         status.setTeam(teamMapper.mapToDomain(teamDto));
         status.setCountries(playerMapper.mapCountriesToDomain(countries.getCountries()));
         return status;
@@ -78,12 +82,12 @@ public class UpdateRetrievalService {
 
     private List<Player> getPlayerList(JuniorsDto juniors, PlayersDto players, TrainersDto trainers,
                                        List<MatchDetailDto> lastWeekMatchDetails, TeamDto teamDto, VarsDto vars,
-                                       CountriesDto countries) {
+                                       CountriesDto countries, List<LeagueDetailDto> leagueDetails) {
         Country country = playerMapper.findCountry(countries, teamDto.getCountryId());
         Optional<TrainerDto> optPrincipalTrainer = getTrainer(trainers, TrainerJob.PRINCIPAL);
         Stream<Player> playerStream = getPlayersStream(players)
                 .map(p -> playerMapper.toDomain(p, optPrincipalTrainer, teamDto,
-                        lastWeekMatchDetails, vars, countries));
+                        lastWeekMatchDetails, vars, countries, leagueDetails));
         Optional<TrainerDto> optJuniorTrainer = getTrainer(trainers, TrainerJob.JUNIOR);
         Stream<Player> juniorStream = getJuniorStream(juniors)
                 .map(j -> playerMapper.toDomain(j, vars, country, optJuniorTrainer));
@@ -92,14 +96,14 @@ public class UpdateRetrievalService {
     }
 
     private static @NonNull Stream<PlayerDto> getPlayersStream(PlayersDto players) {
-        if(players.getPlayers() == null){
+        if (players.getPlayers() == null) {
             return Stream.empty();
         }
         return players.getPlayers().stream();
     }
 
     private static @NonNull Stream<JuniorDto> getJuniorStream(JuniorsDto juniors) {
-        if(juniors.getJuniors() == null){
+        if (juniors.getJuniors() == null) {
             return Stream.empty();
         }
         return juniors.getJuniors().stream();
@@ -133,5 +137,16 @@ public class UpdateRetrievalService {
         return (matchDto.getWeek().equals(week) && matchDto.getDay() < TRAINING_UPDATE_DAY)
                 || (matchDto.getWeek().equals(week - 1) && matchDto.getDay() >= TRAINING_UPDATE_DAY);
     }
+
+    private List<LeagueDetailDto> getLeagueDetails(String xmlSession, List<MatchDetailDto> lastWeekMatchDetails) {
+        Set<Long> leagueIds =lastWeekMatchDetails.stream()
+                .map(MatchDetailDto::getInfo)
+                .map(MatchInfoDto::getLeagueId)
+                .collect(Collectors.toSet());
+        return leagueIds.stream()
+                .map(leagueId -> sokkerClient.getLeagueDetail(xmlSession, leagueId))
+                .collect(Collectors.toList());
+    }
+
 
 }

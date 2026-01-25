@@ -13,6 +13,7 @@ import com.estivy.sokkerarchitect.external.api.client.SokkerClient;
 import com.estivy.sokkerarchitect.external.api.client.dto.CountriesDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.JuniorDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.JuniorsDto;
+import com.estivy.sokkerarchitect.external.api.client.dto.LeagueDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.LoginResultDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchesDto;
@@ -240,6 +241,8 @@ public class UpdateRetrievalServiceTest {
                 .match41979864DetailDto(mapXmlFileToClass(
                         "match-41979864.xml", MatchDetailDto.class))
                 .countriesDto(mapXmlFileToClass("countries.xml", CountriesDto.class))
+                .leagueDetailDto3(mapXmlFileToClass("league-3.xml", LeagueDetailDto.class))
+                .leagueDetailDto1254(mapXmlFileToClass("league-1254.xml", LeagueDetailDto.class))
                 .build();
     }
 
@@ -258,6 +261,8 @@ public class UpdateRetrievalServiceTest {
                 .match41979864DetailDto(mapXmlFileToClass(
                         "match-41979864.xml", MatchDetailDto.class))
                 .countriesDto(mapXmlFileToClass("countries.xml", CountriesDto.class))
+                .leagueDetailDto3(mapXmlFileToClass("league-3.xml", LeagueDetailDto.class))
+                .leagueDetailDto1254(mapXmlFileToClass("league-1254.xml", LeagueDetailDto.class))
                 .build();
     }
 
@@ -281,6 +286,10 @@ public class UpdateRetrievalServiceTest {
                 .thenReturn(dtos.getMatch41979864DetailDto());
         when(sokkerClient.getCountries(anyString()))
                 .thenReturn(dtos.getCountriesDto());
+        when(sokkerClient.getLeagueDetail(XML_SESSION_ID, 3L))
+                .thenReturn(dtos.getLeagueDetailDto3());
+        when(sokkerClient.getLeagueDetail(XML_SESSION_ID, 1254L))
+                .thenReturn(dtos.getLeagueDetailDto1254());
     }
 
 }

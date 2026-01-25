@@ -1,11 +1,10 @@
 package com.estivy.sokkerarchitect.external.api.client;
 
-import android.util.Log;
-
 import com.estivy.sokkerarchitect.core.domain.exception.CredentialsLoginException;
 import com.estivy.sokkerarchitect.core.domain.exception.LoginError;
 import com.estivy.sokkerarchitect.external.api.client.dto.CountriesDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.JuniorsDto;
+import com.estivy.sokkerarchitect.external.api.client.dto.LeagueDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.LoginResultDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchesDto;
@@ -122,6 +121,14 @@ public class SokkerClient {
     public MatchDetailDto getMatchDetail(String xmlSessionId, Long matchId) {
         try {
             return sokkerAPI.getMatchDetail(xmlSessionId, matchId).execute().body();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public LeagueDetailDto getLeagueDetail(String xmlSessionId, Long leagueId) {
+        try {
+            return sokkerAPI.getLeagueDetail(xmlSessionId, leagueId).execute().body();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

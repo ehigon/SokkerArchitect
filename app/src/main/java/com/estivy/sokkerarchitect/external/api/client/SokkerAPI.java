@@ -2,6 +2,7 @@ package com.estivy.sokkerarchitect.external.api.client;
 
 import com.estivy.sokkerarchitect.external.api.client.dto.CountriesDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.JuniorsDto;
+import com.estivy.sokkerarchitect.external.api.client.dto.LeagueDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchDetailDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.MatchesDto;
 import com.estivy.sokkerarchitect.external.api.client.dto.PlayersDto;
@@ -45,4 +46,7 @@ public interface SokkerAPI {
 
     @GET("/xml/match-{matchId}.xml")
     Call<MatchDetailDto> getMatchDetail(@Header("Cookie") String xmlSessionId, @Path("matchId") Long matchId);
+
+    @GET("/xml/league-{leagueId}.xml")
+    Call<LeagueDetailDto> getLeagueDetail(@Header("Cookie") String xmlSessionId, @Path("leagueId") Long leagueId);
 }

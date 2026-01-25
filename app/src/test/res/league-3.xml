@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<league>
+    <info>
+        <leagueID>3</leagueID>
+        <name>Towarzyski</name>
+        <countryID>0</countryID>
+        <division>0</division>
+        <round>0</round>
+        <season>0</season>
+        <type>3</type>
+        <isOfficial>0</isOfficial>
+        <isCup>0</isCup>
+        <userID>0</userID>
+    </info>
+</league>
