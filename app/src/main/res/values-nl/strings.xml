@@ -106,4 +106,6 @@
     <string name="estimated_skill">Geschatte vaardigheid</string>
     <string name="current">huidig</string>
     <string name="finalsk">einde</string>
+    <string name="inactive_players_sc">Inactieve Spelers</string>
+    <string name="inactive_player_sc">Inactieve Speler</string>
 </resources>

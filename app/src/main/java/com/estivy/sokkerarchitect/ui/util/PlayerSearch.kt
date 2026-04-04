@@ -29,6 +29,18 @@ fun searchJunior(playersViewModel: PlayersViewModel, id: String?): PlayerWrapper
     return null
 }
 
+fun searchInactivePlayer(playersViewModel: PlayersViewModel, id: String?): PlayerWrapper? {
+    id?.let {
+        if (playersViewModel.inactivePlayersUiState is PlayersUiState.Success) {
+            return searchPlayer(
+                (playersViewModel.inactivePlayersUiState as PlayersUiState.Success).players,
+                it.toLong()
+            )
+        }
+    }
+    return null
+}
+
 private fun searchPlayer(players: List<PlayerWrapper>, id: Long): PlayerWrapper {
     return players.filter { it.player.id.equals(id) }[0]
 }

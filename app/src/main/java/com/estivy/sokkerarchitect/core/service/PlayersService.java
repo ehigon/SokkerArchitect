@@ -28,6 +28,11 @@ public class PlayersService {
         return playerStorageService.findJuniorActivePlayers();
     }
 
+    @NotNull
+    public List<Player> findSeniorInactivePlayers() {
+        return playerStorageService.findSeniorInactivePlayers();
+    }
+
     public List<Player> findAll() {
         return playerStorageService.findAll();
     }

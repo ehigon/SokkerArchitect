@@ -106,4 +106,6 @@
     <string name="estimated_skill">Szacowana umiejętność</string>
     <string name="current">aktualny</string>
     <string name="finalsk">koniec</string>
+    <string name="inactive_players_sc">Nieaktywni Zawodnicy</string>
+    <string name="inactive_player_sc">Nieaktywny Zawodnik</string>
 </resources>

@@ -107,4 +107,6 @@
     <string name="estimated_skill">Приблизително умение</string>
     <string name="current">ток</string>
     <string name="finalsk">край</string>
+    <string name="inactive_players_sc">Неактивни Играчи</string>
+    <string name="inactive_player_sc">Неактивен Играч</string>
 </resources>

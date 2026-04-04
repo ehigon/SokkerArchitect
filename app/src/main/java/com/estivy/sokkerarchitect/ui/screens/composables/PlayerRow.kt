@@ -1,0 +1,159 @@
+package com.estivy.sokkerarchitect.ui.screens.composables
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.estivy.sokkerarchitect.R
+import com.estivy.sokkerarchitect.core.domain.Country
+import com.estivy.sokkerarchitect.core.domain.Player
+import com.estivy.sokkerarchitect.core.domain.PlayerStatus
+import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
+import com.estivy.sokkerarchitect.ui.screens.model.PlayerWrapper
+import com.estivy.sokkerarchitect.ui.screens.model.SimpleLinearRegression
+import com.estivy.sokkerarchitect.ui.theme.subPlayer
+import com.estivy.sokkerarchitect.ui.util.Evolution
+import com.estivy.sokkerarchitect.ui.util.getGraphPoints
+
+@Composable
+fun PlayerRow(
+    player: PlayerWrapper,
+    navigateTo: (route: String) -> Unit,
+    playerRoute: String = SokkerArchitectScreen.PLAYER.route
+) {
+    val evolution = Evolution(player.player)
+    Card(
+        modifier = Modifier
+            .padding(1.dp)
+            .fillMaxWidth(),
+        onClick = {
+            navigateTo(playerRoute.replace("{id}", player.player.id.toString()))
+        }
+
+    )
+    {
+        Row(
+            modifier = Modifier.padding(8.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Column {
+                Row {
+                    Text(player.player.name + " " + player.player.surname)
+                }
+                Row(
+                    modifier = Modifier.padding(top = 3.dp)
+                ) {
+                    val currentWeek = player.player.playerStatuses.maxBy { ps -> ps.week }
+                    if(currentWeek != null) {
+                        Text(
+                            stringResource(R.string.age) + " " + player.player.age,
+                            style = subPlayer
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 10.dp),
+                            text = stringResource(R.string.form) + ": " + skill(currentWeek.skillForm),
+                            style = subPlayer
+                        )
+                    }
+                }
+            }
+            Column {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Injury(player.player, 12, 16)
+                    Cards(player.player, 12, 16)
+                    for (i in 0 until evolution.getIncreases()) {
+                        Image(
+                            painter = painterResource(id = R.drawable.up_arrow),
+                            contentDescription = stringResource(id = R.string.increase),
+                            Modifier
+                                .padding(vertical = 12.dp)
+                                .size(16.dp)
+                        )
+                    }
+                    for (i in 0 until evolution.getDecreases()) {
+                        Image(
+                            painter = painterResource(id = R.drawable.down_arrow),
+                            contentDescription = stringResource(id = R.string.decrease),
+                            Modifier
+                                .padding(vertical = 12.dp)
+                                .size(16.dp)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PlayerRowPreview() {
+    val player: Player = Player.builder()
+        .name("Esteban")
+        .surname("Higon")
+        .value(1345678986)
+        .age(23)
+        .height(183)
+        .weight(80.5)
+        .cards(1)
+        .injuryDays(6)
+        .country(
+            Country.builder()
+                .name("Spain")
+                .countryId(34)
+                .build()
+        )
+        .playerStatuses(
+            listOf(
+                PlayerStatus.builder()
+                    .week(123)
+                    .skillForm(10)
+                    .skillPace(9)
+                    .skillKeeper(1)
+                    .skillPassing(12)
+                    .skillDefending(11)
+                    .skillDiscipline(10)
+                    .skillExperience(8)
+                    .skillPlaymaking(9)
+                    .skillScoring(18)
+                    .skillStamina(17)
+                    .skillTeamwork(12)
+                    .skillTechnique(15)
+                    .build(),
+                PlayerStatus.builder()
+                    .week(124)
+                    .skillForm(10)
+                    .skillPace(9)
+                    .skillKeeper(0)
+                    .skillPassing(13)
+                    .skillDefending(12)
+                    .skillDiscipline(9)
+                    .skillExperience(8)
+                    .skillPlaymaking(9)
+                    .skillScoring(18)
+                    .skillStamina(17)
+                    .skillTeamwork(13)
+                    .skillTechnique(15)
+                    .build()
+            )
+        )
+        .juniorStatuses(listOf())
+        .build()
+    val points = getGraphPoints(player)
+    val playerWrapper = PlayerWrapper(player, SimpleLinearRegression(points), points)
+    PlayerRow(playerWrapper, {}, SokkerArchitectScreen.PLAYER.route)
+}

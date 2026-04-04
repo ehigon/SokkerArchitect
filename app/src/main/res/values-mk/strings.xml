@@ -106,4 +106,6 @@
     <string name="estimated_skill">Проценета вештина</string>
     <string name="current">струја</string>
     <string name="finalsk">крај</string>
+    <string name="inactive_players_sc">Неактивни Играчи</string>
+    <string name="inactive_player_sc">Неактивен Играч</string>
 </resources>

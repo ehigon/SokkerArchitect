@@ -106,4 +106,6 @@
     <string name="estimated_skill">Abilitatea estimată</string>
     <string name="current">actual</string>
     <string name="finalsk">Sfârşit</string>
+    <string name="inactive_players_sc">Jucători Inactivi</string>
+    <string name="inactive_player_sc">Jucător Inactiv</string>
 </resources>

@@ -106,4 +106,6 @@
     <string name="estimated_skill">Abilità stimata</string>
     <string name="current">attuale</string>
     <string name="finalsk">fine</string>
+    <string name="inactive_players_sc">Giocatori Inattivi</string>
+    <string name="inactive_player_sc">Giocatore Inattivo</string>
 </resources>

@@ -106,4 +106,6 @@
     <string name="estimated_skill">المهارة المقدرة</string>
     <string name="current">حاضِر</string>
     <string name="finalsk">نهاية</string>
+    <string name="inactive_players_sc">لاعبون غير نشطون</string>
+    <string name="inactive_player_sc">لاعب غير نشط</string>
 </resources>

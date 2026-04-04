@@ -106,4 +106,6 @@
     <string name="estimated_skill">Geschätzte Fähigkeit</string>
     <string name="current">aktuell</string>
     <string name="finalsk">Ende</string>
+    <string name="inactive_players_sc">Inaktive Spieler</string>
+    <string name="inactive_player_sc">Inaktiver Spieler</string>
 </resources>

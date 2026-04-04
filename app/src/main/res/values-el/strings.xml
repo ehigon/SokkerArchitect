@@ -106,4 +106,6 @@
     <string name="estimated_skill">Εκτιμώμενη ικανότητα</string>
     <string name="current">ρεύμα</string>
     <string name="finalsk">τέλος</string>
+    <string name="inactive_players_sc">Ανενεργοί Παίκτες</string>
+    <string name="inactive_player_sc">Ανενεργός Παίκτης</string>
 </resources>

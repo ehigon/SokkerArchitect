@@ -21,6 +21,12 @@ public interface PlayerRepository {
     List<PlayerEntity> findAllActive();
 
     @Transaction
+    @Query("SELECT * FROM players WHERE active = 0 " +
+            "and (SELECT COUNT(*) " +
+            "from player_statuses where player_statuses.playerId = players.id) > 0")
+    List<PlayerWithStatuses> findAllInactiveComplete();
+
+    @Transaction
     @Query("SELECT * FROM players")
     List<PlayerWithStatuses> findAllComplete();
 
