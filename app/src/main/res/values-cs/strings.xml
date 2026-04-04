@@ -106,8 +106,9 @@
     <string name="estimated_skill">Odhadovaná dovednost</string>
     <string name="current">proud</string>
     <string name="finalsk">konec</string>
-    <string name="inactive_players_sc">Neaktivní Hráči</string>
-    <string name="inactive_player_sc">Neaktivní Hráč</string>
-    <string name="inactive_juniors_sc">Neaktivní Mladíci</string>
-    <string name="inactive_junior_sc">Neaktivní Mladík</string>
+    <string name="inactive_players_sc">Bývalí Hráči</string>
+    <string name="inactive_player_sc">Bývalý Hráč</string>
+    <string name="inactive_juniors_sc">Bývalí Mladíci</string>
+    <string name="inactive_junior_sc">Bývalý Mladík</string>
+    <string name="press_back_again_to_exit">Stiskněte zpět pro ukončení</string>
 </resources>

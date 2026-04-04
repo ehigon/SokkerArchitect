@@ -106,8 +106,9 @@
     <string name="estimated_skill">Szacowana umiejętność</string>
     <string name="current">aktualny</string>
     <string name="finalsk">koniec</string>
-    <string name="inactive_players_sc">Nieaktywni Zawodnicy</string>
-    <string name="inactive_player_sc">Nieaktywny Zawodnik</string>
-    <string name="inactive_juniors_sc">Nieaktywni Juniorzy</string>
-    <string name="inactive_junior_sc">Nieaktywny Junior</string>
+    <string name="inactive_players_sc">Dawni Zawodnicy</string>
+    <string name="inactive_player_sc">Dawny Zawodnik</string>
+    <string name="inactive_juniors_sc">Dawni Juniorzy</string>
+    <string name="inactive_junior_sc">Dawny Junior</string>
+    <string name="press_back_again_to_exit">Naciśnij wstecz, aby wyjść</string>
 </resources>

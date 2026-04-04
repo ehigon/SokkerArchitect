@@ -106,8 +106,9 @@
     <string name="estimated_skill">Abilitatea estimată</string>
     <string name="current">actual</string>
     <string name="finalsk">Sfârşit</string>
-    <string name="inactive_players_sc">Jucători Inactivi</string>
-    <string name="inactive_player_sc">Jucător Inactiv</string>
-    <string name="inactive_juniors_sc">Junior Inactivi</string>
-    <string name="inactive_junior_sc">Junior Inactiv</string>
+    <string name="inactive_players_sc">Foști Jucători</string>
+    <string name="inactive_player_sc">Foșt Jucător</string>
+    <string name="inactive_juniors_sc">Foști Juniori</string>
+    <string name="inactive_junior_sc">Foșt Junior</string>
+    <string name="press_back_again_to_exit">Apasă înapoi pentru a ieși</string>
 </resources>

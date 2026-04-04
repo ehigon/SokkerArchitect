@@ -106,8 +106,9 @@
     <string name="estimated_skill">Tahmini beceri</string>
     <string name="current">akım</string>
     <string name="finalsk">son</string>
-    <string name="inactive_players_sc">İnaktif Oyuncular</string>
-    <string name="inactive_player_sc">İnaktif Oyuncu</string>
-    <string name="inactive_juniors_sc">İnaktif Gençler</string>
-    <string name="inactive_junior_sc">İnaktif Genç</string>
+    <string name="inactive_players_sc">Eski Oyuncular</string>
+    <string name="inactive_player_sc">Eski Oyuncu</string>
+    <string name="inactive_juniors_sc">Eski Gençler</string>
+    <string name="inactive_junior_sc">Eski Genç</string>
+    <string name="press_back_again_to_exit">Çıkış için geri tuşuna basın</string>
 </resources>

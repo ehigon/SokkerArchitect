@@ -106,8 +106,9 @@
     <string name="estimated_skill">Проценета вештина</string>
     <string name="current">струја</string>
     <string name="finalsk">крај</string>
-    <string name="inactive_players_sc">Неактивни Играчи</string>
-    <string name="inactive_player_sc">Неактивен Играч</string>
-    <string name="inactive_juniors_sc">Неактивни Јуници</string>
-    <string name="inactive_junior_sc">Неактивен Јуник</string>
+    <string name="inactive_players_sc">Поранешни Играчи</string>
+    <string name="inactive_player_sc">Поранешен Играч</string>
+    <string name="inactive_juniors_sc">Поранешни Јуници</string>
+    <string name="inactive_junior_sc">Поранешен Јуник</string>
+    <string name="press_back_again_to_exit">Притиснете назад за излез</string>
 </resources>

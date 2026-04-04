@@ -106,8 +106,9 @@
     <string name="estimated_skill">المهارة المقدرة</string>
     <string name="current">حاضِر</string>
     <string name="finalsk">نهاية</string>
-    <string name="inactive_players_sc">لاعبون غير نشطون</string>
-    <string name="inactive_player_sc">لاعب غير نشط</string>
-    <string name="inactive_juniors_sc">شابون غير نشطون</string>
-    <string name="inactive_junior_sc">شاب غير نشط</string>
+    <string name="inactive_players_sc">لاعبون سابقون</string>
+    <string name="inactive_player_sc">لاعب سابق</string>
+    <string name="inactive_juniors_sc">شابون سابقون</string>
+    <string name="inactive_junior_sc">شاب سابق</string>
+    <string name="press_back_again_to_exit">اضغط رجوع للخروج</string>
 </resources>

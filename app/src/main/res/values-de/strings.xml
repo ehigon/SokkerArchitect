@@ -106,8 +106,9 @@
     <string name="estimated_skill">Geschätzte Fähigkeit</string>
     <string name="current">aktuell</string>
     <string name="finalsk">Ende</string>
-    <string name="inactive_players_sc">Inaktive Spieler</string>
-    <string name="inactive_player_sc">Inaktiver Spieler</string>
-    <string name="inactive_juniors_sc">Inaktive Junioren</string>
-    <string name="inactive_junior_sc">Inaktiver Junior</string>
+    <string name="inactive_players_sc">Ehemalige Spieler</string>
+    <string name="inactive_player_sc">Ehemaliger Spieler</string>
+    <string name="inactive_juniors_sc">Ehemalige Junioren</string>
+    <string name="inactive_junior_sc">Ehemaliger Junior</string>
+    <string name="press_back_again_to_exit">Drücken Sie zurück, um zu beenden</string>
 </resources>

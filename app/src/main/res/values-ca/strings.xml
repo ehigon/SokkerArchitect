@@ -106,8 +106,9 @@
     <string name="estimated_skill">Habilitat estimada</string>
     <string name="current">actual</string>
     <string name="finalsk">final</string>
-    <string name="inactive_players_sc">Jugadors Inactius</string>
-    <string name="inactive_player_sc">Jugador Inactiu</string>
-    <string name="inactive_juniors_sc">Juvenils Inactius</string>
-    <string name="inactive_junior_sc">Juvenil Inactiu</string>
+    <string name="inactive_players_sc">Antics Jugadors</string>
+    <string name="inactive_player_sc">Antic Jugador</string>
+    <string name="inactive_juniors_sc">Antics Juvenils</string>
+    <string name="inactive_junior_sc">Antic Juvenil</string>
+    <string name="press_back_again_to_exit">Premeu enrere per eixir</string>
 </resources>

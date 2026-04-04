@@ -106,8 +106,9 @@
     <string name="estimated_skill">Estimated skill</string>
     <string name="current">current</string>
     <string name="finalsk">final</string>
-    <string name="inactive_players_sc">Inactive Players</string>
-    <string name="inactive_player_sc">Inactive Player</string>
-    <string name="inactive_juniors_sc">Inactive Juniors</string>
-    <string name="inactive_junior_sc">Inactive Junior</string>
+    <string name="inactive_players_sc">Former Players</string>
+    <string name="inactive_player_sc">Former Player</string>
+    <string name="inactive_juniors_sc">Former Juniors</string>
+    <string name="inactive_junior_sc">Former Junior</string>
+    <string name="press_back_again_to_exit">Press back again to exit</string>
 </resources>

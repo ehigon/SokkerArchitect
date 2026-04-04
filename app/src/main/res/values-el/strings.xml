@@ -106,8 +106,9 @@
     <string name="estimated_skill">Εκτιμώμενη ικανότητα</string>
     <string name="current">ρεύμα</string>
     <string name="finalsk">τέλος</string>
-    <string name="inactive_players_sc">Ανενεργοί Παίκτες</string>
-    <string name="inactive_player_sc">Ανενεργός Παίκτης</string>
-    <string name="inactive_juniors_sc">Ανενεργοί Νέοι</string>
-    <string name="inactive_junior_sc">Ανενεργός Νέος</string>
+    <string name="inactive_players_sc">Πρώην Παίκτες</string>
+    <string name="inactive_player_sc">Πρώην Παίκτης</string>
+    <string name="inactive_juniors_sc">Πρώην Νέοι</string>
+    <string name="inactive_junior_sc">Πρώην Νέος</string>
+    <string name="press_back_again_to_exit">Πατήστε πίσω για έξοδο</string>
 </resources>

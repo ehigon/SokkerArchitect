@@ -107,8 +107,9 @@
     <string name="estimated_skill">Keterampilan yang diperkirakan</string>
     <string name="current">saat ini</string>
     <string name="finalsk">akhir</string>
-    <string name="inactive_players_sc">Pemain Tidak Aktif</string>
-    <string name="inactive_player_sc">Pemain Tidak Aktif</string>
-    <string name="inactive_juniors_sc">Pemain Muda Tidak Aktif</string>
-    <string name="inactive_junior_sc">Pemain Muda Tidak Aktif</string>
+    <string name="inactive_players_sc">Mantan Pemain</string>
+    <string name="inactive_player_sc">Mantan Pemain</string>
+    <string name="inactive_juniors_sc">Mantan Pemain Muda</string>
+    <string name="inactive_junior_sc">Mantan Pemain Muda</string>
+    <string name="press_back_again_to_exit">Tekan kembali untuk keluar</string>
 </resources>
