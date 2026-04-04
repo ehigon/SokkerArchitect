@@ -108,4 +108,6 @@
     <string name="finalsk">final</string>
     <string name="inactive_players_sc">Jugadors Inactius</string>
     <string name="inactive_player_sc">Jugador Inactiu</string>
+    <string name="inactive_juniors_sc">Juvenils Inactius</string>
+    <string name="inactive_junior_sc">Juvenil Inactiu</string>
 </resources>

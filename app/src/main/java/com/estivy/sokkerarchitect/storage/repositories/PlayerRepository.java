@@ -42,6 +42,12 @@ public interface PlayerRepository {
             "from player_statuses where player_statuses.playerId = players.id) = 0")
     List<PlayerWithStatuses> findAllJuniorCompleteActive();
 
+    @Transaction
+    @Query("SELECT * FROM players WHERE active = 0 " +
+            "and (SELECT COUNT(*) " +
+            "from junior_statuses where junior_statuses.playerId = players.id) > 0")
+    List<PlayerWithStatuses> findAllJuniorInactiveComplete();
+
     @Query("SELECT * FROM players WHERE name = :name AND surname = :surname AND id != :id")
     List<PlayerEntity> finAllByNameAndSurnameAndDistinctId(String name, String surname, Long id);
 

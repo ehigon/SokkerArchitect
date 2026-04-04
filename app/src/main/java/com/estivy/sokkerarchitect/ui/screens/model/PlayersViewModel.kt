@@ -35,6 +35,8 @@ class PlayersViewModel @Inject constructor(private val playersService: PlayersSe
 
     var inactivePlayersUiState: PlayersUiState by mutableStateOf(PlayersUiState.NotStarted)
 
+    var inactiveJuniorsUiState: PlayersUiState by mutableStateOf(PlayersUiState.NotStarted)
+
     fun retrievePlayers() {
         lock.withLock {
             if(playersUiState !is PlayersUiState.NotStarted){
@@ -99,11 +101,33 @@ class PlayersViewModel @Inject constructor(private val playersService: PlayersSe
         }
     }
 
+    fun retrieveInactiveJuniors() {
+        lock.withLock {
+            if(inactiveJuniorsUiState !is PlayersUiState.NotStarted){
+                return
+            }
+            inactiveJuniorsUiState = PlayersUiState.Loading
+        }
+        viewModelScope.launch((Dispatchers.Default)) {
+            try {
+                val inactiveJuniors = playersService.findJuniorInactivePlayers()
+                lock.withLock {
+                    inactiveJuniorsUiState = PlayersUiState.Success(toPlayerWrapper(inactiveJuniors))
+                }
+            } catch (ex: Exception) {
+                lock.withLock {
+                    inactiveJuniorsUiState = PlayersUiState.Error(ex)
+                }
+            }
+        }
+    }
+
     fun dataUpdated(){
         lock.withLock {
             playersUiState = PlayersUiState.NotStarted
             juniorsUiState = PlayersUiState.NotStarted
             inactivePlayersUiState = PlayersUiState.NotStarted
+            inactiveJuniorsUiState = PlayersUiState.NotStarted
         }
     }
 

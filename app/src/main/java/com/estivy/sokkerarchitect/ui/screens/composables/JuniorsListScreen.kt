@@ -1,0 +1,224 @@
+package com.estivy.sokkerarchitect.ui.screens.composables
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.estivy.sokkerarchitect.R
+import com.estivy.sokkerarchitect.core.domain.Country
+import com.estivy.sokkerarchitect.core.domain.JuniorFormation
+import com.estivy.sokkerarchitect.core.domain.JuniorStatus
+import com.estivy.sokkerarchitect.core.domain.Player
+import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
+import com.estivy.sokkerarchitect.ui.screens.model.PlayerWrapper
+import com.estivy.sokkerarchitect.ui.screens.model.PlayersUiState
+import com.estivy.sokkerarchitect.ui.screens.model.SimpleLinearRegression
+import com.estivy.sokkerarchitect.ui.theme.subPlayer
+import com.estivy.sokkerarchitect.ui.util.JuniorEvolution
+import com.estivy.sokkerarchitect.ui.util.getGraphPoints
+
+@Composable
+fun JuniorsListScreen(
+    playersState: PlayersUiState.Success,
+    title: String,
+    modifier: Modifier = Modifier,
+    navigateTo: (route: String) -> Unit,
+    juniorRoute: String = SokkerArchitectScreen.JUNIOR.route
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = title + " " + playersState.players.size.toString(),
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
+        LazyColumn(
+            contentPadding = PaddingValues(horizontal = 1.dp),
+        ) {
+            items(
+                playersState.players.sortedBy
+                { JuniorEvolution(it.player).currentWeek.remainingWeeks }) { player ->
+                JuniorRow(player, navigateTo, juniorRoute)
+            }
+        }
+    }
+}
+
+@Composable
+fun JuniorRow(
+    player: com.estivy.sokkerarchitect.ui.screens.model.PlayerWrapper,
+    navigateTo: (route: String) -> Unit,
+    juniorRoute: String = SokkerArchitectScreen.JUNIOR.route
+) {
+    val evolution = JuniorEvolution(player.player)
+    Card(
+        modifier = Modifier
+            .padding(1.dp)
+            .fillMaxWidth(),
+        onClick = {
+            if (player.player.juniorStatuses.size > 1) {
+                navigateTo(juniorRoute.replace("{id}", player.player.id.toString()))
+            }
+        }
+
+    )
+    {
+        Row(
+            modifier = Modifier.padding(8.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.Bottom
+            )
+            {
+                Text(player.player.name + " " + player.player.surname)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .noRowPadding(evolution),
+                    horizontalArrangement = Arrangement.End
+                )
+                {
+                    if (evolution.currentWeek.formation == JuniorFormation.GOALKEEPER) {
+                        Image(
+                            painter = painterResource(id = R.drawable.goalkeeper),
+                            contentDescription = stringResource(id = R.string.goalkeeper),
+                            Modifier
+                                .padding(vertical = 2.dp, horizontal = 12.dp)
+                                .size(20.dp)
+                        )
+                    }
+                    JuniorDetails(evolution.currentWeek, player, subPlayer)
+                    if (evolution.getSkill() > 0) {
+                        Image(
+                            painter = painterResource(id = R.drawable.up_arrow),
+                            contentDescription = stringResource(id = R.string.increase),
+                            Modifier
+                                .padding(vertical = 2.dp)
+                                .size(12.dp)
+                        )
+                    } else if (evolution.getSkill() < 0) {
+                        Image(
+                            painter = painterResource(id = R.drawable.down_arrow),
+                            contentDescription = stringResource(id = R.string.decrease),
+                            Modifier
+                                .padding(vertical = 2.dp)
+                                .size(12.dp)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+fun Modifier.noRowPadding(evolution: JuniorEvolution): Modifier {
+    if (evolution.getSkill() == 0) {
+        return this then Modifier.padding(horizontal = 12.dp)
+    }
+    return this
+}
+
+@Preview
+@Composable
+fun JuniorScreenPreview() {
+    val player: Player = Player.builder()
+        .name("Esteban")
+        .surname("Higon")
+        .value(1345678986)
+        .age(19)
+        .height(183)
+        .weight(80.5)
+        .cards(1)
+        .injuryDays(5)
+        .country(
+            Country.builder()
+                .name("Spain")
+                .countryId(34)
+                .build()
+        )
+        .juniorStatuses(
+            listOf(
+                JuniorStatus.builder()
+                    .week(123)
+                    .skill(7)
+                    .remainingWeeks(4)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(19)
+                    .build(),
+                JuniorStatus.builder()
+                    .week(124)
+                    .skill(8)
+                    .remainingWeeks(3)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(19)
+                    .build()
+            )
+        )
+        .build()
+    val points = getGraphPoints(player)
+    val playerWrapper = PlayerWrapper(player, SimpleLinearRegression(points), points)
+    val player2: Player = Player.builder()
+        .name("Esteban")
+        .surname("Higon")
+        .value(1345678986)
+        .age(19)
+        .height(183)
+        .weight(80.5)
+        .cards(1)
+        .injuryDays(5)
+        .country(
+            Country.builder()
+                .name("Spain")
+                .countryId(34)
+                .build()
+        )
+        .juniorStatuses(
+            listOf(
+                JuniorStatus.builder()
+                    .week(122)
+                    .skill(7)
+                    .remainingWeeks(5)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(19)
+                    .build(),
+                JuniorStatus.builder()
+                    .week(123)
+                    .skill(8)
+                    .remainingWeeks(4)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(19)
+                    .build(),
+                JuniorStatus.builder()
+                    .week(124)
+                    .skill(8)
+                    .remainingWeeks(3)
+                    .formation(JuniorFormation.FIELD_PLAYER)
+                    .age(19)
+                    .build()
+            )
+        )
+        .build()
+    val points2 = getGraphPoints(player2)
+    val playerWrapper2 = PlayerWrapper(player2, SimpleLinearRegression(points2), points2)
+    JuniorsListScreen(PlayersUiState.Success(listOf(playerWrapper, playerWrapper2)), "", Modifier, navigateTo = { })
+}

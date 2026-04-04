@@ -109,4 +109,6 @@
     <string name="finalsk">край</string>
     <string name="inactive_players_sc">Неактивни Играчи</string>
     <string name="inactive_player_sc">Неактивен Играч</string>
+    <string name="inactive_juniors_sc">Неактивни Юноши</string>
+    <string name="inactive_junior_sc">Неактивен Юноша</string>
 </resources>

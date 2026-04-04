@@ -109,4 +109,6 @@
     <string name="finalsk">akhir</string>
     <string name="inactive_players_sc">Pemain Tidak Aktif</string>
     <string name="inactive_player_sc">Pemain Tidak Aktif</string>
+    <string name="inactive_juniors_sc">Pemain Muda Tidak Aktif</string>
+    <string name="inactive_junior_sc">Pemain Muda Tidak Aktif</string>
 </resources>

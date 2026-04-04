@@ -32,6 +32,7 @@ import com.estivy.sokkerarchitect.core.service.PlayersService
 import com.estivy.sokkerarchitect.core.service.UpdateService
 import com.estivy.sokkerarchitect.security.service.PasswordStorageService
 import com.estivy.sokkerarchitect.ui.screens.ImportExport
+import com.estivy.sokkerarchitect.ui.screens.InactiveJuniors
 import com.estivy.sokkerarchitect.ui.screens.InactivePlayers
 import com.estivy.sokkerarchitect.ui.screens.Junior
 import com.estivy.sokkerarchitect.ui.screens.Juniors
@@ -43,6 +44,7 @@ import com.estivy.sokkerarchitect.ui.screens.SkillProgress
 import com.estivy.sokkerarchitect.ui.screens.Updating
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
 import com.estivy.sokkerarchitect.ui.screens.model.Skill
+import com.estivy.sokkerarchitect.ui.util.searchInactiveJunior
 import com.estivy.sokkerarchitect.ui.util.searchInactivePlayer
 import com.estivy.sokkerarchitect.ui.util.searchJunior
 import com.estivy.sokkerarchitect.ui.util.searchPlayer
@@ -57,9 +59,11 @@ enum class SokkerArchitectScreen(val route: String, @StringRes val title: Int) {
     INACTIVE_PLAYER(route = "inactive_player/{id}", title = R.string.inactive_player_sc),
     PLAYER_JUNIOR(route = "player/{id}/junior", title = R.string.player_sc),
     JUNIORS(route = "juniors", title = R.string.juniors_sc),
+    INACTIVE_JUNIORS(route = "inactive_juniors", title = R.string.inactive_juniors_sc),
     SKILL_PROGRESS(route = "player/{id}/skill/{skill}", title = R.string.skill_progress_sc),
     UPDATING(route = "updating", title = R.string.updating_sc),
     JUNIOR(route = "junior/{id}", title = R.string.junior_sc),
+    INACTIVE_JUNIOR(route = "inactive_junior/{id}", title = R.string.inactive_junior_sc),
     IMPORT_EXPORT(route = "import_export", title = R.string.import_export_sc),
     NOTES(route = "player/{id}/notes", title = R.string.notes_sc);
 
@@ -121,6 +125,16 @@ fun SokkerArchitectApp(
                         selected = false,
                         onClick = {
                             navController.navigate(SokkerArchitectScreen.INACTIVE_PLAYERS.route)
+                            scope.launch {
+                                drawerState.close()
+                            }
+                        }
+                    )
+                    NavigationDrawerItem(
+                        label = { Text(stringResource(R.string.inactive_juniors_sc)) },
+                        selected = false,
+                        onClick = {
+                            navController.navigate(SokkerArchitectScreen.INACTIVE_JUNIORS.route)
                             scope.launch {
                                 drawerState.close()
                             }
@@ -200,9 +214,7 @@ fun SokkerArchitectApp(
                 ) { backStackEntry ->
                     val id = backStackEntry.arguments?.getString("id")
                     searchPlayer(playersViewModel, id)?.let { player ->
-                        Player(player.player) {
-                            navController.navigate(it)
-                        }
+                        Player(player.player, navigateTo = { navController.navigate(it) })
                     }
                 }
                 composable(
@@ -211,9 +223,7 @@ fun SokkerArchitectApp(
                 ) { backStackEntry ->
                     val id = backStackEntry.arguments?.getString("id")
                     searchInactivePlayer(playersViewModel, id)?.let { player ->
-                        Player(player.player) {
-                            navController.navigate(it)
-                        }
+                        Player(player.player, navigateTo = { navController.navigate(it) }, juniorRoute = SokkerArchitectScreen.INACTIVE_JUNIOR.route)
                     }
                 }
                 composable(
@@ -231,12 +241,28 @@ fun SokkerArchitectApp(
                     }
                     playersViewModel.retrieveJuniors()
                 }
+                composable(route = SokkerArchitectScreen.INACTIVE_JUNIORS.route) {
+                    InactiveJuniors(playersViewModel) {
+                        navController.navigate(it)
+                    }
+                    playersViewModel.retrieveInactiveJuniors()
+                }
                 composable(
                     route = SokkerArchitectScreen.JUNIOR.route,
                     arguments = listOf(navArgument("id") { type = NavType.StringType })
                 ) { backStackEntry ->
                     val id = backStackEntry.arguments?.getString("id")
                     searchJunior(playersViewModel, id)?.let { player ->
+                        Junior(player)
+                    }
+                }
+                composable(
+                    route = SokkerArchitectScreen.INACTIVE_JUNIOR.route,
+                    arguments = listOf(navArgument("id") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    playersViewModel.retrieveInactiveJuniors()
+                    val id = backStackEntry.arguments?.getString("id")
+                    searchInactiveJunior(playersViewModel, id)?.let { player ->
                         Junior(player)
                     }
                 }

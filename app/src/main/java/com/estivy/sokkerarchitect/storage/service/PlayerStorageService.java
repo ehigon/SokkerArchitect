@@ -59,6 +59,12 @@ public class PlayerStorageService {
         return playerEntityMapper.mapToDomain(playerWithStatuses, team.getCountry());
     }
 
+    public List<Player> findJuniorInactivePlayers() {
+        List<PlayerWithStatuses> playerWithStatuses = playerRepository.findAllJuniorInactiveComplete();
+        TeamWithCountry team = teamRepository.findTeamWithcountry();
+        return playerEntityMapper.mapToDomain(playerWithStatuses, team.getCountry());
+    }
+
     public void save(List<Player> players) {
         savePlayers(players);
         saveOrUpdateExistingPlayerStatuses(players);

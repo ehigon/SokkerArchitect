@@ -59,7 +59,8 @@ import com.estivy.sokkerarchitect.ui.util.Evolution
 @Composable
 fun Player(
     player: Player,
-    navigateTo: (route: String) -> Unit
+    navigateTo: (route: String) -> Unit,
+    juniorRoute: String = SokkerArchitectScreen.PLAYER_JUNIOR.route
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -118,10 +119,7 @@ fun Player(
                             modifier = Modifier.height(30.dp),
                             contentPadding = PaddingValues(5.dp),
                             onClick = {
-                                navigateTo(
-                                    SokkerArchitectScreen.PLAYER_JUNIOR.route
-                                        .replace("{id}", player.id.toString())
-                                )
+                                navigateTo(juniorRoute.replace("{id}", player.id.toString()))
                             }
                         ) {
                             Text(stringResource(R.string.view_junior_period))
@@ -531,5 +529,5 @@ fun PlayerPreview() {
             )
         )
         .build()
-    Player(player) { println(it) }
+    Player(player, navigateTo = { println(it) })
 }
