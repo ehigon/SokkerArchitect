@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "204805296634",
+    "project_id": "sokker-architect",
+    "storage_bucket": "sokker-architect.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204805296634:android:cb1d597a214689b6d39443",
+        "android_client_info": {
+          "package_name": "com.estivy.sokkerarchitect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBamI8fsYk8tNPD-_cAqf3aosXn9_3p71k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

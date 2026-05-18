@@ -15,6 +15,8 @@ import com.estivy.sokkerarchitect.core.domain.JuniorStatus
 import com.estivy.sokkerarchitect.core.domain.exception.LoginException
 import com.estivy.sokkerarchitect.ui.screens.model.PlayerWrapper
 import com.estivy.sokkerarchitect.ui.util.LoginErrorMapping
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 
 @Composable
 fun LoadingScreen() {
@@ -24,6 +26,7 @@ fun LoadingScreen() {
 @Composable
 fun ErrorScreen(exception: Exception) {
     exception.printStackTrace()
+    Firebase.crashlytics.recordException(exception)
     Text(text = "Error" + exception.message)
 }
 

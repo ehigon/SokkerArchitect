@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.hilt.gradle)
     id("org.jetbrains.kotlin.kapt")
     alias(libs.plugins.compose.compiler)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -15,8 +17,8 @@ android {
         applicationId = "com.estivy.sokkerarchitect"
         minSdk = 24
         targetSdk = 35
-        versionCode = 11
-        versionName = "1.10"
+        versionCode = 12
+        versionName = "1.11"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -89,6 +91,9 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.gson)
     implementation(libs.androidx.ui.icons.extended)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+
 }
 
 kapt {

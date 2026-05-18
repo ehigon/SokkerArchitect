@@ -27,6 +27,8 @@ import com.estivy.sokkerarchitect.core.domain.Player
 import com.estivy.sokkerarchitect.core.service.PlayersService
 import com.estivy.sokkerarchitect.ui.screens.composables.FinishAppBackPressHandler
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import com.google.gson.Gson
 import java.io.InputStreamReader
 import java.util.Date
@@ -102,6 +104,7 @@ private fun ImportButton(
                     loading.value = false
                 }.exceptionally { e->
                     e.printStackTrace()
+                    Firebase.crashlytics.recordException(e)
                     status.value = ImportStatus.IMPORT_ERROR
                     loading.value = false
                 }
@@ -142,6 +145,7 @@ private fun ExportButton(
                     loading.value = false
                 }.exceptionally { e->
                     e.printStackTrace()
+                    Firebase.crashlytics.recordException(e)
                     status.value = ImportStatus.EXPORT_ERROR
                     loading.value = false
                 }

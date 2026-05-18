@@ -30,6 +30,8 @@ import com.estivy.sokkerarchitect.core.domain.exception.CredentialsLoginExceptio
 import com.estivy.sokkerarchitect.core.service.UpdateService
 import com.estivy.sokkerarchitect.ui.screens.composables.getMessage
 import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 
 
 enum class MessageDialog {
@@ -93,6 +95,7 @@ fun SokkerArchitectAppBar(
                                 }
                                 updating.value = UpdateState.ERROR
                                 e.printStackTrace()
+                                Firebase.crashlytics.recordException(e)
                                 shouldShowDialog.value = MessageDialog.ERROR
                             }
                     },

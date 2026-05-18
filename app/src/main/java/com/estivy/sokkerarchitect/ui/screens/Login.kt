@@ -27,6 +27,8 @@ import com.estivy.sokkerarchitect.R
 import com.estivy.sokkerarchitect.core.service.UpdateService
 import com.estivy.sokkerarchitect.ui.SokkerArchitectScreen
 import com.estivy.sokkerarchitect.ui.screens.composables.getMessage
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 
 enum class Status {
     NONE,
@@ -91,6 +93,7 @@ private fun Login(
                         loading.value = false
                     }.exceptionally { e ->
                         e.printStackTrace()
+                        Firebase.crashlytics.recordException(e)
                         if (e.cause != null && e.cause is RuntimeException) {
                             exception.value = e.cause as RuntimeException
                         }
