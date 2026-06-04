@@ -111,4 +111,5 @@
     <string name="inactive_juniors_sc">Πρώην Νέοι</string>
     <string name="inactive_junior_sc">Πρώην Νέος</string>
     <string name="press_back_again_to_exit">Πατήστε πίσω για έξοδο</string>
+    <string name="no_internet">Αντιμετωπίζουμε προβλήματα σύνδεσης με το sokker.org, ελέγξτε τη σύνδεση στο διαδίκτυο.</string>
 </resources>

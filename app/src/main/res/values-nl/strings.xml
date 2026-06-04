@@ -111,4 +111,5 @@
     <string name="inactive_juniors_sc">Voormalige Junioren</string>
     <string name="inactive_junior_sc">Voormalige Junior</string>
     <string name="press_back_again_to_exit">Druk terug om af te sluiten</string>
+    <string name="no_internet">We ondervinden problemen met de verbinding met sokker.org. Controleer uw internetverbinding</string>
 </resources>

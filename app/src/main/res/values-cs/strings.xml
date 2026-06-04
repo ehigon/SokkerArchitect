@@ -111,4 +111,5 @@
     <string name="inactive_juniors_sc">Bývalí Mladíci</string>
     <string name="inactive_junior_sc">Bývalý Mladík</string>
     <string name="press_back_again_to_exit">Stiskněte zpět pro ukončení</string>
+    <string name="no_internet">Máme problémy s připojením k sokker.org, zkontrolujte prosím připojení k internetu</string>
 </resources>

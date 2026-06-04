@@ -111,4 +111,5 @@
     <string name="inactive_juniors_sc">Antics Juvenils</string>
     <string name="inactive_junior_sc">Antic Juvenil</string>
     <string name="press_back_again_to_exit">Premeu enrere per eixir</string>
+    <string name="no_internet">Tenim problemes per connectar-nos a sokker.org, per favor, comproveu la connexió a Internet</string>
 </resources>

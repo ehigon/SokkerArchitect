@@ -111,4 +111,5 @@
     <string name="inactive_juniors_sc">Dawni Juniorzy</string>
     <string name="inactive_junior_sc">Dawny Junior</string>
     <string name="press_back_again_to_exit">Naciśnij wstecz, aby wyjść</string>
+    <string name="no_internet">Mamy problemy z połączeniem z sokker.org, sprawdź połączenie internetowe</string>
 </resources>

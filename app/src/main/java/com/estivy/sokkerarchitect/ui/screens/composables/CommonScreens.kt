@@ -17,6 +17,8 @@ import com.estivy.sokkerarchitect.ui.screens.model.PlayerWrapper
 import com.estivy.sokkerarchitect.ui.util.LoginErrorMapping
 import com.google.firebase.Firebase
 import com.google.firebase.crashlytics.crashlytics
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 @Composable
 fun LoadingScreen() {
@@ -31,11 +33,19 @@ fun ErrorScreen(exception: Exception) {
 }
 
 @Composable
-fun getMessage(exception: RuntimeException?): String {
-    if (exception == null || exception !is LoginException) {
+fun getMessage(exception: Exception?): String {
+
+    if (exception == null) {
         return stringResource(R.string.unknown)
     }
-    return stringResource(LoginErrorMapping.fromLoginError(exception.loginError).resource)
+    if(exception is UnknownHostException || exception is SocketTimeoutException) {
+        return stringResource(R.string.no_internet)
+    }
+    if(exception is LoginException) {
+        return stringResource(LoginErrorMapping.fromLoginError(exception.loginError).resource)
+    }
+
+    return stringResource(R.string.unknown)
 }
 
 @Composable

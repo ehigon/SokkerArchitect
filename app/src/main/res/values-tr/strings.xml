@@ -111,4 +111,5 @@
     <string name="inactive_juniors_sc">Eski Gençler</string>
     <string name="inactive_junior_sc">Eski Genç</string>
     <string name="press_back_again_to_exit">Çıkış için geri tuşuna basın</string>
+    <string name="no_internet">sokker.org adresine bağlanmada sorun yaşıyoruz, lütfen internet bağlantınızı kontrol edin</string>
 </resources>

@@ -60,7 +60,7 @@ fun SokkerArchitectAppBar(
 ) {
     val shouldShowDialog = remember { mutableStateOf(MessageDialog.NONE) }
     val updating = remember { mutableStateOf(UpdateState.NOT_STARTED) }
-    val exception = remember { mutableStateOf(null as RuntimeException?) }
+    val exception = remember { mutableStateOf(null as Exception?) }
 
     TopAppBar(
         title = { Text(stringResource(currentScreen.title)) },
@@ -91,7 +91,11 @@ fun SokkerArchitectAppBar(
                                 shouldShowDialog.value = MessageDialog.SUCCESS
                             }.exceptionally { e ->
                                 if(e.cause != null && e.cause is RuntimeException){
-                                    exception.value = e.cause as RuntimeException
+                                    if(e.cause!!.cause != null && e.cause!!::class == RuntimeException::class){
+                                        exception.value = e.cause!!.cause as Exception
+                                    }else {
+                                        exception.value = e.cause as Exception
+                                    }
                                 }
                                 updating.value = UpdateState.ERROR
                                 e.printStackTrace()
@@ -180,7 +184,7 @@ fun UpdateErrorAlertDialog(
             title = { Text(text = stringResource(R.string.update_error_title)) },
             text = {
                 Text(
-                    text = stringResource(R.string.update_error_message) + (errorMessage
+                    text = stringResource(R.string.update_error_message) + " " + (errorMessage
                         ?: "")
                 )
             },

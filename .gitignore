@@ -15,3 +15,5 @@
 .cxx
 local.properties
 /app/release/*
+/.project
+/.settings/org.eclipse.buildship.core.prefs

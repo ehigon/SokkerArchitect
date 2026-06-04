@@ -14,12 +14,12 @@ public class StandDto {
     @PropertyElement(name = "isRoof")
     private Integer roof;
     @PropertyElement
-    private Integer constructionDays;
+    private Double constructionDays;
 
     public StandDto() {
     }
 
-    public StandDto(Integer location, String type, Integer size, Integer roof, Integer constructionDays) {
+    public StandDto(Integer location, String type, Integer size, Integer roof, Double constructionDays) {
         this.location = location;
         this.type = type;
         this.size = size;
@@ -59,11 +59,11 @@ public class StandDto {
         this.roof = roof;
     }
 
-    public Integer getConstructionDays() {
+    public Double getConstructionDays() {
         return constructionDays;
     }
 
-    public void setConstructionDays(Integer constructionDays) {
+    public void setConstructionDays(Double constructionDays) {
         this.constructionDays = constructionDays;
     }
 
@@ -76,7 +76,7 @@ public class StandDto {
         private String type;
         private Integer size;
         private Integer roof;
-        private Integer constructionDays;
+        private Double constructionDays;
 
         public Builder location(Integer location) {
             this.location = location;
@@ -98,7 +98,7 @@ public class StandDto {
             return this;
         }
 
-        public Builder constructionDays(Integer constructionDays) {
+        public Builder constructionDays(Double constructionDays) {
             this.constructionDays = constructionDays;
             return this;
         }

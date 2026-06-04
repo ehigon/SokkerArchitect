@@ -112,4 +112,5 @@
     <string name="inactive_juniors_sc">Mantan Pemain Muda</string>
     <string name="inactive_junior_sc">Mantan Pemain Muda</string>
     <string name="press_back_again_to_exit">Tekan kembali untuk keluar</string>
+    <string name="no_internet">Kami mengalami masalah saat terhubung ke sokker.org, mohon periksa koneksi internet Anda</string>
 </resources>

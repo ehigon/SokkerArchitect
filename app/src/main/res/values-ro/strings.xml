@@ -111,4 +111,5 @@
     <string name="inactive_juniors_sc">Foști Juniori</string>
     <string name="inactive_junior_sc">Foșt Junior</string>
     <string name="press_back_again_to_exit">Apasă înapoi pentru a ieși</string>
+    <string name="no_internet">Avem probleme de conectare la sokker.org, vă rugăm să verificați conexiunea la internet</string>
 </resources>
