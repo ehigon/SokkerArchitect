@@ -53,6 +53,6 @@ fun searchInactiveJunior(playersViewModel: PlayersViewModel, id: String?): Playe
     return null
 }
 
-private fun searchPlayer(players: List<PlayerWrapper>, id: Long): PlayerWrapper {
-    return players.filter { it.player.id.equals(id) }[0]
+private fun searchPlayer(players: List<PlayerWrapper>, id: Long): PlayerWrapper? {
+    return players.find { it.player.id == id }
 }

@@ -197,15 +197,19 @@ fun SokkerArchitectApp(
                 }
                 composable(
                     route = SokkerArchitectScreen.SKILL_PROGRESS.route,
-                    arguments = listOf(navArgument("id") { type = NavType.StringType },
+                    arguments = listOf(
+                        navArgument("id") { type = NavType.StringType },
                         navArgument("skill") { type = NavType.StringType })
                 ) { backStackEntry ->
                     val id = backStackEntry.arguments?.getString("id")
-                    val skill = backStackEntry.arguments?.getString("skill")
-                    searchPlayer(playersViewModel, id)?.let {
-                        if (skill != null) {
-                            SkillProgress(it, Skill.valueOf(skill))
-                        }
+                    val skill = backStackEntry.arguments?.getString("skill")?.let { name ->
+                        runCatching { Skill.valueOf(name) }.getOrNull()
+                    }
+                    val player = searchPlayer(playersViewModel, id)
+                    if (player != null && skill != null) {
+                        SkillProgress(player, skill)
+                    } else {
+                        navController.popBackStack()
                     }
                 }
                 composable(
@@ -223,7 +227,11 @@ fun SokkerArchitectApp(
                 ) { backStackEntry ->
                     val id = backStackEntry.arguments?.getString("id")
                     searchInactivePlayer(playersViewModel, id)?.let { player ->
-                        Player(player.player, navigateTo = { navController.navigate(it) }, juniorRoute = SokkerArchitectScreen.INACTIVE_JUNIOR.route)
+                        Player(
+                            player.player,
+                            navigateTo = { navController.navigate(it) },
+                            juniorRoute = SokkerArchitectScreen.INACTIVE_JUNIOR.route
+                        )
                     }
                 }
                 composable(
