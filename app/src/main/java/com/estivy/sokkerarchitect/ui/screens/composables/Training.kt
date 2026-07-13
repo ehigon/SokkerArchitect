@@ -34,7 +34,7 @@ fun Training(status: PlayerStatus) {
         style = characteristic
     )
     Text(
-        stringResource(R.string.coach_skill) + ": " + skill(status.trainerSkill),
+        stringResource(R.string.coach_skill) + ": " + skill(status.trainerSkill ?: 0),
         style = characteristic
     )
     Text(
