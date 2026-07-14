@@ -8,8 +8,17 @@ import com.estivy.sokkerarchitect.ui.screens.model.PlayersViewModel
 fun searchPlayer(playersViewModel: PlayersViewModel, id: String?): PlayerWrapper? {
     id?.let {
         if (playersViewModel.playersUiState is PlayersUiState.Success) {
-            return searchPlayer(
+            val player: PlayerWrapper? = searchPlayer(
                 (playersViewModel.playersUiState as PlayersUiState.Success).players,
+                it.toLong()
+            )
+            if (player != null) {
+                return player
+            }
+        }
+        if (playersViewModel.inactivePlayersUiState is PlayersUiState.Success) {
+            return searchPlayer(
+                (playersViewModel.inactivePlayersUiState as PlayersUiState.Success).players,
                 it.toLong()
             )
         }
